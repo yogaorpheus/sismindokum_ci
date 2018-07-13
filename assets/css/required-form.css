@@ -1,0 +1,8 @@
+input:required:focus {
+	border: 1px solid red;
+	outline: none;
+};
+
+input:required:hover {
+	opacity: 1;
+};
