@@ -4,13 +4,13 @@
     <section class="sidebar">
       <!-- Sidebar user panel -->
       <div class="user-panel">
-        <div class="pull-left image">
-          <img src="<?php echo base_url('assets/adminlte'); ?>/dist/img/user2-160x160.jpg" class="img-circle" alt="User Image">
+        <div align="middle">
+          <img src="<?php echo base_url('assets/adminlte'); ?>/dist/img/LOGO_PJB_White.png" style="height: 50%; width: 50%;">
         </div>
-        <div class="pull-left info">
+        <!-- <div class="pull-left info">
           <p>Alexander Pierce</p>
           <a href="#"><i class="fa fa-circle text-success"></i> Online</a>
-        </div>
+        </div> -->
       </div>
       
       <!-- sidebar menu: : style can be found in sidebar.less -->
