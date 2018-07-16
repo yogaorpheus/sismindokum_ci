@@ -7,6 +7,7 @@ class Sertifikat_data extends CI_Controller {
 	{
 		parent::__construct();
 		
+		$this->load->helper(array('form', 'url'));
 		$this->load->library('authentifier');
 
 		$this->load->model('sertifikat');
@@ -53,5 +54,164 @@ class Sertifikat_data extends CI_Controller {
 		}
 
 		return redirect('form/pertanahan');
+	}
+
+	public function tambah_lisensi()
+	{
+		$input = $this->input->post();
+
+		$id_jenis_sertifikat = $this->jenis_sertifikat->get_id_jenis_sertifikat('lisensi');
+		$tanggal_terbit = DateTime::createFromFormat('m/d/Y', $input['tanggal_terbit'])->format('Y-m-d');
+		$tanggal_berakhir = DateTime::createFromFormat('m/d/Y', $input['tanggal_berakhir'])->format('Y-m-d');
+
+		$data = array(
+			'id_dasar_hukum_sertifikat'	=> $input['referensi_lisensi'],
+			'id_lembaga_sertifikat'		=> $input['lembaga'],
+			'id_jenis_sertifikat'		=> $id_jenis_sertifikat,
+			'id_distrik_sertifikat'		=> $input['distrik'],
+			'no_sertifikat'				=> $input['no_sertifikat'],
+			'judul_sertifikat'			=> $input['nama_lisensi'],
+			'spesifikasi_lisensi'		=> $input['spesifikasi'],
+			'tanggal_sertifikasi'		=> $tanggal_terbit,
+			'tanggal_kadaluarsa'		=> $tanggal_berakhir,
+			'file_sertifikat'			=> $input['lampiran'],			// belum tahu cara menyimpan file ke dalam sub folder
+			'keterangan'				=> $input['keterangan'],
+			'jabatan_pic'				=> $this->authentifier->get_user_detail()['posisi_pegawai'],
+			'dibuat_oleh'				=> $this->authentifier->get_user_detail()['id_pegawai']
+			);
+
+		$result = $this->sertifikat->tambah_data_lisensi($data);
+		
+		if ($result)
+		{
+			// Insert data sukses
+			$this->authentifier->set_flashdata('error', 1);
+		}
+		else
+		{
+			// Insert data gagal
+			$this->authentifier->set_flashdata('error', 2);
+		}
+
+		return redirect('form/lisensi');
+	}
+
+	public function tambah_pengujian_alat_k3()
+	{
+		$input = $this->input->post();
+
+		$id_jenis_sertifikat = $this->jenis_sertifikat->get_id_jenis_sertifikat('pengujian alat k3');
+		$tanggal_terbit = DateTime::createFromFormat('m/d/Y', $input['tanggal_terbit'])->format('Y-m-d');
+		$tanggal_berakhir = DateTime::createFromFormat('m/d/Y', $input['tanggal_berakhir'])->format('Y-m-d');
+
+		$data = array(
+			'id_dasar_hukum_sertifikat'	=> $input['referensi_pengujian'],
+			'id_lembaga_sertifikat'		=> $input['lembaga'],
+			'id_jenis_sertifikat'		=> $id_jenis_sertifikat,
+			'id_sub_jenis_sertifikat'	=> $input['jenis_pengujian'],
+			'id_distrik_sertifikat'		=> $input['distrik'],
+			'no_sertifikat'				=> $input['no_sertifikat'],
+			'judul_sertifikat'			=> $input['peralatan'],
+			'tanggal_sertifikasi'		=> $tanggal_terbit,
+			'tanggal_kadaluarsa'		=> $tanggal_berakhir,
+			'file_sertifikat'			=> $input['lampiran'],			// belum tahu cara menyimpan file ke dalam sub folder
+			'keterangan'				=> $input['keterangan'],
+			'jabatan_pic'				=> $this->authentifier->get_user_detail()['posisi_pegawai'],
+			'dibuat_oleh'				=> $this->authentifier->get_user_detail()['id_pegawai']
+			);
+
+		$result = $this->sertifikat->tambah_data_pengujian_alat_k3($data);
+		
+		if ($result)
+		{
+			// Insert data sukses
+			$this->authentifier->set_flashdata('error', 1);
+		}
+		else
+		{
+			// Insert data gagal
+			$this->authentifier->set_flashdata('error', 2);
+		}
+
+		return redirect('form/pengujian_alat_k3');
+	}
+
+	public function tambah_perizinan()
+	{
+		$input = $this->input->post();
+
+		$id_jenis_sertifikat = $this->jenis_sertifikat->get_id_jenis_sertifikat('perizinan');
+		$tanggal_terbit = DateTime::createFromFormat('m/d/Y', $input['tanggal_terbit'])->format('Y-m-d');
+		$tanggal_berakhir = DateTime::createFromFormat('m/d/Y', $input['tanggal_berakhir'])->format('Y-m-d');
+
+		$data = array(
+			'id_dasar_hukum_sertifikat'	=> $input['referensi_perizinan'],
+			'id_lembaga_sertifikat'		=> $input['lembaga'],
+			'id_jenis_sertifikat'		=> $id_jenis_sertifikat,
+			'id_sub_jenis_sertifikat'	=> $input['jenis_perizinan'],
+			'id_distrik_sertifikat'		=> $input['distrik'],
+			'no_sertifikat'				=> $input['no_sertifikat'],
+			'judul_sertifikat'			=> $input['peralatan'],
+			'tanggal_sertifikasi'		=> $tanggal_terbit,
+			'tanggal_kadaluarsa'		=> $tanggal_berakhir,
+			'file_sertifikat'			=> $input['lampiran'],			// belum tahu cara menyimpan file ke dalam sub folder
+			'keterangan'				=> $input['keterangan'],
+			'jabatan_pic'				=> $this->authentifier->get_user_detail()['posisi_pegawai'],
+			'dibuat_oleh'				=> $this->authentifier->get_user_detail()['id_pegawai']
+			);
+
+		$result = $this->sertifikat->tambah_data_perizinan($data);
+		
+		if ($result)
+		{
+			// Insert data sukses
+			$this->authentifier->set_flashdata('error', 1);
+		}
+		else
+		{
+			// Insert data gagal
+			$this->authentifier->set_flashdata('error', 2);
+		}
+
+		return redirect('form/perizinan');
+	}
+
+	public function tambah_slo()
+	{
+		$input = $this->input->post();
+
+		$id_jenis_sertifikat = $this->jenis_sertifikat->get_id_jenis_sertifikat('slo');
+		$tanggal_terbit = DateTime::createFromFormat('m/d/Y', $input['tanggal_terbit'])->format('Y-m-d');
+		$tanggal_berakhir = DateTime::createFromFormat('m/d/Y', $input['tanggal_berakhir'])->format('Y-m-d');
+
+		$data = array(
+			'id_dasar_hukum_sertifikat'	=> $input['referensi_slo'],
+			'id_lembaga_sertifikat'		=> $input['lembaga'],
+			'id_jenis_sertifikat'		=> $id_jenis_sertifikat,
+			'id_unit_sertifikat'		=> $input['unit_sertifikasi'],
+			'id_distrik_sertifikat'		=> $input['distrik'],
+			'no_sertifikat'				=> $input['no_sertifikat'],
+			'tanggal_sertifikasi'		=> $tanggal_terbit,
+			'tanggal_kadaluarsa'		=> $tanggal_berakhir,
+			'file_sertifikat'			=> $input['lampiran'],			// belum tahu cara menyimpan file ke dalam sub folder
+			'keterangan'				=> $input['keterangan'],
+			'jabatan_pic'				=> $this->authentifier->get_user_detail()['posisi_pegawai'],
+			'dibuat_oleh'				=> $this->authentifier->get_user_detail()['id_pegawai']
+			);
+
+		$result = $this->sertifikat->tambah_data_slo($data);
+		
+		if ($result)
+		{
+			// Insert data sukses
+			$this->authentifier->set_flashdata('error', 1);
+		}
+		else
+		{
+			// Insert data gagal
+			$this->authentifier->set_flashdata('error', 2);
+		}
+
+		return redirect('form/slo');
 	}
 }

@@ -13,7 +13,7 @@
     <section class="content">
       <div class="row">
         <div class="col-md-12">
-          <form id="form_anggaran_dasar" action="<?php echo base_url('sertifikat/tambah_slo'); ?>" method="POST">
+          <form id="form_anggaran_dasar" action="<?php echo base_url('sertifikat_data/tambah_slo'); ?>" method="POST">
             <div class="box box-primary">
               <div class="box-header with-border">
                 <h3 class="box-title">Form SLO</h3>
@@ -83,7 +83,13 @@
                     <div class="form-group">
                       <label>Unit Sertifikasi</label>
                       <select class="form-control select2" style="width: 100%;" name="unit_sertifikasi">
-                        <option value="0">TEST_DUMPSTER</option>
+                        <?php
+                        foreach ($unit as $key => $one_unit) {
+                          echo "<option value='".$one_unit['id_unit']."'>";
+                          echo $one_unit['nama_unit'];
+                          echo "</option>";
+                        }
+                        ?>
                       </select>
                     </div>
 

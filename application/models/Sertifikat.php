@@ -41,4 +41,32 @@ class Sertifikat extends CI_Model {
 		return $query;
 	}
 
+	public function tambah_data_lisensi($data)
+	{
+		$query = $this->db->insert('sertifikat', $data);
+
+		return $query;
+	}
+
+	public function tambah_data_pengujian_alat_k3($data)
+	{
+		$query = $this->db->insert('sertifikat', $data);
+
+		return $query;
+	}
+
+	public function tambah_data_perizinan($data)
+	{
+		$query = $this->db->insert('sertifikat', $data);
+
+		return $query;
+	}
+
+	public function tambah_data_slo($data)
+	{
+		$query = $this->db->insert('sertifikat', $data);
+
+		return $query;
+	}
+
 }

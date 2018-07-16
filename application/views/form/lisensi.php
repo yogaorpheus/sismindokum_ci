@@ -13,7 +13,7 @@
     <section class="content">
       <div class="row">
         <div class="col-md-12">
-          <form id="form_sertifikat_perizinan" action="<?php echo base_url('sertifikat/tambah_sertifikat_lisensi'); ?>" method="POST">
+          <form id="form_sertifikat_perizinan" action="<?php echo base_url('sertifikat_data/tambah_lisensi'); ?>" method="POST">
             <div class="box box-primary">
               <div class="box-header with-border">
                 <h3 class="box-title">Form Sertifikat Lisensi</h3>

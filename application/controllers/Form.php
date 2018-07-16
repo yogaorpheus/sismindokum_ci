@@ -18,6 +18,7 @@ class Form extends CI_Controller {
 		$this->load->model('menu');
 		$this->load->model('jenis_sertifikat');
 		$this->load->model('sub_jenis_sertifikat');
+		$this->load->model('unit');
 	}
 
 	public function index()
@@ -66,14 +67,16 @@ class Form extends CI_Controller {
 	{
 		$jenis_distrik = $this->distrik->get_all_distrik();
 		$lembaga = $this->lembaga->get_all_lembaga();
+		$unit = $this->unit->get_all_unit();
 
 		$id_menu2 = $this->menu->get_id_menu2('slo');
 		$dasar_hukum = $this->dasar_hukum->get_dasar_hukum_by_menu($id_menu2);
 
 		$data = array(
-			'distrik' 	=> $jenis_distrik,
-			'lembaga'	=> $lembaga,
-			'dasar_hukum'	=> $dasar_hukum
+			'distrik' 		=> $jenis_distrik,
+			'lembaga'		=> $lembaga,
+			'dasar_hukum'	=> $dasar_hukum,
+			'unit'			=> $unit
 			);
 		$this->template->load_view('form', 'slo', $data);
 	}

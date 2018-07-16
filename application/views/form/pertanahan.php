@@ -13,7 +13,7 @@
     <section class="content">
       <div class="row">
         <div class="col-md-12">
-          <form id="form_anggaran_dasar" action="<?php echo base_url('sertifikat_data/tambah_pertanahan'); ?>" method="POST">
+          <form id="form_anggaran_dasar" action="<?php echo base_url('sertifikat_data/tambah_pertanahan'); ?>" method="POST" enctype="multipart/form-data">
             <div class="box box-primary">
               <div class="box-header with-border">
                 <h3 class="box-title">Form Sertifikat Pertanahan</h3>
