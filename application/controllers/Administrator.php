@@ -27,19 +27,20 @@ class Administrator extends CI_Controller {
 			'id_distrik' => $result['distrik']
 			);
 
-		if ($data['id_menu2'] == 'ALL')
-		{
-			$data['id_menu2'] = $this->hak_akses->get_all_sub_menu_utama();
-		}
-
-		if ($data['id_menu_crud'] == 'ALL')
-		{
-			$data['id_menu_crud'] = $this->hak_akses->get_all_menu_crud();
-		}
-
 		$check_entry = $this->hak_akses->tambah_hak_akses($data);
 		$this->session->set_flashdata('entry', $check_entry);
 		redirect('administrator/load_hak_akses_menu');
+	}
+
+	public function load_data_hak_akses()
+	{
+		$hak_akses = $this->hak_akses->get_data_hak_akses();
+
+		$data = array(
+			'hak_akses'	=> $hak_akses
+			);
+
+		return $this->template->load_view('data', 'data_hak_akses', $data);
 	}
 
 	public function load_hak_akses_menu()
@@ -76,6 +77,17 @@ class Administrator extends CI_Controller {
 			);
 
 		$this->template->load_view('form', 'form_buat_menu', $data);
+	}
+
+	public function load_list_menu()
+	{
+		$menu_tampil = $this->hak_akses->get_all_menu_tampil();
+
+		$data = array(
+			'menu_tersedia'	=> $menu_tampil
+			);
+
+		$this->template->load_view('data', 'data_menu_tampil', $data);
 	}
 
 	public function tambah_menu()

@@ -45,7 +45,7 @@
                   <td style="vertical-align: middle;"><?php echo $onedata['nama_distrik']; ?></td>
                   <td style="vertical-align: middle;"><?php echo $onedata['nama_sub_jenis_sertifikat']; ?></td>
                   <td style="vertical-align: middle;"><?php echo $onedata['no_sertifikat']; ?></td>
-                  <td style="vertical-align: middle;"><?php echo $onedata['lokasi_sertifikat']; ?></td>
+                  <td style="vertical-align: middle;"><?php echo $onedata['judul_sertifikat']; ?></td>
                   <td style="vertical-align: middle;"><?php echo $onedata['jabatan_pic']; ?></td>
                   <td style="vertical-align: middle;"><?php echo $onedata['tanggal_sertifikasi']; ?></td>
                   <td style="vertical-align: middle;"><?php echo $onedata['tanggal_kadaluarsa']; ?></td>

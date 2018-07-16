@@ -35,11 +35,74 @@ class Hak_akses extends CI_Model {
 
 	public function tambah_hak_akses($data)
 	{
-		if ($data['id_menu2'] == 0) {
+		if (!isset($data['id_menu2']))
+		{
 			$data['id_menu2'] = null;
 		}
+
+		if (!isset($data['id_menu_crud']))
+		{
+			$data['id_menu_crud'] = null;
+		}
 		
-		if ($data['id_menu_crud'] == 0) {
+		$ada_yang_gagal = false;
+		$newdata = array(
+			'id_menu1'			=> $data['id_menu1'],
+			'id_posisi_subdit'	=> $data['id_posisi_subdit'],
+			'id_distrik'		=> $data['id_distrik']
+			);
+
+		foreach ($data['id_menu2'] as $key1 => $outer_value) {
+			foreach ($data['id_menu_crud'] as $key2 => $inner_value) {
+				
+				$newdata['id_menu2'] = $key1;
+				$newdata['id_menu_crud'] = $key2;
+
+				$check_existence = $this->db->query("
+					SELECT * FROM menu_tampil WHERE id_menu1 = ".$newdata['id_menu1']." AND id_menu2 = ".$newdata['id_menu2']." AND id_menu_crud = ".$newdata['id_menu_crud']
+					)->row_array();
+
+				if (empty($check_existence))
+				{
+					$ada_yang_gagal = true;
+					continue;
+				}
+
+				$insertdata = array(
+					'id_menu_tampil'	=> $check_existence['id_menu_tampil'],
+					'id_posisi_subdit'	=> $newdata['id_posisi_subdit'],
+					'id_distrik'		=> $newdata['id_distrik']
+					);
+
+				$query = $this->db->insert('hak_akses_menu', $insertdata);
+			}
+		}
+
+		if ($query)
+		{
+			$alert = 1;		// Berhasil menambah hak akses
+		}
+		else if ($ada_yang_gagal)
+		{
+			$alert = 3;
+		}
+		else
+		{
+			$alert = 2;		// Gagal menambah hak akses
+		}
+
+		return $alert;
+	}
+
+	public function tambah_akses_menu($data)
+	{
+		if (!isset($data['id_menu2']))
+		{
+			$data['id_menu2'] = null;
+		}
+
+		if (!isset($data['id_menu_crud']))
+		{
 			$data['id_menu_crud'] = null;
 		}
 		
@@ -49,102 +112,23 @@ class Hak_akses extends CI_Model {
 			'id_distrik'		=> $data['id_distrik']
 			);
 
-		if (is_array($data['id_menu2']) && !is_array($data['id_menu_crud']))
-		{
-			foreach ($data['id_menu2'] as $key => $value) {
-				$newdata['id_menu2'] = $key;
-				$newdata['id_menu_crud'] = $data['id_menu_crud'];
+		foreach ($data['id_menu2'] as $key1 => $outer_value) {
+			foreach ($data['id_menu_crud'] as $key2 => $inner_value) {
 				
-				$check_existence = $this->db->query("
+				$newdata['id_menu2'] = $outer_value['id_menu2'];
+				$newdata['id_menu_crud'] = $inner_value['id_menu_crud'];
+
+				$test_query = $this->db->query("
 					SELECT * FROM menu_tampil WHERE id_menu1 = ".$newdata['id_menu1']." AND id_menu2 = ".$newdata['id_menu2']." AND id_menu_crud = ".$newdata['id_menu_crud']
-					)->row_array();
-
-				if (empty($check_existence))
-				{
-					$alert = 3;
-					return $alert;
-				}
-
-				$insertdata = array(
-					'id_menu_tampil'	=> $check_existence['id_menu_tampil'],
-					'id_posisi_subdit'	=> $newdata['id_posisi_subdit'],
-					'id_distrik'		=> $newdata['id_distrik']
 					);
 
-				$query = $this->db->insert('hak_akses_menu', $insertdata);
-			}
-		}
-		else if (!is_array($data['id_menu2']) && is_array($data['id_menu_crud']))
-		{
-			foreach ($data['id_menu_crud'] as $key => $value) {
-				$newdata['id_menu2'] = $data['id_menu2'];
-				$newdata['id_menu_crud'] = $key;
-				
-				$check_existence = $this->db->query("
-					SELECT * FROM menu_tampil WHERE id_menu1 = ".$newdata['id_menu1']." AND id_menu2 = ".$newdata['id_menu2']." AND id_menu_crud = ".$newdata['id_menu_crud']
-					)->row_array();
-
-				if (empty($check_existence))
+				if ($test_query->num_rows() >= 1) 
 				{
-					$alert = 3;
-					return $alert;
+					continue;
 				}
 
-				$insertdata = array(
-					'id_menu_tampil'	=> $check_existence['id_menu_tampil'],
-					'id_posisi_subdit'	=> $newdata['id_posisi_subdit'],
-					'id_distrik'		=> $newdata['id_distrik']
-					);
-
-				$query = $this->db->insert('hak_akses_menu', $insertdata);
+				$query = $this->db->insert('menu_tampil', $newdata);
 			}
-		}
-		else if (is_array($data['id_menu2']) && is_array($data['id_menu_crud']))
-		{
-			foreach ($data['id_menu2'] as $key1 => $outer_value) {
-				
-				foreach ($data['id_menu_crud'] as $key2 => $inner_value) {
-					$newdata['id_menu2'] = $key1;
-					$newdata['id_menu_crud'] = $key2;
-
-					$check_existence = $this->db->query("
-						SELECT * FROM menu_tampil WHERE id_menu1 = ".$newdata['id_menu1']." AND id_menu2 = ".$newdata['id_menu2']." AND id_menu_crud = ".$newdata['id_menu_crud']
-						)->row_array();
-
-					if (empty($check_existence))
-					{
-						$alert = 3;
-						return $alert;
-					}
-
-					$insertdata = array(
-						'id_menu_tampil'	=> $check_existence['id_menu_tampil'],
-						'id_posisi_subdit'	=> $newdata['id_posisi_subdit'],
-						'id_distrik'		=> $newdata['id_distrik']
-						);
-
-					$query = $this->db->insert('hak_akses_menu', $insertdata);
-				}
-			}
-		}
-		else {
-			$check_existence = $this->db->query("
-				SELECT * FROM menu_tampil WHERE id_menu1 = ".$data['id_menu1']." AND id_menu2 = ".$data['id_menu2']." AND id_menu_crud = ".$data['id_menu_crud']
-				)->row_array();
-
-			if (empty($check_existence))
-			{
-				$alert = 3;
-				return $alert;
-			}
-
-			$insertdata = array(
-				'id_menu_tampil'	=> $check_existence['id_menu_tampil'],
-				'id_posisi_subdit'	=> $newdata['id_posisi_subdit'],
-				'id_distrik'		=> $newdata['id_distrik']
-				);
-
-			$query = $this->db->insert('hak_akses_menu', $insertdata);
 		}
 
 		if ($query)
@@ -159,104 +143,15 @@ class Hak_akses extends CI_Model {
 		return $alert;
 	}
 
-	public function tambah_akses_menu($data)
+	public function get_all_menu_tampil()
 	{
-		if ($data['id_menu2'] == 0) {
-			$data['id_menu2'] = null;
-		}
-		
-		if ($data['id_menu_crud'] == 0) {
-			$data['id_menu_crud'] = null;
-		}
-		
-		$newdata = array(
-			'id_menu1'			=> $data['id_menu1']
-			);
+		$this->db->select('menu1.nama_menu1, menu2.nama_menu2, menu_crud.nama_menu_crud');
+		$this->db->join('menu1', 'menu1.id_menu1 = menu_tampil.id_menu1', 'inner');
+		$this->db->join('menu2', 'menu2.id_menu2 = menu_tampil.id_menu2', 'left');
+		$this->db->join('menu_crud', 'menu_crud.id_menu_crud = menu_tampil.id_menu_crud', 'left');
+		$query = $this->db->get('menu_tampil');
 
-		if (is_array($data['id_menu2']) && !is_array($data['id_menu_crud']))
-		{
-			foreach ($data['id_menu2'] as $key => $value) {
-				$newdata['id_menu2'] = $value['id_menu2'];
-				$newdata['id_menu_crud'] = $data['id_menu_crud'];
-
-				$test_query = $this->db->query("
-					SELECT * FROM menu_tampil WHERE id_menu1 = ".$newdata['id_menu1']." AND id_menu2 = ".$newdata['id_menu2']." AND id_menu_crud = ".$newdata['id_menu_crud']
-					);
-
-				if ($test_query->num_rows() >= 1) 
-				{
-					$alert = 3;
-					return $alert;
-				}
-				
-				$query = $this->db->insert('menu_tampil', $newdata);
-			}
-		}
-		else if (!is_array($data['id_menu2']) && is_array($data['id_menu_crud']))
-		{
-			foreach ($data['id_menu_crud'] as $key => $value) {
-				$newdata['id_menu2'] = $data['id_menu2'];
-				$newdata['id_menu_crud'] = $value['id_menu_crud'];
-				
-				$test_query = $this->db->query("
-					SELECT * FROM menu_tampil WHERE id_menu1 = ".$newdata['id_menu1']." AND id_menu2 = ".$newdata['id_menu2']." AND id_menu_crud = ".$newdata['id_menu_crud']
-					);
-
-				if ($test_query->num_rows() >= 1) 
-				{
-					$alert = 3;
-					return $alert;
-				}
-
-				$query = $this->db->insert('menu_tampil', $newdata);
-			}
-		}
-		else if (is_array($data['id_menu2']) && is_array($data['id_menu_crud']))
-		{
-			foreach ($data['id_menu2'] as $key1 => $outer_value) {
-				
-				foreach ($data['id_menu_crud'] as $key2 => $inner_value) {
-					$newdata['id_menu2'] = $outer_value['id_menu2'];
-					$newdata['id_menu_crud'] = $inner_value['id_menu_crud'];
-
-					$test_query = $this->db->query("
-						SELECT * FROM menu_tampil WHERE id_menu1 = ".$newdata['id_menu1']." AND id_menu2 = ".$newdata['id_menu2']." AND id_menu_crud = ".$newdata['id_menu_crud']
-						);
-
-					if ($test_query->num_rows() >= 1) 
-					{
-						$alert = 3;
-						return $alert;
-					}
-
-					$query = $this->db->insert('menu_tampil', $newdata);
-				}
-			}
-		}
-		else {
-			$test_query = $this->db->query("
-				SELECT * FROM menu_tampil WHERE id_menu1 = ".$data['id_menu1']." AND id_menu2 = ".$data['id_menu2']." AND id_menu_crud = ".$data['id_menu_crud']
-				);
-
-			if ($test_query->num_rows() >= 1) 
-			{
-				$alert = 3;
-				return $alert;
-			}
-
-			$query = $this->db->insert('menu_tampil', $data);
-		}
-
-		if ($query)
-		{
-			$alert = 1;		// Berhasil menambah hak akses
-		}
-		else
-		{
-			$alert = 2;		// Gagal menambah hak akses
-		}
-
-		return $alert;
+		return $query->result_array();
 	}
 
 	public function update_posisi_subdit_distrik()
@@ -281,6 +176,20 @@ class Hak_akses extends CI_Model {
 		}
 
 		return $count;
+	}
+
+	public function get_data_hak_akses()
+	{
+		$this->db->select('distrik.nama_distrik, posisi_subdit.nama_posisi_subdit, menu1.nama_menu1, menu2.nama_menu2, menu_crud.nama_menu_crud');
+		$this->db->join('distrik', 'distrik.id_distrik = hak_akses_menu.id_distrik', 'inner');
+		$this->db->join('posisi_subdit', 'posisi_subdit.id_posisi_subdit = hak_akses_menu.id_posisi_subdit', 'inner');
+		$this->db->join('menu_tampil', 'menu_tampil.id_menu_tampil = hak_akses_menu.id_menu_tampil', 'inner');
+		$this->db->join('menu1', 'menu1.id_menu1 = menu_tampil.id_menu1', 'inner');
+		$this->db->join('menu2', 'menu2.id_menu2 = menu_tampil.id_menu2', 'left');
+		$this->db->join('menu_crud', 'menu_crud.id_menu_crud = menu_tampil.id_menu_crud', 'left');
+		$query = $this->db->get('hak_akses_menu');
+
+		return $query->result_array();
 	}
 
 	public function get_all_menu_utama()

@@ -6,8 +6,6 @@ class Jenis_sertifikat extends CI_Model {
 	public function __construct() 
 	{
 		parent::__construct();
-		//Example : $this->load->model('model_name');
-		//Example : $this->load->helper(array('html', 'form', etc));
 		$this->load->database();
 	}
 
@@ -15,6 +13,14 @@ class Jenis_sertifikat extends CI_Model {
 	{
 		$query = $this->db->get('jenis_sertifikat');
 		return $query->result_array();
+	}
+
+	public function get_id_jenis_sertifikat($nama_jenis_sertifikat)
+	{
+		$this->db->where('nama_jenis_sertifikat', $nama_jenis_sertifikat);
+		$id_jenis_sertifikat = $this->db->get('jenis_sertifikat')->row_array()['id_jenis_sertifikat'];
+
+		return $id_jenis_sertifikat;
 	}
 
 }

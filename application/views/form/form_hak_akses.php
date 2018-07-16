@@ -40,9 +40,8 @@
 
                   <div class='form-group'>
                     <label>Sub Menu Utama</label>
-                    <select class="form-control select2" name="menu2" data-placeholder="Masukkan Sub Menu (Bisa lebih dari satu)" style='width: 100%;'>
+                    <select class="form-control select2" name="menu2[]" multiple="multiple" data-placeholder="Masukkan Sub Menu (Bisa lebih dari satu)" style='width: 100%;'>
                       <option value="0">Tidak Pilih Menu</option>
-                      <option value="ALL">Pilih Semua</option>
                       <?php
                       foreach ($menu2 as $key => $value) {
                         ?><option value="<?php echo $key; ?>"><?php echo $value['nama_menu2']; ?></option><?php
@@ -53,9 +52,8 @@
 
                   <div class='form-group'>
                     <label>Sub Menu CRUD</label>
-                    <select class="form-control select2" style='width: 100%;' name="menu_crud" data-placeholder="Masukkan Sub Menu CRUD (Bisa lebih dari satu)">
+                    <select class="form-control select2" name="menu_crud[]" multiple="multiple" data-placeholder="Masukkan Sub Menu CRUD (Bisa lebih dari satu)">
                       <option value="0">Tidak Pilih Menu</option>
-                      <option value="ALL">Pilih Semua</option>
                       <?php
                       foreach ($menu_crud as $key => $value) {
                         ?><option value="<?php echo $key; ?>"><?php echo $value['nama_menu_crud']; ?></option><?php

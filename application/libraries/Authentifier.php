@@ -110,6 +110,12 @@ class Authentifier
 		}
 	}
 
+	public function set_flashdata($flashdata_name, $flashdata_code)
+	{
+		$this->ci->session->set_flashdata($flashdata_name, $flashdata_code);
+		return;
+	}
+
 	public function logout()
 	{
 		$this->ci->session->sess_destroy('staff_pjb');
