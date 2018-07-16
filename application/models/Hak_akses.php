@@ -113,8 +113,8 @@ class Hak_akses extends CI_Model {
 		foreach ($data['id_menu2'] as $key1 => $outer_value) {
 			foreach ($data['id_menu_crud'] as $key2 => $inner_value) {
 				
-				$newdata['id_menu2'] = $outer_value['id_menu2'];
-				$newdata['id_menu_crud'] = $inner_value['id_menu_crud'];
+				$newdata['id_menu2'] = $outer_value;
+				$newdata['id_menu_crud'] = $inner_value;
 
 				$test_query = $this->db->query("
 					SELECT * FROM menu_tampil WHERE id_menu1 = ".$newdata['id_menu1']." AND id_menu2 = ".$newdata['id_menu2']." AND id_menu_crud = ".$newdata['id_menu_crud']
