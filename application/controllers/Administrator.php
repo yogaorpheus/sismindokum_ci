@@ -19,6 +19,10 @@ class Administrator extends CI_Controller {
 	{
 		$result = array_filter($_POST);
 
+		if ($result['distrik'] == '0') {
+			$result['distrik'] = null;
+		}
+
 		$data = array(
 			'id_menu1' => $result['menu1'],
 			'id_menu2' => $result['menu2'],
