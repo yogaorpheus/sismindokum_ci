@@ -179,7 +179,7 @@ class Hak_akses extends CI_Model {
 	public function get_data_hak_akses()
 	{
 		$this->db->select('distrik.nama_distrik, posisi_subdit.nama_posisi_subdit, menu1.nama_menu1, menu2.nama_menu2, menu_crud.nama_menu_crud');
-		$this->db->join('distrik', 'distrik.id_distrik = hak_akses_menu.id_distrik', 'inner');
+		$this->db->join('distrik', 'distrik.id_distrik = hak_akses_menu.id_distrik', 'left');
 		$this->db->join('posisi_subdit', 'posisi_subdit.id_posisi_subdit = hak_akses_menu.id_posisi_subdit', 'inner');
 		$this->db->join('menu_tampil', 'menu_tampil.id_menu_tampil = hak_akses_menu.id_menu_tampil', 'inner');
 		$this->db->join('menu1', 'menu1.id_menu1 = menu_tampil.id_menu1', 'inner');
