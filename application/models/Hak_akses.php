@@ -107,9 +107,7 @@ class Hak_akses extends CI_Model {
 		}
 		
 		$newdata = array(
-			'id_menu1'			=> $data['id_menu1'],
-			'id_posisi_subdit'	=> $data['id_posisi_subdit'],
-			'id_distrik'		=> $data['id_distrik']
+			'id_menu1'			=> $data['id_menu1']
 			);
 
 		foreach ($data['id_menu2'] as $key1 => $outer_value) {
