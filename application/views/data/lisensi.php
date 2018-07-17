@@ -44,7 +44,8 @@
                 <tr>
                   <td style="vertical-align: middle;"><?php echo $no++; ?></td>
                   <td style="vertical-align: middle;"><?php echo $onedata['nama_distrik']; ?></td>
-                  <td style="vertical-align: middle;"><?php echo $onedata['nama_unit']; ?></td>
+                  <td style="vertical-align: middle;"><?php echo $onedata['judul_sertifikat']; ?></td>
+                  <td style="vertical-align: middle;"><?php echo $onedata['spesifikasi_lisensi']; ?></td>
                   <td style="vertical-align: middle;"><?php echo $onedata['no_sertifikat']; ?></td>
                   <td style="vertical-align: middle;"><?php echo $onedata['nama_lembaga']; ?></td>
                   <td style="vertical-align: middle;"><?php echo $onedata['jabatan_pic']; ?></td>
@@ -63,7 +64,7 @@
                               
                               if ($one_crud['berhak'] && $menu_crud[$key2]['is_crud'])
                               {
-                                echo "<a href='".base_url($menu_utama[$key]['nama_controller']."/".$sub_menu[$key1]['nama_method'].$menu_crud[$key2]['nama_concat_method'])."'>";
+                                echo "<a href='".base_url($menu_utama[$key]['nama_controller']."/".$sub_menu[$key1]['nama_method'].$menu_crud[$key2]['nama_concat_method']."/".$onedata['id_sertifikat'])."'>";
                                 echo $menu_crud[$key2]['html'];
                                 echo "</a>";
                               }

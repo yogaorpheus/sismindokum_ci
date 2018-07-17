@@ -26,6 +26,7 @@ class Sertifikat extends CI_Model {
 		$this->db->where('status_sertifikat !=', $id_status);
 		$this->db->where('sertifikat.id_jenis_sertifikat', $id_jenis_sertifikat);
 		$this->db->join('status', 'status.id_status = sertifikat.status_sertifikat', 'inner');
+		$this->db->join('lembaga', 'lembaga.id_lembaga = sertifikat.id_lembaga_sertifikat', 'left');
 		
 		if ($id_jenis_sertifikat == 1 || $id_jenis_sertifikat == 3 || $id_jenis_sertifikat == 4)
 		{

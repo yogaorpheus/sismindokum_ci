@@ -54,12 +54,7 @@
                       
                       ?>
                     </div>
-                  </div>
-
-                </div>
-                <div class="row">
-
-                  <div class="col-md-6">
+                    
                     <div class="form-group">
                       <label>Referensi Pertanahan</label>
                       <select class="form-control select2" style="width: 100%;" name="referensi_pertanahan" id="referensi">
@@ -96,6 +91,9 @@
                         ?>
                       </select>
                     </div>
+
+                  </div>
+                  <div class="col-md-6">
 
                     <div class="form-group">
                       <label>Lembaga</label>

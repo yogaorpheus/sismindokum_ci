@@ -20,19 +20,20 @@ class Sertifikat_data extends CI_Controller {
 		$file_path = "";
 
 		$config['upload_path']          = './assets/lampiran/';
-        $config['allowed_types']        = 'gif|jpg|png|pdf|docx|doc';
+        $config['allowed_types']        = 'gif|jpg|jpeg|png|pdf|docx|doc';
        	$config['remove_spaces']		= true;
 
 		$this->load->library('upload', $config);
-
-		if (! $this->upload->do_upload('lampiran'))
+		$test_upload = $this->upload->do_upload('lampiran');
+		
+		if (! $test_upload)
 		{
 			$this->authentifier->set_flashdata('error', 3);
 		}
 		else
 		{
 			$file = $this->upload->data();
-			$file_path = $file['full_path'];
+			$file_path = base_url('assets/lampiran')."/".$file['file_name'];
 		}
 
 		return $file_path;
@@ -85,6 +86,8 @@ class Sertifikat_data extends CI_Controller {
 
 	public function tambah_lisensi()
 	{
+		$file_path = $this->upload_file_lampiran();
+
 		$input = $this->input->post();
 
 		$id_jenis_sertifikat = $this->jenis_sertifikat->get_id_jenis_sertifikat('lisensi');
@@ -101,10 +104,11 @@ class Sertifikat_data extends CI_Controller {
 			'spesifikasi_lisensi'		=> $input['spesifikasi'],
 			'tanggal_sertifikasi'		=> $tanggal_terbit,
 			'tanggal_kadaluarsa'		=> $tanggal_berakhir,
-			'file_sertifikat'			=> $input['lampiran'],			// belum tahu cara menyimpan file ke dalam sub folder
+			'file_sertifikat'			=> $file_path,
 			'keterangan'				=> $input['keterangan'],
 			'jabatan_pic'				=> $this->authentifier->get_user_detail()['posisi_pegawai'],
-			'dibuat_oleh'				=> $this->authentifier->get_user_detail()['id_pegawai']
+			'dibuat_oleh'				=> $this->authentifier->get_user_detail()['id_pegawai'],
+			'status_sertifikat'			=> 3
 			);
 
 		$result = $this->sertifikat->tambah_data_lisensi($data);
@@ -125,6 +129,8 @@ class Sertifikat_data extends CI_Controller {
 
 	public function tambah_pengujian_alat_k3()
 	{
+		$file_path = $this->upload_file_lampiran();
+
 		$input = $this->input->post();
 
 		$id_jenis_sertifikat = $this->jenis_sertifikat->get_id_jenis_sertifikat('pengujian alat k3');
@@ -141,10 +147,11 @@ class Sertifikat_data extends CI_Controller {
 			'judul_sertifikat'			=> $input['peralatan'],
 			'tanggal_sertifikasi'		=> $tanggal_terbit,
 			'tanggal_kadaluarsa'		=> $tanggal_berakhir,
-			'file_sertifikat'			=> $input['lampiran'],			// belum tahu cara menyimpan file ke dalam sub folder
+			'file_sertifikat'			=> $file_path,
 			'keterangan'				=> $input['keterangan'],
 			'jabatan_pic'				=> $this->authentifier->get_user_detail()['posisi_pegawai'],
-			'dibuat_oleh'				=> $this->authentifier->get_user_detail()['id_pegawai']
+			'dibuat_oleh'				=> $this->authentifier->get_user_detail()['id_pegawai'],
+			'status_sertifikat'			=> 3
 			);
 
 		$result = $this->sertifikat->tambah_data_pengujian_alat_k3($data);
@@ -165,6 +172,8 @@ class Sertifikat_data extends CI_Controller {
 
 	public function tambah_perizinan()
 	{
+		$file_path = $this->upload_file_lampiran();
+
 		$input = $this->input->post();
 
 		$id_jenis_sertifikat = $this->jenis_sertifikat->get_id_jenis_sertifikat('perizinan');
@@ -181,10 +190,11 @@ class Sertifikat_data extends CI_Controller {
 			'judul_sertifikat'			=> $input['peralatan'],
 			'tanggal_sertifikasi'		=> $tanggal_terbit,
 			'tanggal_kadaluarsa'		=> $tanggal_berakhir,
-			'file_sertifikat'			=> $input['lampiran'],			// belum tahu cara menyimpan file ke dalam sub folder
+			'file_sertifikat'			=> $file_path,
 			'keterangan'				=> $input['keterangan'],
 			'jabatan_pic'				=> $this->authentifier->get_user_detail()['posisi_pegawai'],
-			'dibuat_oleh'				=> $this->authentifier->get_user_detail()['id_pegawai']
+			'dibuat_oleh'				=> $this->authentifier->get_user_detail()['id_pegawai'],
+			'status_sertifikat'			=> 3
 			);
 
 		$result = $this->sertifikat->tambah_data_perizinan($data);
@@ -205,6 +215,8 @@ class Sertifikat_data extends CI_Controller {
 
 	public function tambah_slo()
 	{
+		$file_path = $this->upload_file_lampiran();
+
 		$input = $this->input->post();
 
 		$id_jenis_sertifikat = $this->jenis_sertifikat->get_id_jenis_sertifikat('slo');
@@ -220,10 +232,11 @@ class Sertifikat_data extends CI_Controller {
 			'no_sertifikat'				=> $input['no_sertifikat'],
 			'tanggal_sertifikasi'		=> $tanggal_terbit,
 			'tanggal_kadaluarsa'		=> $tanggal_berakhir,
-			'file_sertifikat'			=> $input['lampiran'],			// belum tahu cara menyimpan file ke dalam sub folder
+			'file_sertifikat'			=> $file_path,
 			'keterangan'				=> $input['keterangan'],
 			'jabatan_pic'				=> $this->authentifier->get_user_detail()['posisi_pegawai'],
-			'dibuat_oleh'				=> $this->authentifier->get_user_detail()['id_pegawai']
+			'dibuat_oleh'				=> $this->authentifier->get_user_detail()['id_pegawai'],
+			'status_sertifikat'			=> 3
 			);
 
 		$result = $this->sertifikat->tambah_data_slo($data);

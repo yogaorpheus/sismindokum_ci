@@ -54,3 +54,19 @@ $route['404_override'] = '';
 $route['translate_uri_dashes'] = FALSE;
 
 $route['home'] = 'home/home';
+
+// REVIEW LAMPIRAN ROUTE //
+$route['data/pertanahan_review/(:num)'] 		= 'data_crud/pertanahan_review/$1';
+$route['data/anggaran_dasar_review/(:num)'] 	= 'data_crud/anggaran_dasar_review/$1';
+$route['data/slo_review/(:num)'] 				= 'data_crud/slo_review/$1';
+$route['data/perizinan_review/(:num)'] 			= 'data_crud/perizinan_review/$1';
+$route['data/pengujian_alat_k3_review/(:num)'] 	= 'data_crud/pengujian_alat_k3_review/$1';
+$route['data/lisensi_review/(:num)'] 			= 'data_crud/lisensi_review/$1';
+
+// DELETE ROUTE //
+$route['data/pertanahan_delete/(:num)'] 		= 'data_crud/pertanahan_delete/$1';
+$route['data/anggaran_dasar_delete/(:num)'] 	= 'data_crud/anggaran_dasar_delete/$1';
+$route['data/slo_delete/(:num)'] 				= 'data_crud/slo_delete/$1';
+$route['data/perizinan_delete/(:num)'] 			= 'data_crud/perizinan_delete/$1';
+$route['data/pengujian_alat_k3_delete/(:num)'] 	= 'data_crud/pengujian_alat_k3_delete/$1';
+$route['data/lisensi_delete/(:num)'] 			= 'data_crud/lisensi_delete/$1';

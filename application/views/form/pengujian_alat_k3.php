@@ -13,7 +13,7 @@
     <section class="content">
       <div class="row">
         <div class="col-md-12">
-          <form id="form_sertifikat_perizinan" action="<?php echo base_url('sertifikat_data/tambah_pengujian_alat_k3'); ?>" method="POST">
+          <form id="form_sertifikat_perizinan" action="<?php echo base_url('sertifikat_data/tambah_pengujian_alat_k3'); ?>" method="POST" enctype="multipart/form-data">
             <div class="box box-primary">
               <div class="box-header with-border">
                 <h3 class="box-title">Form Sertifikat Pengujian Alat K3</h3>
@@ -54,16 +54,10 @@
                       
                       ?>
                     </div>
-                  </div>
 
-                </div>
-                <div class="row">
-
-                  <div class="col-md-6">
                     <div class="form-group">
                       <label>Referensi Pengujian</label>
-                      <select class="form-control select2" style="width: 100%;" name="referensi_pengujian">
-                        <option value="0" selected="selected">Tidak ada Referensi Dasar Hukum</option>
+                      <select class="form-control select2" style="width: 100%;" name="referensi_pengujian" id="referensi">
                         <?php
                         foreach ($dasar_hukum as $key => $one_dasar_hukum) {
                           echo "<option value='".$one_dasar_hukum['id_dasar_hukum']."'>";
@@ -72,7 +66,7 @@
                         }
                         ?>
                       </select>
-                      <p class="keterangan_referensi"></p>
+                      <p class="help-block" id="keterangan_referensi"></p>
                     </div>
 
                     <div class="form-group">
@@ -88,11 +82,18 @@
                     <div class="form-group">
                       <label>Jenis Pengujian</label>
                       <select class="form-control select2" style="width: 100%;" name="jenis_pengujian">
-                        <option value="1">DUMP</option>
-                        <option value="2">OPTIONAL DUMP</option>
-                        <option value="3">NOT DUMP</option>
+                        <?php
+                        foreach ($sub_jenis_sertifikat as $key => $one_sub_jenis) {
+                          echo "<option value='".$one_sub_jenis['id_sub_jenis_sertifikat']."'>";
+                          echo $one_sub_jenis['nama_sub_jenis_sertifikat'];
+                          echo "</option>";
+                        }
+                        ?>
                       </select>
                     </div>
+
+                  </div>
+                  <div class="col-md-6">
 
                     <div class="form-group">
                       <label>Lembaga</label>
@@ -198,5 +199,48 @@
     $('#datepicker2').datepicker({
       autoclose: true
     })
+
+    <?php
+    if ($this->session->flashdata('error') == 1)
+    {
+      ?>alert('Data Pengujian Alat K3 berhasil dimasukkan'); <?php
+    }
+    else if ($this->session->flashdata('error') == 2)
+    {
+      ?>alert('Data Pengujian Alat K3 gagal dimasukkan'); <?php
+    }
+    ?>
+
+    var id_dasar_hukum = $("#referensi").val();
+    var keterangan = "";
+
+    <?php
+    foreach ($dasar_hukum as $key => $value) {
+      ?>
+      if (id_dasar_hukum == <?php echo $key; ?>)
+      {
+        keterangan = "<?php echo $value['keterangan_dasar_hukum']; ?>";
+        console.log(keterangan);
+        $("#keterangan_referensi").html(keterangan);
+      }
+      <?php
+    }
+    ?>
+
+    $("#referensi").change(function() {
+      id_dasar_hukum = $("#referensi").val();
+      <?php
+      foreach ($dasar_hukum as $key => $value) {
+        ?>
+        if (id_dasar_hukum == <?php echo $key; ?>)
+        {
+          keterangan = "<?php echo $value['keterangan_dasar_hukum']; ?>";
+          $("#keterangan_referensi").html(keterangan);
+        }
+        <?php
+      }
+      ?>
+    })
+
   })
 </script>

@@ -62,7 +62,7 @@
                               
                               if ($one_crud['berhak'] && $menu_crud[$key2]['is_crud'])
                               {
-                                echo "<a href='".base_url($menu_utama[$key]['nama_controller']."/".$sub_menu[$key1]['nama_method'].$menu_crud[$key2]['nama_concat_method'])."'>";
+                                echo "<a href='".base_url($menu_utama[$key]['nama_controller']."/".$sub_menu[$key1]['nama_method'].$menu_crud[$key2]['nama_concat_method']."/".$onedata['id_sertifikat'])."'>";
                                 echo $menu_crud[$key2]['html'];
                                 echo "</a>";
                               }

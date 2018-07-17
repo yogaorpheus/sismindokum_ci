@@ -88,7 +88,7 @@ class Data extends CI_Controller {
 			'data_pengujian' 	=> $data_pengujian
 			);
 
-		$this->template->load_view('data', 'pengujian alat k3', $data);
+		$this->template->load_view('data', 'pengujian_alat_k3', $data);
 	}
 	//-------------------------- DATA APAPUN TERKAIT PENGUJIAN ALAT K3 BERAKHIR DISINI ----------------------------------
 

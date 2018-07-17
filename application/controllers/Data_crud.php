@@ -12,7 +12,7 @@ class Data_crud extends CI_Controller {
 		$this->load->model('status');
 		$this->load->model('anggaran');
 		$this->load->model('sertifikat');
-		$this->load->model('log');
+		$this->load->model('log_database');
 	}
 
 	//-------------------------------------- SEMUA DATA ANGGARAN DASAR -----------------------------------------------
@@ -38,7 +38,7 @@ class Data_crud extends CI_Controller {
 			'id_status_log'				=> $this->status->get_id_status_by_nama("melakukan delete"),
 			'id_data'					=> $id_anggaran
 			);
-		$id_log = $this->log->write_log($log_data);
+		$id_log = $this->log_database->write_log($log_data);
 
 		$result = $this->anggaran->delete_anggaran_by_id($id_anggaran);
 
@@ -48,7 +48,7 @@ class Data_crud extends CI_Controller {
 		}
 		else
 		{
-			$this->log->delete_log_by_id($id_log);
+			$this->log_database->delete_log_by_id($id_log);
 			$this->authentifier->set_flashdata('error', 2);	// Delete gagal
 		}
 
@@ -79,7 +79,7 @@ class Data_crud extends CI_Controller {
 			'id_status_log'				=> $this->status->get_id_status_by_nama("melakukan delete"),
 			'id_data'					=> $id_sertifikat
 			);
-		$id_log = $this->log->write_log($log_data);
+		$id_log = $this->log_database->write_log($log_data);
 
 		$result = $this->sertifikat->delete_sertifikat_by_id($id_sertifikat, $data_pertanahan['id_jenis_sertifikat']);
 
@@ -89,11 +89,18 @@ class Data_crud extends CI_Controller {
 		}
 		else
 		{
-			$this->log->delete_log_by_id($id_log);
+			$this->log_database->delete_log_by_id($id_log);
 			$this->authentifier->set_flashdata('error', 2);	// Delete gagal
 		}
 
 		return redirect ('data/pertanahan');
+	}
+
+	public function pertanahan_review($id_sertifikat)
+	{
+		$data_pertanahan = $this->sertifikat->get_sertifikat_by_id($id_sertifikat, "pertanahan");
+
+		return redirect($data_pertanahan['file_sertifikat']);
 	}
 	//-------------------------- DATA APAPUN TERKAIT PERTANAHAN BERAKHIR DISINI ----------------------------------
 
@@ -120,7 +127,7 @@ class Data_crud extends CI_Controller {
 			'id_status_log'				=> $this->status->get_id_status_by_nama("melakukan delete"),
 			'id_data'					=> $id_sertifikat
 			);
-		$id_log = $this->log->write_log($log_data);
+		$id_log = $this->log_database->write_log($log_data);
 
 		$result = $this->sertifikat->delete_sertifikat_by_id($id_sertifikat, $data_slo['id_jenis_sertifikat']);
 
@@ -130,11 +137,18 @@ class Data_crud extends CI_Controller {
 		}
 		else
 		{
-			$this->log->delete_log_by_id($id_log);
+			$this->log_database->delete_log_by_id($id_log);
 			$this->authentifier->set_flashdata('error', 2);	// Delete gagal
 		}
 
 		return redirect ('data/slo');
+	}
+
+	public function slo_review($id_sertifikat)
+	{
+		$data_slo = $this->sertifikat->get_sertifikat_by_id($id_sertifikat, "slo");
+
+		return redirect($data_slo['file_sertifikat']);
 	}
 	//--------------------- DATA APAPUN TERKAIT SERTIFIKAT LAIK OPERASI BERAKHIR DISINI ----------------------------------
 
@@ -168,7 +182,7 @@ class Data_crud extends CI_Controller {
 			'id_status_log'				=> $this->status->get_id_status_by_nama("melakukan delete"),
 			'id_data'					=> $id_sertifikat
 			);
-		$id_log = $this->log->write_log($log_data);
+		$id_log = $this->log_database->write_log($log_data);
 
 		$result = $this->sertifikat->delete_sertifikat_by_id($id_sertifikat, $data_perizinan['id_jenis_sertifikat']);
 
@@ -178,11 +192,18 @@ class Data_crud extends CI_Controller {
 		}
 		else
 		{
-			$this->log->delete_log_by_id($id_log);
+			$this->log_database->delete_log_by_id($id_log);
 			$this->authentifier->set_flashdata('error', 2);	// Delete gagal
 		}
 
 		return redirect ('data/perizinan');
+	}
+
+	public function perizinan_review($id_sertifikat)
+	{
+		$data_perizinan = $this->sertifikat->get_sertifikat_by_id($id_sertifikat, "perizinan");
+
+		return redirect($data_perizinan['file_sertifikat']);
 	}
 	//------------------------------ DATA APAPUN TERKAIT PERIZINAN BERAKHIR DISINI ----------------------------------
 
@@ -209,7 +230,7 @@ class Data_crud extends CI_Controller {
 			'id_status_log'				=> $this->status->get_id_status_by_nama("melakukan delete"),
 			'id_data'					=> $id_sertifikat
 			);
-		$id_log = $this->log->write_log($log_data);
+		$id_log = $this->log_database->write_log($log_data);
 
 		$result = $this->sertifikat->delete_sertifikat_by_id($id_sertifikat, $data_pengujian['id_jenis_sertifikat']);
 
@@ -219,11 +240,18 @@ class Data_crud extends CI_Controller {
 		}
 		else
 		{
-			$this->log->delete_log_by_id($id_log);
+			$this->log_database->delete_log_by_id($id_log);
 			$this->authentifier->set_flashdata('error', 2);	// Delete gagal
 		}
 
 		return redirect ('data/pengujian_alat_k3');
+	}
+
+	public function pengujian_alat_k3_review($id_sertifikat)
+	{
+		$data_pengujian = $this->sertifikat->get_sertifikat_by_id($id_sertifikat, "pengujian alat k3");
+
+		return redirect($data_pengujian['file_sertifikat']);
 	}
 	//-------------------------- DATA APAPUN TERKAIT PENGUJIAN ALAT K3 BERAKHIR DISINI ----------------------------------
 
@@ -250,7 +278,7 @@ class Data_crud extends CI_Controller {
 			'id_status_log'				=> $this->status->get_id_status_by_nama("melakukan delete"),
 			'id_data'					=> $id_sertifikat
 			);
-		$id_log = $this->log->write_log($log_data);
+		$id_log = $this->log_database->write_log($log_data);
 
 		$result = $this->sertifikat->delete_sertifikat_by_id($id_sertifikat, $data_lisensi['id_jenis_sertifikat']);
 
@@ -260,11 +288,18 @@ class Data_crud extends CI_Controller {
 		}
 		else
 		{
-			$this->log->delete_log_by_id($id_log);
+			$this->log_database->delete_log_by_id($id_log);
 			$this->authentifier->set_flashdata('error', 2);	// Delete gagal
 		}
 
 		return redirect ('data/lisensi');
+	}
+
+	public function lisensi_review($id_sertifikat)
+	{
+		$data_lisensi = $this->sertifikat->get_sertifikat_by_id($id_sertifikat, "lisensi");
+
+		return redirect($data_lisensi['file_sertifikat']);
 	}
 	//-------------------------------- DATA APAPUN TERKAIT LISENSI BERAKHIR DISINI ----------------------------------
 }

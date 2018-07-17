@@ -98,10 +98,14 @@ class Form extends CI_Controller {
 		$id_menu2 = $this->menu->get_id_menu2('perizinan');
 		$dasar_hukum = $this->dasar_hukum->get_dasar_hukum_by_menu($id_menu2);
 
+		$id_jenis_sertifikat = $this->jenis_sertifikat->get_id_jenis_sertifikat('perizinan');
+		$sub_jenis_sertifikat = $this->sub_jenis_sertifikat->get_sub_jenis_by_id_jenis_sertifikat($id_jenis_sertifikat);
+
 		$data = array(
-			'distrik' 	=> $jenis_distrik,
-			'lembaga'	=> $lembaga,
-			'dasar_hukum'	=> $dasar_hukum
+			'distrik' 				=> $jenis_distrik,
+			'lembaga'				=> $lembaga,
+			'dasar_hukum'			=> $dasar_hukum,
+			'sub_jenis_sertifikat'	=> $sub_jenis_sertifikat
 			);
 		$this->template->load_view('form', 'perizinan', $data);
 	}
@@ -116,10 +120,14 @@ class Form extends CI_Controller {
 		$id_menu2 = $this->menu->get_id_menu2('pengujian alat k3');
 		$dasar_hukum = $this->dasar_hukum->get_dasar_hukum_by_menu($id_menu2);
 
+		$id_jenis_sertifikat = $this->jenis_sertifikat->get_id_jenis_sertifikat('pengujian alat k3');
+		$sub_jenis_sertifikat = $this->sub_jenis_sertifikat->get_sub_jenis_by_id_jenis_sertifikat($id_jenis_sertifikat);
+
 		$data = array(
-			'distrik' 	=> $jenis_distrik,
-			'lembaga'	=> $lembaga,
-			'dasar_hukum'	=> $dasar_hukum
+			'distrik' 				=> $jenis_distrik,
+			'lembaga'				=> $lembaga,
+			'dasar_hukum'			=> $dasar_hukum,
+			'sub_jenis_sertifikat'	=> $sub_jenis_sertifikat
 			);
 		$this->template->load_view('form', 'pengujian_alat_k3', $data);
 	}
@@ -135,8 +143,8 @@ class Form extends CI_Controller {
 		$dasar_hukum = $this->dasar_hukum->get_dasar_hukum_by_menu($id_menu2);
 
 		$data = array(
-			'distrik' 	=> $jenis_distrik,
-			'lembaga'	=> $lembaga,
+			'distrik' 		=> $jenis_distrik,
+			'lembaga'		=> $lembaga,
 			'dasar_hukum'	=> $dasar_hukum
 			);
 		$this->template->load_view('form', 'lisensi', $data);
