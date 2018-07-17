@@ -1,46 +1,34 @@
 <?php
 defined('BASEPATH') OR exit('No direct script access allowed');
 
-class Data extends CI_Controller {
+class Data_lama extends CI_Controller {
 	
 	public function __construct() 
 	{
 		parent::__construct();
 		$this->load->library('template');
-		$this->load->library('authentifier');
-		$this->authentifier->session_check();
 
 		$this->load->model('status');
 		$this->load->model('anggaran');
 		$this->load->model('sertifikat');
 	}
 
-	public function load_data()
-	{
-		$data_content = $this->status->get_all_status();
-		$data = array(
-			'data_content' => $data_content);
-		// print_r($data);
-		// die();
-		$this->template->load_view('data', 'data', $data);
-	}
-
 	//-------------------------------------- SEMUA DATA ANGGARAN DASAR -----------------------------------------------
 	public function anggaran_dasar()
 	{
-		$data_anggaran_dasar = $this->anggaran->get_all_anggaran();
+		$data_anggaran_lama = $this->anggaran->get_all_anggaran_by_status("tidak aktif");
 		$data = array(
-			'data_anggaran_dasar'	=> $data_anggaran_dasar
+			'data_anggaran_lama'	=> $data_anggaran_lama
 			);
 
-		$this->template->load_view('data', 'anggaran_dasar', $data);
+		$this->template->load_view('data_lama', 'anggaran_dasar', $data);
 	}
 	//-------------------------- DATA APAPUN TERKAIT ANGGARAN DASAR BERAKHIR DISINI ----------------------------------
 
 	//-------------------------------------- SEMUA DATA PERTANAHAN -----------------------------------------------
 	public function pertanahan()
 	{
-		$data_pertanahan = $this->sertifikat->get_data_sertifikat("pertanahan", $this->authentifier->get_user_detail()['kode_distrik_pegawai']);
+		$data_pertanahan_lama = $this->sertifikat->get_all_sertifikat_lama("pertanahan");
 		$data = array(
 			'data_pertanahan' 	=> $data_pertanahan
 			);
@@ -52,7 +40,7 @@ class Data extends CI_Controller {
 	//--------------------------------- SEMUA DATA SERTIFIKAT LAIK OPERASI -----------------------------------------------
 	public function slo()
 	{
-		$data_slo = $this->sertifikat->get_data_sertifikat("slo", $this->authentifier->get_user_detail()['kode_distrik_pegawai']);
+		$data_slo = $this->sertifikat->get_data_sertifikat("slo");
 		$data = array(
 			'data_slo' 	=> $data_slo
 			);
@@ -71,7 +59,7 @@ class Data extends CI_Controller {
 	//------------------------------------------ SEMUA DATA PERIZINAN -----------------------------------------------
 	public function perizinan()
 	{
-		$data_perizinan = $this->sertifikat->get_data_sertifikat("perizinan", $this->authentifier->get_user_detail()['kode_distrik_pegawai']);
+		$data_perizinan = $this->sertifikat->get_data_sertifikat("perizinan");
 		$data = array(
 			'data_perizinan' 	=> $data_perizinan
 			);
@@ -83,7 +71,7 @@ class Data extends CI_Controller {
 	//-------------------------------------- SEMUA DATA PENGUJIAN ALAT K3 -----------------------------------------------
 	public function pengujian_alat_k3()
 	{
-		$data_pengujian = $this->sertifikat->get_data_sertifikat("pengujian alat k3", $this->authentifier->get_user_detail()['kode_distrik_pegawai']);
+		$data_pengujian = $this->sertifikat->get_data_sertifikat("pengujian alat k3");
 		$data = array(
 			'data_pengujian' 	=> $data_pengujian
 			);
@@ -95,7 +83,7 @@ class Data extends CI_Controller {
 	//-------------------------------------------- SEMUA DATA LISENSI -----------------------------------------------
 	public function lisensi()
 	{
-		$data_lisensi = $this->sertifikat->get_data_sertifikat("lisensi", $this->authentifier->get_user_detail()['kode_distrik_pegawai']);
+		$data_lisensi = $this->sertifikat->get_data_sertifikat("lisensi");
 		$data = array(
 			'data_lisensi' 	=> $data_lisensi
 			);

@@ -15,9 +15,34 @@ class Sertifikat_data extends CI_Controller {
 		$this->load->model('jenis_sertifikat');
 	}
 
+	public function upload_file_lampiran()
+	{
+		$file_path = "";
+
+		$config['upload_path']          = './assets/lampiran/';
+        $config['allowed_types']        = 'gif|jpg|png|pdf|docx|doc';
+       	$config['remove_spaces']		= true;
+
+		$this->load->library('upload', $config);
+
+		if (! $this->upload->do_upload('lampiran'))
+		{
+			$this->authentifier->set_flashdata('error', 3);
+		}
+		else
+		{
+			$file = $this->upload->data();
+			$file_path = $file['full_path'];
+		}
+
+		return $file_path;
+	}
+
 	// BERIKUT ADALAH METHOD YANG AKAN DIGUNAKAN UNTUK MENAMBAH DATA PADA SETIAP SERTIFIKAT
 	public function tambah_pertanahan()
 	{
+		$file_path = $this->upload_file_lampiran();
+
 		$input = $this->input->post();
 
 		$id_jenis_sertifikat = $this->jenis_sertifikat->get_id_jenis_sertifikat('pertanahan');
@@ -34,11 +59,13 @@ class Sertifikat_data extends CI_Controller {
 			'judul_sertifikat'			=> $input['lokasi_sertifikat'],
 			'tanggal_sertifikasi'		=> $tanggal_terbit,
 			'tanggal_kadaluarsa'		=> $tanggal_berakhir,
-			'file_sertifikat'			=> $input['lampiran'],			// belum tahu cara menyimpan file ke dalam sub folder
+			'file_sertifikat'			=> $file_path,
 			'keterangan'				=> $input['keterangan'],
 			'jabatan_pic'				=> $this->authentifier->get_user_detail()['posisi_pegawai'],
-			'dibuat_oleh'				=> $this->authentifier->get_user_detail()['id_pegawai']
+			'dibuat_oleh'				=> $this->authentifier->get_user_detail()['id_pegawai'],
+			'status_sertifikat'			=> 3
 			);
+		// Status sertifikat masih menggunakan nilai default
 
 		$result = $this->sertifikat->tambah_data_pertanahan($data);
 		

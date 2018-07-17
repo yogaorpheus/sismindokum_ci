@@ -22,6 +22,25 @@ class Anggaran extends CI_Model {
 		return $query->result_array();
 	}
 
+	public function get_all_anggaran_by_status($nama_status)
+	{
+		$this->db->where('nama_status', $nama_status);
+		$id_status = $this->db->get('status')->row_array()['id_status'];
+
+		$this->db->where('status_anggaran', $id_status);
+		$query = $this->db->get('anggaran');
+
+		return $query->result_array();
+	}
+
+	public function get_anggaran_by_id($id)
+	{
+		$this->db->where('id_anggaran', $id);
+		$query = $this->db->get('anggaran');
+
+		return $query->row_array();
+	}
+
 	public function insert_anggaran_dasar($data)
 	{
 		$query = $this->db->insert('anggaran', $data);
@@ -29,9 +48,11 @@ class Anggaran extends CI_Model {
 		return $query;
 	}
 
-	public function dump_test($data)
+	public function delete_anggaran_by_id($id)
 	{
-		$query = $this->db->insert('dump', $data);
+		$this->db->where('id_anggaran', $id);
+		$query = $this->db->delete('anggaran');
+
 		return $query;
 	}
 }

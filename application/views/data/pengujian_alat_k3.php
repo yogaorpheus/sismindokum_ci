@@ -39,7 +39,7 @@
                 <tbody>
                 <?php
                 $no = 1; 
-                foreach ($data_pertanahan as $key => $onedata) { 
+                foreach ($data_pengujian as $key => $onedata) { 
                 ?>
                 <tr>
                   <td style="vertical-align: middle;"><?php echo $no++; ?></td>
