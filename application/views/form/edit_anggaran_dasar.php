@@ -13,7 +13,8 @@
     <section class="content">
       <div class="row">
         <div class="col-md-12">
-          <form id="form_anggaran_dasar" action="<?php echo base_url('anggaran_dasar/tambah_anggaran_dasar'); ?>" method="POST" enctype="multipart/form-data">
+          <form id="form_anggaran_dasar" action="<?php echo base_url('anggaran_dasar/anggaran_dasar_update'); ?>" method="POST" enctype="multipart/form-data">
+            <input type="hidden" name="id_anggaran" value="<?php echo $data_anggaran['id_anggaran']; ?>">
             <div class="box box-primary">
               <div class="box-header with-border">
                 <h3 class="box-title">Form Anggaran Dasar</h3>
@@ -35,7 +36,7 @@
                         <div class="input-group-addon">
                           <i class="fa fa-calendar"></i>
                         </div>
-                        <input type="text" class="form-control pull-right" id="datepicker1" name="tanggal_rups_sirkuler">
+                        <input type="text" class="form-control pull-right" id="datepicker1" name="tanggal_rups_sirkuler" value="<?php echo $data_anggaran['tanggal_rups_sirkuler']; ?>">
                       </div>
                     </div>
 
@@ -46,7 +47,7 @@
                         $year_now = date("Y");
                         for ($i = 2000; $i < 2100; $i++)
                         {
-                          if ($year_now == $i)
+                          if ($data_anggaran['tahun_anggaran'] == $i)
                             echo "<option selected='selected'>";
                           else
                             echo "<option>";
@@ -60,12 +61,12 @@
 
                     <div class="form-group">
                       <label>No. Akta</label>
-                      <input type="text" class="form-control" id="no_akta" name="no_akta">
+                      <input type="text" class="form-control" id="no_akta" name="no_akta" value="<?php echo $data_anggaran['no_akta_anggaran']; ?>">
                     </div>
 
                     <div class="form-group">
                       <label>Nomor Penerimaan Kemenkumham</label>
-                      <input type="text" class="form-control" id="nomor_penerimaan" name="nomor_penerimaan">
+                      <input type="text" class="form-control" id="nomor_penerimaan" name="nomor_penerimaan" value="<?php echo $data_anggaran['no_penerimaan_anggaran']; ?>">
                     </div>
 
                     <div class="form-group">
@@ -73,7 +74,7 @@
                       <select class="form-control select2" style="width: 50%;" name="status">
                       <?php
                         foreach ($status as $key => $one_status) {
-                          if ($one_status['nama_status'] == "Aktif")
+                          if ($one_status['id_status'] == $data_anggaran['status_anggaran'])
                             echo "<option selected='selected' value='".$one_status['id_status']."'>";
                           else
                             echo "<option value='".$one_status['id_status']."'>";
@@ -94,18 +95,20 @@
                         <div class="input-group-addon">
                           <i class="fa fa-calendar"></i>
                         </div>
-                        <input type="text" class="form-control pull-right" id="datepicker2" name="tanggal_akta">
+                        <input type="text" class="form-control pull-right" id="datepicker2" name="tanggal_akta" value="<?php echo $data_anggaran['tanggal_akta']; ?>">
                       </div>
                     </div>
 
                     <div class="form-group">
                       <label>Lampiran 1</label>
                       <input type="file" id="lampiran1" name="lampiran1">
+                      <p class="help-block"><?php echo $data_anggaran['file_anggaran_1']; ?></p>
                     </div>
 
                     <div class="form-group">
                       <label>Lampiran 2</label>
                       <input type="file" id="lampiran2" name="lampiran2">
+                      <p class="help-block"><?php echo $data_anggaran['file_anggaran_2']; ?></p>
                     </div>
                   </div>
 
@@ -115,7 +118,7 @@
               <div class="box-footer">
                 <div class="col-md-6"></div>
                 <div class="col-md-6">
-                  <button type="submit" class="btn btn-primary pull-right btn-lg">Simpan</button>
+                  <button type="submit" class="btn btn-primary pull-right btn-lg">Edit dan Simpan</button>
                 </div>
               </div>
             </div>

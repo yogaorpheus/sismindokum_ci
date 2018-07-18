@@ -13,7 +13,8 @@
     <section class="content">
       <div class="row">
         <div class="col-md-12">
-          <form id="form_anggaran_dasar" action="<?php echo base_url('sertifikat_data/tambah_slo'); ?>" method="POST" enctype="multipart/form-data">
+          <form id="form_anggaran_dasar" action="<?php echo base_url('data_crud/slo_update'); ?>" method="POST" enctype="multipart/form-data">
+            <input type="hidden" name="id_sertifikat" value="<?php echo $data_slo['id_sertifikat']; ?>">
             <div class="box box-primary">
               <div class="box-header with-border">
                 <h3 class="box-title">Form SLO</h3>
@@ -43,7 +44,7 @@
                       }
                       
                       foreach ($distrik as $key => $one_distrik) {
-                        if ($one_distrik['kode_distrik'] == $user_detail['kode_distrik_pegawai'])
+                        if ($one_distrik['id_distrik'] == $data_slo['id_distrik_sertifikat'])
                           echo "<option selected='selected' value=".$one_distrik['id_distrik'].">";
                         else
                           echo "<option value=".$one_distrik['id_distrik'].">";
@@ -60,7 +61,10 @@
                       <select class="form-control select2" style="width: 100%;" name="referensi_slo" id="referensi">
                         <?php
                         foreach ($dasar_hukum as $key => $one_dasar_hukum) {
-                          echo "<option value='".$one_dasar_hukum['id_dasar_hukum']."'>";
+                          if ($one_dasar_hukum['id_dasar_hukum'] == $data_slo['id_dasar_hukum_sertifikat'])
+                            echo "<option selected='selected' value='".$one_dasar_hukum['id_dasar_hukum']."'>";
+                          else
+                            echo "<option value='".$one_dasar_hukum['id_dasar_hukum']."'>";
                           echo $one_dasar_hukum['kode_dasar_hukum'];
                           echo "</option>";
                         }
@@ -71,7 +75,7 @@
 
                     <div class="form-group">
                       <label>No. Sertifikat</label>
-                      <input type="text" class="form-control" id="no_sertifikat" name="no_sertifikat">
+                      <input type="text" class="form-control" id="no_sertifikat" name="no_sertifikat" value="<?php echo $data_slo['no_sertifikat']; ?>">
                     </div>
 
                     <div class="form-group">
@@ -79,7 +83,10 @@
                       <select class="form-control select2" style="width: 100%;" name="unit_sertifikasi">
                         <?php
                         foreach ($unit as $key => $one_unit) {
-                          echo "<option value='".$one_unit['id_unit']."'>";
+                          if ($one_unit['id_unit'] == $data_slo['id_unit_sertifikat'])
+                            echo "<option selected='selected' value='".$one_unit['id_unit']."'>";
+                          else
+                            echo "<option value='".$one_unit['id_unit']."'>";
                           echo $one_unit['nama_unit'];
                           echo "</option>";
                         }
@@ -90,6 +97,7 @@
                     <div class="form-group">
                       <label for="file_sertifikat">Lampiran</label>
                       <input type="file" id="lampiran" name="lampiran">
+                      <p class="help-block"><?php echo $data_slo['file_sertifikat']; ?></p>
                     </div>
 
                   </div>
@@ -100,7 +108,10 @@
                       <select class="form-control select2" style="width: 100%;" name="lembaga">
                       <?php
                       foreach ($lembaga as $key => $one_lembaga) {
-                        echo "<option value='".$one_lembaga['id_lembaga']."'>";
+                        if ($one_lembaga['id_lembaga'] == $data_slo['id_lembaga_sertifikat'])
+                          echo "<option selected='selected' value='".$one_lembaga['id_lembaga']."'>";
+                        else
+                          echo "<option value='".$one_lembaga['id_lembaga']."'>";
                         echo $one_lembaga['nama_lembaga'];
                         echo "</option>";
                       }
@@ -110,7 +121,7 @@
 
                     <div class="form-group">
                       <label>Keterangan</label>
-                      <textarea class="form-control" name="keterangan" placeholder="Tuliskan keterangan sertifikat" rows="4"></textarea>
+                      <textarea class="form-control" name="keterangan" placeholder="Tuliskan keterangan sertifikat" rows="4" value="<?php echo $data_slo['keterangan']; ?>"></textarea>
                     </div>
 
                     <div class="form-group">
@@ -119,7 +130,7 @@
                         <div class="input-group-addon">
                           <i class="fa fa-calendar"></i>
                         </div>
-                        <input type="text" class="form-control pull-right" id="datepicker1" name="tanggal_terbit">
+                        <input type="text" class="form-control pull-right" id="datepicker1" name="tanggal_terbit" value="<?php echo $data_slo['tanggal_terbit']; ?>">
                       </div>
                     </div>
 
@@ -129,7 +140,7 @@
                         <div class="input-group-addon">
                           <i class="fa fa-calendar"></i>
                         </div>
-                        <input type="text" class="form-control pull-right" id="datepicker2" name="tanggal_berakhir">
+                        <input type="text" class="form-control pull-right" id="datepicker2" name="tanggal_berakhir" value="<?php echo $data_slo['tanggal_berakhir']; ?>">
                       </div>
                     </div>
 
@@ -141,7 +152,7 @@
               <div class="box-footer">
                 <div class="col-md-6"></div>
                 <div class="col-md-6">
-                  <button type="submit" class="btn btn-primary pull-right btn-lg">Simpan</button>
+                  <button type="submit" class="btn btn-primary pull-right btn-lg">Edit dan Simpan</button>
                 </div>
               </div>
             </div>

@@ -39,12 +39,13 @@
                 <tbody>
                 <?php
                 $no = 1; 
-                foreach ($data_pertanahan as $key => $onedata) { 
+                foreach ($data_lisensi as $key => $onedata) { 
                 ?>
                 <tr>
                   <td style="vertical-align: middle;"><?php echo $no++; ?></td>
                   <td style="vertical-align: middle;"><?php echo $onedata['nama_distrik']; ?></td>
-                  <td style="vertical-align: middle;"><?php echo $onedata['nama_unit']; ?></td>
+                  <td style="vertical-align: middle;"><?php echo $onedata['judul_sertifikat']; ?></td>
+                  <td style="vertical-align: middle;"><?php echo $onedata['spesifikasi_lisensi']; ?></td>
                   <td style="vertical-align: middle;"><?php echo $onedata['no_sertifikat']; ?></td>
                   <td style="vertical-align: middle;"><?php echo $onedata['nama_lembaga']; ?></td>
                   <td style="vertical-align: middle;"><?php echo $onedata['jabatan_pic']; ?></td>
@@ -63,7 +64,7 @@
                               
                               if ($one_crud['berhak'] && $menu_crud[$key2]['is_crud'])
                               {
-                                echo "<a href='".base_url($menu_utama[$key]['nama_controller']."/".$sub_menu[$key1]['nama_method'].$menu_crud[$key2]['nama_concat_method'])."'>";
+                                echo "<a href='".base_url($menu_utama[$key]['nama_controller']."/".$sub_menu[$key1]['nama_method'].$menu_crud[$key2]['nama_concat_method']."/".$onedata['id_sertifikat'])."' class='".$menu_crud[$key2]['nama_menu_crud']."' id='".$menu_crud[$key2]['nama_menu_crud'].$onedata['id_sertifikat']."'>";
                                 echo $menu_crud[$key2]['html'];
                                 echo "</a>";
                               }
@@ -95,6 +96,7 @@
                 </tfoot>
               </table>
             </div>
+            <button class="btn btn-primary" id="test_btn">Test Me!</button>
             <!-- /.box-body -->
           </div>
           <!-- /.box -->
@@ -102,9 +104,32 @@
         <!-- /.col -->
       </div>
       <!-- /.row -->
+
+      <div class="modal fade" id="modal_delete">
+          <div class="modal-dialog">
+            <div class="modal-content">
+              <div class="modal-header">
+                <h4 class="modal-title">HAPUS DATA</h4>
+              </div>
+              <div class="modal-body">
+                <p>Apakah anda yakin ingin menghapus data ini?</p>
+              </div>
+              <div class="modal-footer">
+                <a id="delete_yes"><button type="button" class="btn btn-danger pull-left">Iya, Hapus</button></a>
+                <button type="button" class="btn btn-success pull-right" data-dismiss="modal" id="delete_no">Tidak</button>
+              </div>
+            </div>
+            <!-- /.modal-content -->
+          </div>
+          <!-- /.modal-dialog -->
+        </div>
+      
     </section>
     <!-- /.content -->
     <script>
+      var delete_href = "";
+      var delete_id = "";
+
       $(function () {
         // $('#example1').DataTable()
         // $('#example2').DataTable({
@@ -116,5 +141,31 @@
         //   'autoWidth'   : false
         // })
         $('#tabel1').DataTable()
+
+        $(document).on("click", ".Delete", function() {
+          delete_href = $(this).attr('href');
+          delete_id = $(this).attr('id');
+          $(this).attr('href', "#");
+          $("#delete_yes").attr('href', delete_href);
+        })
+
+        $("#delete_no").click(function() {
+          delete_id = "#" + delete_id;
+          $(delete_id).attr('href', delete_href);
+        })
+
+        $("#test_btn").click(function() {
+          window.open("<?php echo base_url('assets/lampiran').'/cato2.jpg'; ?>", "_new");
+          window.open("<?php echo base_url('assets/lampiran').'/cato1.jpg'; ?>", "_blank");
+        })
+
+        <?php
+        if ($this->session->flashdata('error') == 1) {
+          echo "alert('Data Lisensi berhasil dihapus');";
+        }
+        else if ($this->session->flashdata('error') == 2) {
+          echo "alert('Data Lisensi gagal dihapus');";
+        }
+        ?>
       })
     </script>

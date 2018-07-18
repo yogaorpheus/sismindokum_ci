@@ -25,4 +25,13 @@ class Status extends CI_Model {
 		return $query->result_array();
 	}
 
+	public function get_id_status_by_nama($nama)
+	{
+		$this->db->where('nama_status', $nama);
+		$query = $this->db->get('status');
+
+		$result = $query->row_array()['id_status'];
+		return $result;
+	}
+
 }

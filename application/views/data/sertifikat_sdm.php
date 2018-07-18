@@ -38,7 +38,7 @@
                 <tbody>
                 <?php
                 $no = 1; 
-                foreach ($data_pertanahan as $key => $onedata) { 
+                foreach ($data_sertifikat_sdm as $key => $onedata) { 
                 ?>
                 <tr>
                   <td style="vertical-align: middle;"><?php echo $no++; ?></td>
@@ -51,18 +51,27 @@
                   <td style="vertical-align: middle;"><?php echo $onedata['tanggal_kadaluarsa']; ?></td>
                   <td style="vertical-align: middle;"><?php echo $onedata['nama_status']; ?></td>
                   <td width="160px;">
-                    <a class="btn btn-warning btn-xs">
-                      <i class="glyphicon glyphicon-pencil"></i>
-                    </a>
-                    <a class="btn btn-default btn-xs">
-                      <i class="glyphicon glyphicon-tags"></i>
-                    </a>
-                    <a class="btn btn-primary btn-xs">
-                      <i class="glyphicon glyphicon-zoom-in"></i>
-                    </a>
-                    <a class="btn btn-danger btn-xs">
-                      <i class="glyphicon glyphicon-trash"></i>
-                    </a>
+                    <?php
+                    foreach ($menu_tampil as $key => $one_menu) {
+
+                      if ($this->uri->segment(1) == $menu_utama[$key]['nama_controller']) {
+                        foreach ($one_menu as $key1 => $one_sub_menu) {
+                          
+                          if ($this->uri->segment(2) == $sub_menu[$key1]['nama_method']) {
+                            foreach ($one_sub_menu as $key2 => $one_crud) {
+                              
+                              if ($one_crud['berhak'] && $menu_crud[$key2]['is_crud'])
+                              {
+                                echo "<a href='".base_url($menu_utama[$key]['nama_controller']."/".$sub_menu[$key1]['nama_method'].$menu_crud[$key2]['nama_concat_method']."/".$onedata['id_sertifikat'])."'>";
+                                echo $menu_crud[$key2]['html'];
+                                echo "</a>";
+                              }
+                            }
+                          }
+                        }
+                      }
+                    }
+                    ?>
                   </td>
                 </tr>
                 <?php }

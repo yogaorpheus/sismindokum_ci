@@ -31,6 +31,7 @@
                   <th>No. Penerimaan Kemenkumham</th>
                   <th>PIC</th>
                   <th>Status Akta</th>
+                  <th>Lampiran</th>
                   <th>Pengaturan</th>
                 </tr>
                 </thead>
@@ -48,6 +49,28 @@
                   <td style="vertical-align: middle;"><?php echo $onedata['no_penerimaan_anggaran']; ?></td>
                   <td style="vertical-align: middle;"><?php echo $onedata['jabatan_pic']; ?></td>
                   <td style="vertical-align: middle;"><?php echo $onedata['nama_status']; ?></td>
+                  <td width="60px;">
+                    <div class="col-md-6">
+                      <?php 
+                      if (!is_null($onedata['file_anggaran_1']) && !empty($onedata['file_anggaran_1']))
+                      {
+                        echo "<a href='".$onedata['file_anggaran_1']."'>"; 
+                        echo "<button class='btn btn-primary btn-xs'><i class='glyphicon glyphicon-zoom-in'></i></button>";
+                        echo "</a>";
+                      }
+                      ?>
+                    </div>
+                    <div class="col-md-6">
+                      <?php 
+                      if (!is_null($onedata['file_anggaran_2']) && !empty($onedata['file_anggaran_1']))
+                      {
+                        echo "<a href='".$onedata['file_anggaran_2']."'>"; 
+                        echo "<button class='btn btn-primary btn-xs'><i class='glyphicon glyphicon-zoom-in'></i></button>";
+                        echo "</a>";
+                      }
+                      ?>
+                    </div>
+                  </td>
                   <td width="120px;">
                     <?php
                     foreach ($menu_tampil as $key => $one_menu) {
@@ -58,9 +81,9 @@
                           if ($this->uri->segment(2) == $sub_menu[$key1]['nama_method']) {
                             foreach ($one_sub_menu as $key2 => $one_crud) {
                               
-                              if ($one_crud['berhak'] && $menu_crud[$key2]['is_crud'])
+                              if ($one_crud['berhak'] && $menu_crud[$key2]['is_crud'] && ($menu_crud[$key2]['nama_menu_crud'] != "Review"))
                               {
-                                echo "<a href='".base_url($menu_utama[$key]['nama_controller']."/".$sub_menu[$key1]['nama_method'].$menu_crud[$key2]['nama_concat_method'])."'>";
+                                echo "<a href='".base_url($menu_utama[$key]['nama_controller']."/".$sub_menu[$key1]['nama_method'].$menu_crud[$key2]['nama_concat_method']."/".$onedata['id_anggaran'])."' class='".$menu_crud[$key2]['nama_menu_crud']."' id='".$menu_crud[$key2]['nama_menu_crud'].$onedata['id_anggaran']."'>";
                                 echo $menu_crud[$key2]['html'];
                                 echo "</a>";
                               }
@@ -85,6 +108,7 @@
                   <th>No. Penerimaan Kemenkumham</th>
                   <th>PIC</th>
                   <th>Status Akta</th>
+                  <th>Lampiran</th>
                   <th>Pengaturan</th>
                 </tr>
                 </tfoot>
@@ -97,9 +121,32 @@
         <!-- /.col -->
       </div>
       <!-- /.row -->
+
+      <div class="modal fade" id="modal_delete">
+          <div class="modal-dialog">
+            <div class="modal-content">
+              <div class="modal-header">
+                <h4 class="modal-title">HAPUS DATA</h4>
+              </div>
+              <div class="modal-body">
+                <p>Apakah anda yakin ingin menghapus data ini?</p>
+              </div>
+              <div class="modal-footer">
+                <a id="delete_yes"><button type="button" class="btn btn-danger pull-left">Iya, Hapus</button></a>
+                <button type="button" class="btn btn-success pull-right" data-dismiss="modal" id="delete_no">Tidak</button>
+              </div>
+            </div>
+            <!-- /.modal-content -->
+          </div>
+          <!-- /.modal-dialog -->
+        </div>
+
     </section>
     <!-- /.content -->
     <script>
+      var delete_href = "";
+      var delete_id = "";
+
       $(function () {
         // $('#example1').DataTable()
         // $('#example2').DataTable({
@@ -111,5 +158,18 @@
         //   'autoWidth'   : false
         // })
         $('#tabel1').DataTable()
+
+        $(document).on("click", ".Delete", function() {
+          delete_href = $(this).attr('href');
+          delete_id = $(this).attr('id');
+          $(this).attr('href', "#");
+          $("#delete_yes").attr('href', delete_href);
+        })
+
+        $("#delete_no").click(function() {
+          delete_id = "#" + delete_id;
+          $(delete_id).attr('href', delete_href);
+        })
+
       })
     </script>

@@ -26,6 +26,14 @@ class Welcome extends CI_Controller {
 		die();
 	}
 
+	public function test()
+	{
+		$this->load->library('authentifier');
+
+		$this->authentifier->set_flashdata('error', 2);
+		return redirect ('data/lisensi');
+	}
+
 	public function tester()
 	{
 		$data = array();
