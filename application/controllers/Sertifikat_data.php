@@ -14,6 +14,7 @@ class Sertifikat_data extends CI_Controller {
 		$this->load->model('dasar_hukum');
 		$this->load->model('jenis_sertifikat');
 		$this->load->model('log_database');
+		$this->load->model('status');
 	}
 
 	public function upload_file_lampiran()
