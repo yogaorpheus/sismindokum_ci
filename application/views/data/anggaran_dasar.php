@@ -62,7 +62,7 @@
                     </div>
                     <div class="col-md-6">
                       <?php 
-                      if (!is_null($onedata['file_anggaran_2']) && !empty($onedata['file_anggaran_1']))
+                      if (!is_null($onedata['file_anggaran_2']) && !empty($onedata['file_anggaran_2']))
                       {
                         echo "<a href='".$onedata['file_anggaran_2']."'>"; 
                         echo "<button class='btn btn-primary btn-xs'><i class='glyphicon glyphicon-zoom-in'></i></button>";
