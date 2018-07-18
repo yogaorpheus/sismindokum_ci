@@ -66,6 +66,16 @@ class Sertifikat extends CI_Model {
 		return $query->row_array();
 	}
 
+	public function get_id_sertifikat_latest_by_user($id_pegawai)
+	{
+		$this->db->where('dibuat_oleh', $id_pegawai);
+		$this->db->order_by('id_sertifikat', 'DESC');
+		$this->db->limit(1);
+		$id_sertifikat = $this->db->get('sertifikat')->row_array()['id_sertifikat'];
+
+		return $id_sertifikat;
+	}
+
 	public function get_all_sertifikat_lama($nama_sertifikat)
 	{
 		$this->db->where('nama_jenis_sertifikat', $nama_sertifikat);
@@ -87,6 +97,15 @@ class Sertifikat extends CI_Model {
 		$this->db->where('id_sertifikat', $id_sertif);
 		$this->db->where('id_jenis_sertifikat', $id_jenis_sertif);
 		$query = $this->db->delete('sertifikat');
+
+		return $query;
+	}
+
+	public function update_data_sertifikat($data)
+	{
+		$this->db->where('id_sertifikat', $data['id_sertifikat']);
+		$this->db->set($data);
+		$query = $this->db->update('sertifikat');
 
 		return $query;
 	}

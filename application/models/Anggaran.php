@@ -25,9 +25,11 @@ class Anggaran extends CI_Model {
 	public function get_all_anggaran_by_status($nama_status)
 	{
 		$this->db->where('nama_status', $nama_status);
+		$this->db->where('penggunaan_tabel_status', "anggaran");
 		$id_status = $this->db->get('status')->row_array()['id_status'];
 
 		$this->db->where('status_anggaran', $id_status);
+		$this->db->join('status', 'status.id_status = anggaran.status_anggaran', 'inner');
 		$query = $this->db->get('anggaran');
 
 		return $query->result_array();
@@ -44,6 +46,15 @@ class Anggaran extends CI_Model {
 	public function insert_anggaran_dasar($data)
 	{
 		$query = $this->db->insert('anggaran', $data);
+
+		return $query;
+	}
+
+	public function update_anggaran_dasar($data)
+	{
+		$this->db->where('id_anggaran', $data['id_anggaran']);
+		$this->db->set($data);
+		$query = $this->db->update('anggaran');
 
 		return $query;
 	}

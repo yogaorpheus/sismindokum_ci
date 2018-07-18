@@ -28,7 +28,7 @@ class Data extends CI_Controller {
 	//-------------------------------------- SEMUA DATA ANGGARAN DASAR -----------------------------------------------
 	public function anggaran_dasar()
 	{
-		$data_anggaran_dasar = $this->anggaran->get_all_anggaran();
+		$data_anggaran_dasar = $this->anggaran->get_all_anggaran_by_status("Aktif");
 		$data = array(
 			'data_anggaran_dasar'	=> $data_anggaran_dasar
 			);

@@ -13,6 +13,7 @@ class Sertifikat_data extends CI_Controller {
 		$this->load->model('sertifikat');
 		$this->load->model('dasar_hukum');
 		$this->load->model('jenis_sertifikat');
+		$this->load->model('log_database');
 	}
 
 	public function upload_file_lampiran()
@@ -72,6 +73,16 @@ class Sertifikat_data extends CI_Controller {
 		
 		if ($result)
 		{
+			$id_pegawai = $this->authentifier->get_user_detail()['id_pegawai'];
+			$id_sertifikat = $this->sertifikat->get_id_sertifikat_latest_by_user($id_pegawai);
+
+			$log_data = array(
+				'nama_tabel'		=> 'sertifikat',
+				'id_pegawai'		=> $id_pegawai,
+				'id_status_log'		=> $this->status->get_id_status_by_nama("melakukan create"),
+				'id_data'			=> $id_sertifikat
+				);
+			$id_log = $this->log_database->write_log($log_data);
 			// Insert data sukses
 			$this->authentifier->set_flashdata('error', 1);
 		}
@@ -115,6 +126,16 @@ class Sertifikat_data extends CI_Controller {
 		
 		if ($result)
 		{
+			$id_pegawai = $this->authentifier->get_user_detail()['id_pegawai'];
+			$id_sertifikat = $this->sertifikat->get_id_sertifikat_latest_by_user($id_pegawai);
+
+			$log_data = array(
+				'nama_tabel'		=> 'sertifikat',
+				'id_pegawai'		=> $id_pegawai,
+				'id_status_log'		=> $this->status->get_id_status_by_nama("melakukan create"),
+				'id_data'			=> $id_sertifikat
+				);
+			$id_log = $this->log_database->write_log($log_data);
 			// Insert data sukses
 			$this->authentifier->set_flashdata('error', 1);
 		}
@@ -158,6 +179,16 @@ class Sertifikat_data extends CI_Controller {
 		
 		if ($result)
 		{
+			$id_pegawai = $this->authentifier->get_user_detail()['id_pegawai'];
+			$id_sertifikat = $this->sertifikat->get_id_sertifikat_latest_by_user($id_pegawai);
+
+			$log_data = array(
+				'nama_tabel'		=> 'sertifikat',
+				'id_pegawai'		=> $id_pegawai,
+				'id_status_log'		=> $this->status->get_id_status_by_nama("melakukan create"),
+				'id_data'			=> $id_sertifikat
+				);
+			$id_log = $this->log_database->write_log($log_data);
 			// Insert data sukses
 			$this->authentifier->set_flashdata('error', 1);
 		}
@@ -201,6 +232,16 @@ class Sertifikat_data extends CI_Controller {
 		
 		if ($result)
 		{
+			$id_pegawai = $this->authentifier->get_user_detail()['id_pegawai'];
+			$id_sertifikat = $this->sertifikat->get_id_sertifikat_latest_by_user($id_pegawai);
+
+			$log_data = array(
+				'nama_tabel'		=> 'sertifikat',
+				'id_pegawai'		=> $id_pegawai,
+				'id_status_log'		=> $this->status->get_id_status_by_nama("melakukan create"),
+				'id_data'			=> $id_sertifikat
+				);
+			$id_log = $this->log_database->write_log($log_data);
 			// Insert data sukses
 			$this->authentifier->set_flashdata('error', 1);
 		}
@@ -243,6 +284,16 @@ class Sertifikat_data extends CI_Controller {
 		
 		if ($result)
 		{
+			$id_pegawai = $this->authentifier->get_user_detail()['id_pegawai'];
+			$id_sertifikat = $this->sertifikat->get_id_sertifikat_latest_by_user($id_pegawai);
+
+			$log_data = array(
+				'nama_tabel'		=> 'sertifikat',
+				'id_pegawai'		=> $id_pegawai,
+				'id_status_log'		=> $this->status->get_id_status_by_nama("melakukan create"),
+				'id_data'			=> $id_sertifikat
+				);
+			$id_log = $this->log_database->write_log($log_data);
 			// Insert data sukses
 			$this->authentifier->set_flashdata('error', 1);
 		}

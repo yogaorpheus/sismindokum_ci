@@ -63,6 +63,14 @@ $route['data/perizinan_review/(:num)'] 			= 'data_crud/perizinan_review/$1';
 $route['data/pengujian_alat_k3_review/(:num)'] 	= 'data_crud/pengujian_alat_k3_review/$1';
 $route['data/lisensi_review/(:num)'] 			= 'data_crud/lisensi_review/$1';
 
+// EDIT ROUTE //
+$route['data/pertanahan_edit/(:num)'] 			= 'data_crud/pertanahan_edit/$1';
+$route['data/anggaran_dasar_edit/(:num)'] 		= 'data_crud/anggaran_dasar_edit/$1';
+$route['data/slo_edit/(:num)'] 					= 'data_crud/slo_edit/$1';
+$route['data/perizinan_edit/(:num)'] 			= 'data_crud/perizinan_edit/$1';
+$route['data/pengujian_alat_k3_edit/(:num)'] 	= 'data_crud/pengujian_alat_k3_edit/$1';
+$route['data/lisensi_edit/(:num)'] 				= 'data_crud/lisensi_edit/$1';
+
 // DELETE ROUTE //
 $route['data/pertanahan_delete/(:num)'] 		= 'data_crud/pertanahan_delete/$1';
 $route['data/anggaran_dasar_delete/(:num)'] 	= 'data_crud/anggaran_dasar_delete/$1';
