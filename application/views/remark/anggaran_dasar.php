@@ -12,12 +12,12 @@
     <!-- Main content -->
     <section class="content">
       <div class="row">
-        <div class="col-md-12">
-          <form id="form_anggaran_dasar" action="<?php echo base_url('anggaran_dasar/anggaran_dasar_update'); ?>" method="POST" enctype="multipart/form-data">
+        <div class="col-md-6">
+          <form id="form_anggaran_dasar" action="<?php echo base_url('remark_data/anggaran_dasar_remark'); ?>" method="POST" enctype="multipart/form-data">
             <input type="hidden" name="id_anggaran" value="<?php echo $data_anggaran['id_anggaran']; ?>">
             <div class="box box-primary">
               <div class="box-header with-border">
-                <h3 class="box-title">Edit Anggaran Dasar</h3>
+                <h3 class="box-title">Remark Anggaran Dasar</h3>
 
                 <div class="box-tools pull-right">
                   <button type="button" class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-minus"></i></button>
@@ -26,92 +26,48 @@
               </div>
 
               <div class="box-body">
-                
                 <div class="row">
-
-                  <div class="col-md-6">
+                  <div class="col-md-12">
                     <div class="form-group">
                       <label>Tanggal RUPS Sirkuler</label>
-                      <div class="input-group">
-                        <div class="input-group-addon">
-                          <i class="fa fa-calendar"></i>
-                        </div>
-                        <input type="text" class="form-control pull-right" id="datepicker1" name="tanggal_rups_sirkuler" value="<?php echo $data_anggaran['tanggal_rups_sirkuler']; ?>">
-                      </div>
+                      <input type="text" class="form-control" id="tanggal_rups" name="tanggal_rups_sirkuler" value="<?php echo $data_anggaran['tanggal_rups_sirkuler']; ?>" disabled="disabled">
                     </div>
 
                     <div class="form-group">
-                      <label>Tahun Anggaran</label><br>
-                      <select class="form-control select2" style="width: 25%;" name="tahun_anggaran">
-                        <?php
-                        $year_now = date("Y");
-                        for ($i = 2000; $i < 2100; $i++)
-                        {
-                          if ($data_anggaran['tahun_anggaran'] == $i)
-                            echo "<option selected='selected'>";
-                          else
-                            echo "<option>";
+                      <label>Tahun Anggaran</label>
+                      <input type="text" class="form-control" id="tahun_anggaran" name="tahun_anggaran" value="<?php echo $data_anggaran['tahun_anggaran']; ?>" disabled="disabled">
+                    </div>
 
-                          echo $i;
-                          echo "</option>";
-                        }
-                        ?>
-                      </select>
+                    <div class="form-group">
+                      <label>Tanggal Akta</label>
+                      <input type="text" class="form-control" id="tanggal_akta" name="tanggal_akta" value="<?php echo $data_anggaran['tanggal_akta_anggaran']; ?>" disabled="disabled">
                     </div>
 
                     <div class="form-group">
                       <label>No. Akta</label>
-                      <input type="text" class="form-control" id="no_akta" name="no_akta" value="<?php echo $data_anggaran['no_akta_anggaran']; ?>">
+                      <input type="text" class="form-control" id="no_akta" name="no_akta" value="<?php echo $data_anggaran['no_akta_anggaran']; ?>" disabled="disabled">
                     </div>
 
                     <div class="form-group">
                       <label>Nomor Penerimaan Kemenkumham</label>
-                      <input type="text" class="form-control" id="nomor_penerimaan" name="nomor_penerimaan" value="<?php echo $data_anggaran['no_penerimaan_anggaran']; ?>">
+                      <input type="text" class="form-control" id="nomor_penerimaan" name="nomor_penerimaan" value="<?php echo $data_anggaran['no_penerimaan_anggaran']; ?>" disabled="disabled">
                     </div>
 
                     <div class="form-group">
-                      <label>Status</label><br>
-                      <select class="form-control select2" style="width: 50%;" name="status">
-                      <?php
-                        foreach ($status as $key => $one_status) {
-                          if ($one_status['id_status'] == $data_anggaran['status_anggaran'])
-                            echo "<option selected='selected' value='".$one_status['id_status']."'>";
-                          else
-                            echo "<option value='".$one_status['id_status']."'>";
-                          echo $one_status['nama_status'];
-                          echo "</option>";
-                        }
-                      ?>
-                      </select>
-                    </div>
-
-                    <!-- ADA TAMBAHAN PIC, DIAMBIL MELALUI SESSION AJA -->                  
-                  </div>
-
-                  <div class="col-md-6">
-                    <div class="form-group">
-                      <label>Tanggal Akta</label>
-                      <div class="input-group">
-                        <div class="input-group-addon">
-                          <i class="fa fa-calendar"></i>
-                        </div>
-                        <input type="text" class="form-control pull-right" id="datepicker2" name="tanggal_akta" value="<?php echo $data_anggaran['tanggal_akta']; ?>">
-                      </div>
+                      <label>Status</label>
+                      <input type="text" class="form-control" id="status" name="status" value="<?php echo $data_anggaran['status_anggaran']; ?>" disabled="disabled">
                     </div>
 
                     <div class="form-group">
                       <label>Lampiran 1</label>
-                      <input type="file" id="lampiran1" name="lampiran1">
                       <p class="help-block"><?php echo $data_anggaran['nama_file1']; ?></p>
                     </div>
 
                     <div class="form-group">
                       <label>Lampiran 2</label>
-                      <input type="file" id="lampiran2" name="lampiran2">
                       <p class="help-block"><?php echo $data_anggaran['nama_file2']; ?></p>
                     </div>
                   </div>
-
                 </div>
               </div>
 

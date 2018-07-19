@@ -43,6 +43,16 @@ class Anggaran extends CI_Model {
 		return $query->row_array();
 	}
 
+	public function get_id_anggaran_latest_by_user($id_pegawai)
+	{
+		$this->db->where('dibuat_oleh', $id_pegawai);
+		$this->db->order_by('id_anggaran', 'DESC');
+		$this->db->limit(1);
+		$id_anggaran = $this->db->get('anggaran')->row_array()['id_anggaran'];
+
+		return $id_anggaran;
+	}
+
 	public function insert_anggaran_dasar($data)
 	{
 		$query = $this->db->insert('anggaran', $data);

@@ -22,8 +22,9 @@ class Hak_akses extends CI_Model {
 			SELECT menu.id_menu1, menu.id_menu2, menu.id_menu_crud
 			FROM hak_akses_menu pengakses
 			INNER JOIN menu_tampil menu ON menu.id_menu_tampil = pengakses.id_menu_tampil
-			WHERE pengakses.id_posisi_subdit = ".$kode_posisi_subdit." AND pengakses.id_distrik = ".$kode_distrik
-			);
+			WHERE pengakses.id_posisi_subdit = ".$kode_posisi_subdit." AND pengakses.id_distrik = ".$kode_distrik."
+			ORDER BY menu.id_menu1 ASC, menu.id_menu2 ASC, menu.id_menu_crud ASC
+			");
 
 		if (empty($query) || is_null($query))
 		{

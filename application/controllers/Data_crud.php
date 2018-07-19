@@ -29,9 +29,11 @@ class Data_crud extends CI_Controller {
 		$config['upload_path']          = './assets/lampiran/';
         $config['allowed_types']        = 'gif|jpg|jpeg|png|pdf|docx|doc';
        	$config['remove_spaces']		= true;
+       	$config['max_size']				= '10000';
 
 		$this->load->library('upload', $config);
 		$test_upload = $this->upload->do_upload('lampiran');
+		$file_data = array();
 		
 		if (! $test_upload)
 		{
@@ -41,9 +43,12 @@ class Data_crud extends CI_Controller {
 		{
 			$file = $this->upload->data();
 			$file_path = base_url('assets/lampiran')."/".$file['file_name'];
+
+			$file_data['file_path'] = $file_path;
+			$file_data['file_name'] = $file['file_name'];
 		}
 
-		return $file_path;
+		return $file_data;
 	}
 
 	//-------------------------------------- SEMUA DATA PERTANAHAN -----------------------------------------------
@@ -100,9 +105,10 @@ class Data_crud extends CI_Controller {
 			'status_sertifikat'			=> 3
 			);
 		// Status sertifikat masih menggunakan nilai default
-		if (!is_null($file_path))
+		if (!is_null($file_path) && !empty($file_path))
 		{
-			$data['file_sertifikat'] = $file_path;
+			$data['file_sertifikat'] = $file_path['file_path'];
+			$data['nama_file'] = $file_path['file_name'];
 		}
 
 		$result = $this->sertifikat->update_data_sertifikat($data);
@@ -217,9 +223,10 @@ class Data_crud extends CI_Controller {
 			'status_sertifikat'			=> 3
 			);
 
-		if (!is_null($file_path))
+		if (!is_null($file_path) && !empty($file_path))
 		{
-			$data['file_sertifikat'] = $file_path;
+			$data['file_sertifikat'] = $file_path['file_path'];
+			$data['nama_file'] = $file_path['file_name'];
 		}
 
 		$result = $this->sertifikat->update_data_sertifikat($data);
@@ -343,9 +350,10 @@ class Data_crud extends CI_Controller {
 			'status_sertifikat'			=> 3
 			);
 
-		if (!is_null($file_path))
+		if (!is_null($file_path) && !empty($file_path))
 		{
-			$data['file_sertifikat'] = $file_path;
+			$data['file_sertifikat'] = $file_path['file_path'];
+			$data['nama_file'] = $file_path['file_name'];
 		}
 
 		$result = $this->sertifikat->update_data_sertifikat($data);
@@ -462,9 +470,10 @@ class Data_crud extends CI_Controller {
 			'status_sertifikat'			=> 3
 			);
 
-		if (!is_null($file_path))
+		if (!is_null($file_path) && !empty($file_path))
 		{
-			$data['file_sertifikat'] = $file_path;
+			$data['file_sertifikat'] = $file_path['file_path'];
+			$data['nama_file'] = $file_path['file_name'];
 		}
 
 		$result = $this->sertifikat->update_data_sertifikat($data);
@@ -577,9 +586,10 @@ class Data_crud extends CI_Controller {
 			'status_sertifikat'			=> 3
 			);
 
-		if (!is_null($file_path))
+		if (!is_null($file_path) && !empty($file_path))
 		{
-			$data['file_sertifikat'] = $file_path;
+			$data['file_sertifikat'] = $file_path['file_path'];
+			$data['nama_file'] = $file_path['file_name'];
 		}
 
 		$result = $this->sertifikat->update_data_sertifikat($data);
