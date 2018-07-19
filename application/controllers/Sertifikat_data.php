@@ -24,7 +24,7 @@ class Sertifikat_data extends CI_Controller {
 		$config['upload_path']          = './assets/lampiran/';
         $config['allowed_types']        = 'gif|jpg|jpeg|png|pdf|docx|doc';
        	$config['remove_spaces']		= true;
-       	$config['max_size']				= '1000';
+       	$config['max_size']				= '10000';
 
 		$this->load->library('upload', $config);
 		$test_upload = $this->upload->do_upload('lampiran');
@@ -42,9 +42,6 @@ class Sertifikat_data extends CI_Controller {
 			$file_data['file_path'] = $file_path;
 			$file_data['file_name'] = $file['file_name'];
 		}
-
-		var_dump($file_data);
-		die();
 
 		return $file_data;
 	}
@@ -78,9 +75,6 @@ class Sertifikat_data extends CI_Controller {
 			'status_sertifikat'			=> 3
 			);
 		// Status sertifikat masih menggunakan nilai default
-
-		var_dump($data);
-		die();
 
 		$result = $this->sertifikat->tambah_data_pertanahan($data);
 		

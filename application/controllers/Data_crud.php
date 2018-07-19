@@ -29,6 +29,7 @@ class Data_crud extends CI_Controller {
 		$config['upload_path']          = './assets/lampiran/';
         $config['allowed_types']        = 'gif|jpg|jpeg|png|pdf|docx|doc';
        	$config['remove_spaces']		= true;
+       	$config['max_size']				= '10000';
 
 		$this->load->library('upload', $config);
 		$test_upload = $this->upload->do_upload('lampiran');
@@ -104,7 +105,7 @@ class Data_crud extends CI_Controller {
 			'status_sertifikat'			=> 3
 			);
 		// Status sertifikat masih menggunakan nilai default
-		if (!is_null($file_path))
+		if (!is_null($file_path) && !empty($file_path))
 		{
 			$data['file_sertifikat'] = $file_path['file_path'];
 			$data['nama_file'] = $file_path['file_name'];
@@ -222,7 +223,7 @@ class Data_crud extends CI_Controller {
 			'status_sertifikat'			=> 3
 			);
 
-		if (!is_null($file_path))
+		if (!is_null($file_path) && !empty($file_path))
 		{
 			$data['file_sertifikat'] = $file_path['file_path'];
 			$data['nama_file'] = $file_path['file_name'];
@@ -349,7 +350,7 @@ class Data_crud extends CI_Controller {
 			'status_sertifikat'			=> 3
 			);
 
-		if (!is_null($file_path))
+		if (!is_null($file_path) && !empty($file_path))
 		{
 			$data['file_sertifikat'] = $file_path['file_path'];
 			$data['nama_file'] = $file_path['file_name'];
@@ -469,7 +470,7 @@ class Data_crud extends CI_Controller {
 			'status_sertifikat'			=> 3
 			);
 
-		if (!is_null($file_path))
+		if (!is_null($file_path) && !empty($file_path))
 		{
 			$data['file_sertifikat'] = $file_path['file_path'];
 			$data['nama_file'] = $file_path['file_name'];
@@ -585,7 +586,7 @@ class Data_crud extends CI_Controller {
 			'status_sertifikat'			=> 3
 			);
 
-		if (!is_null($file_path))
+		if (!is_null($file_path) && !empty($file_path))
 		{
 			$data['file_sertifikat'] = $file_path['file_path'];
 			$data['nama_file'] = $file_path['file_name'];
