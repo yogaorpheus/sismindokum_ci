@@ -28,7 +28,7 @@
     <link rel="stylesheet" href="<?php echo base_url('assets/adminlte'); ?>/bower_components/bootstrap-daterangepicker/daterangepicker.css">
     <!-- bootstrap wysihtml5 - text editor -->
     <link rel="stylesheet" href="<?php echo base_url('assets/adminlte'); ?>/plugins/bootstrap-wysihtml5/bootstrap3-wysihtml5.min.css">
-  <?php } else if ($head == 'form') { ?>
+  <?php } else if ($head == 'form' || $head == 'remark') { ?>
     <!-- <title> FORM PJB </title> -->
     <!-- bootstrap datepicker -->
     <link rel="stylesheet" href="<?php echo base_url('assets/adminlte'); ?>/bower_components/bootstrap-datepicker/dist/css/bootstrap-datepicker.min.css">
@@ -42,7 +42,7 @@
     <link rel="stylesheet" href="<?php echo base_url('assets/adminlte'); ?>/bower_components/bootstrap-colorpicker/dist/css/bootstrap-colorpicker.min.css">
     <!-- Bootstrap Validator -->
     <!-- <link rel="stylesheet" href="<?php echo base_url('assets/bootstrap_validator'); ?> /css/bootstrapValidator.css"> -->
-  <?php } else if ($head == 'data') { ?>
+  <?php } else if ($head == 'data' || $head == 'data_lama') { ?>
     <!-- <title> DATATABLES </title> -->
     <!-- DataTables -->
     <link rel="stylesheet" href="<?php echo base_url('assets/adminlte'); ?>/bower_components/datatables.net-bs/css/dataTables.bootstrap.min.css">

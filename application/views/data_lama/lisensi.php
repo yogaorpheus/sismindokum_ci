@@ -17,7 +17,6 @@
           <div class="box">
             <div class="box-header">
               <h3 class="box-title">Data Lisensi</h3>
-              <button class="btn btn-success pull-right"><i class="glyphicon glyphicon-download-alt"></i> Download Data</button>
             </div>
             <!-- /.box-header -->
             <div class="box-body">
@@ -104,31 +103,9 @@
         <!-- /.col -->
       </div>
       <!-- /.row -->
-
-      <div class="modal fade" id="modal_delete">
-          <div class="modal-dialog">
-            <div class="modal-content">
-              <div class="modal-header">
-                <h4 class="modal-title">HAPUS DATA</h4>
-              </div>
-              <div class="modal-body">
-                <p>Apakah anda yakin ingin menghapus data ini?</p>
-              </div>
-              <div class="modal-footer">
-                <a id="delete_yes"><button type="button" class="btn btn-danger pull-left">Iya, Hapus</button></a>
-                <button type="button" class="btn btn-success pull-right" data-dismiss="modal" id="delete_no">Tidak</button>
-              </div>
-            </div>
-            <!-- /.modal-content -->
-          </div>
-          <!-- /.modal-dialog -->
-        </div>
-      
     </section>
     <!-- /.content -->
     <script>
-      var delete_href = "";
-      var delete_id = "";
 
       $(function () {
         // $('#example1').DataTable()
@@ -142,30 +119,5 @@
         // })
         $('#tabel1').DataTable()
 
-        $(document).on("click", ".Delete", function() {
-          delete_href = $(this).attr('href');
-          delete_id = $(this).attr('id');
-          $(this).attr('href', "#");
-          $("#delete_yes").attr('href', delete_href);
-        })
-
-        $("#delete_no").click(function() {
-          delete_id = "#" + delete_id;
-          $(delete_id).attr('href', delete_href);
-        })
-
-        $("#test_btn").click(function() {
-          window.open("<?php echo base_url('assets/lampiran').'/cato2.jpg'; ?>", "_new");
-          window.open("<?php echo base_url('assets/lampiran').'/cato1.jpg'; ?>", "_blank");
-        })
-
-        <?php
-        if ($this->session->flashdata('error') == 1) {
-          echo "alert('Data Lisensi berhasil dihapus');";
-        }
-        else if ($this->session->flashdata('error') == 2) {
-          echo "alert('Data Lisensi gagal dihapus');";
-        }
-        ?>
       })
     </script>

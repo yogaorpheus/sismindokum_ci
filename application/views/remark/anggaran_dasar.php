@@ -12,8 +12,8 @@
     <!-- Main content -->
     <section class="content">
       <div class="row">
-        <div class="col-md-6">
-          <form id="form_anggaran_dasar" action="<?php echo base_url('remark_data/anggaran_dasar_remark'); ?>" method="POST" enctype="multipart/form-data">
+        <form id="form_anggaran_dasar" action="<?php echo base_url('remark_data/anggaran_dasar_remark'); ?>" method="POST" enctype="multipart/form-data">
+          <div class="col-md-6">  
             <input type="hidden" name="id_anggaran" value="<?php echo $data_anggaran['id_anggaran']; ?>">
             <div class="box box-primary">
               <div class="box-header with-border">
@@ -28,6 +28,7 @@
               <div class="box-body">
                 <div class="row">
                   <div class="col-md-12">
+                    
                     <div class="form-group">
                       <label>Tanggal RUPS Sirkuler</label>
                       <input type="text" class="form-control" id="tanggal_rups" name="tanggal_rups_sirkuler" value="<?php echo $data_anggaran['tanggal_rups_sirkuler']; ?>" disabled="disabled">
@@ -55,7 +56,7 @@
 
                     <div class="form-group">
                       <label>Status</label>
-                      <input type="text" class="form-control" id="status" name="status" value="<?php echo $data_anggaran['status_anggaran']; ?>" disabled="disabled">
+                      <input type="text" class="form-control" id="status" name="status" value="<?php echo $data_anggaran['nama_status']; ?>" disabled="disabled">
                     </div>
 
                     <div class="form-group">
@@ -70,16 +71,105 @@
                   </div>
                 </div>
               </div>
+            </div>
+          </div>
 
-              <div class="box-footer">
-                <div class="col-md-6"></div>
-                <div class="col-md-6">
-                  <button type="submit" class="btn btn-primary pull-right btn-lg">Edit dan Simpan</button>
+          <div class="col-md-6">
+
+              <div class="box box-success direct-chat direct-chat-success">
+                <div class="box-header with-border">
+                  <h3 class="box-title">Remark Anggaran</h3>
+
+                  <div class="box-tools pull-right">
+                    <button type="button" class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-minus"></i>
+                    </button>
+                    <button type="button" class="btn btn-box-tool" data-widget="remove"><i class="fa fa-times"></i>
+                    </button>
+                  </div>
+                </div>
+                <!-- /.box-header -->
+                <div class="box-body">
+                  <!-- Conversations are loaded here -->
+                  <div class="direct-chat-messages">
+                    <!-- Message. Default to the left -->
+                    <?php
+                    foreach ($data_remark as $key => $one_remark) {
+                      echo "<div class='direct-chat-msg'>";
+                      echo "<div class='direct-chat-info clearfix'>";
+
+                      if ($one_remark['id_pegawai'] == $this->session->userdata('staff_pjb')['id_pegawai'])
+                      {
+                        echo "<span class='direct-chat-name pull-right'>".$one_remark['nama_lengkap_pegawai']."</span>";
+                        echo "<span class='direct-chat-timestamp pull-left'>".$one_remark['tanggal_remark']."</span>";
+                      }
+                      else
+                      {
+                        echo "<span class='direct-chat-name pull-left'>".$one_remark['nama_lengkap_pegawai']."</span>";
+                        echo "<span class='direct-chat-timestamp pull-right'>".$one_remark['tanggal_remark']."</span>";
+                      }
+
+                      echo "</div>";
+                      echo "<img class='direct-chat-img'><i class='glyphicon glyphicon-user'></i>";
+                      echo "<div class='direct-chat-text'>";
+                      echo "Status Remark</br>";
+                      echo $one_remark['nama_status']."</br></br>";
+                      echo "Remark</br>";
+                      echo $one_remark['keterangan']."</br></br>";
+                      echo "<button class='btn btn-danger btn-xs'><i class='glyphicon glyphicon-trash'></i></button>";
+                      echo "</div>";
+                      echo "</div>";
+                    }
+                    ?>
+                  </div>
+                  <!--/.direct-chat-messages-->                  
+                </div>
+                <!-- /.box-body -->
+              </div>
+              <!--/.direct-chat -->
+
+            <div class="box box-primary">
+              <div class="box-header with-border">
+                <h3 class="box-title">Remark</h3>
+
+                <div class="box-tools pull-right">
+                  <button type="button" class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-minus"></i></button>
+                  <button type="button" class="btn btn-box-tool" data-widget="remove"><i class="fa fa-remove"></i></button>
+                </div>
+              </div>
+
+              <div class="box-body">
+                <div class="row">
+                  
+                  <div class="col-md-12">
+                    <div class="form-group">
+                      <label>Status Remark</label>
+                      <select class="form-control select2" style="width: 100%;" name="status_remark" id="status_remark">
+                        <?php
+                        foreach ($status_remark as $key => $one_status) {
+                          echo "<option value='".$one_status['id_status']."'>";
+                          echo $one_status['nama_status'];
+                          echo "</option>";
+                        }
+                        ?>
+                      </select>
+                    </div>
+
+                    <div class="form-group">
+                      <label>Keterangan Remark</label>
+                      <textarea class="form-control" name="keterangan" placeholder="Tuliskan keterangan remark" rows="3"></textarea>
+                    </div>
+
+                    <div class="form-group">
+                      <button type="submit" class="btn btn-success pull-right" value="Simpan">Simpan Remark</button>
+                    </div>
+                  </div>
+
                 </div>
               </div>
             </div>
-          </form>
-        </div>
+          </div>
+
+        </form>
       </div>
         <!-- /.row -->
     </section>

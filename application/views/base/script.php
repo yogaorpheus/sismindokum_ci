@@ -26,7 +26,7 @@
 	<script src="<?php echo base_url('assets/adminlte'); ?>/plugins/jvectormap/jquery-jvectormap-world-mill-en.js"></script>
 	<!-- jQuery Knob Chart -->
 	<script src="<?php echo base_url('assets/adminlte'); ?>/bower_components/jquery-knob/dist/jquery.knob.min.js"></script>
-<?php } else if ($head == 'form') { ?>
+<?php } else if ($head == 'form' || $head == 'remark') { ?>
 	<!-- Select2 -->
 	<script src="<?php echo base_url('assets/adminlte'); ?>/bower_components/select2/dist/js/select2.full.min.js"></script>
 	<!-- InputMask -->
@@ -39,7 +39,7 @@
 	<script src="<?php echo base_url('assets/adminlte'); ?>/plugins/iCheck/icheck.min.js"></script>
 	<!-- Bootstrap Validator -->
 	<!-- <script src="<?php echo base_url('assets/bootstrap_validator'); ?>/js/bootstrapValidator.min.js"></script> -->
-<?php } else if ($head == 'data') { ?>
+<?php } else if ($head == 'data' || $head == 'data_lama') { ?>
 	<!-- DataTables -->
 	<script src="<?php echo base_url('assets/adminlte'); ?>/bower_components/datatables.net/js/jquery.dataTables.min.js"></script>
 	<script src="<?php echo base_url('assets/adminlte'); ?>/bower_components/datatables.net-bs/js/dataTables.bootstrap.min.js"></script>
