@@ -17,7 +17,7 @@
             <input type="hidden" name="id_sertifikat" value="<?php echo $data_perizinan['id_sertifikat']; ?>">
             <div class="box box-primary">
               <div class="box-header with-border">
-                <h3 class="box-title">Form Sertifikat Perizinan</h3>
+                <h3 class="box-title">Edit Sertifikat Perizinan</h3>
 
                 <div class="box-tools pull-right">
                   <button type="button" class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-minus"></i></button>
@@ -120,7 +120,7 @@
 
                     <div class="form-group">
                       <label>Keterangan</label>
-                      <textarea class="form-control" name="keterangan" placeholder="Tuliskan keterangan sertifikat" rows="4" value="<?php echo $data_perizinan['keterangan']; ?>"></textarea>
+                      <textarea class="form-control" name="keterangan" placeholder="Tuliskan keterangan sertifikat" rows="4"><?php echo $data_perizinan['keterangan']; ?></textarea>
                     </div>
 
                     <div class="form-group">
@@ -146,7 +146,7 @@
                     <div class="form-group">
                       <label for="file_sertifikat">Lampiran</label>
                       <input type="file" id="lampiran" name="lampiran">
-                      <p class="help-block"><?php echo $data_perizinan['file_sertifikat']; ?></p>
+                      <p class="help-block"><?php echo $data_perizinan['nama_file']; ?></p>
                     </div>
                   </div>
 

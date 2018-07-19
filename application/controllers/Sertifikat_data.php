@@ -24,9 +24,11 @@ class Sertifikat_data extends CI_Controller {
 		$config['upload_path']          = './assets/lampiran/';
         $config['allowed_types']        = 'gif|jpg|jpeg|png|pdf|docx|doc';
        	$config['remove_spaces']		= true;
+       	$config['max_size']				= '1000';
 
 		$this->load->library('upload', $config);
 		$test_upload = $this->upload->do_upload('lampiran');
+		$file_data = array();
 		
 		if (!$test_upload)
 		{
@@ -36,9 +38,15 @@ class Sertifikat_data extends CI_Controller {
 		{
 			$file = $this->upload->data();
 			$file_path = base_url('assets/lampiran')."/".$file['file_name'];
+
+			$file_data['file_path'] = $file_path;
+			$file_data['file_name'] = $file['file_name'];
 		}
 
-		return $file_path;
+		var_dump($file_data);
+		die();
+
+		return $file_data;
 	}
 
 	// BERIKUT ADALAH METHOD YANG AKAN DIGUNAKAN UNTUK MENAMBAH DATA PADA SETIAP SERTIFIKAT
@@ -62,7 +70,8 @@ class Sertifikat_data extends CI_Controller {
 			'judul_sertifikat'			=> $input['lokasi_sertifikat'],
 			'tanggal_sertifikasi'		=> $tanggal_terbit,
 			'tanggal_kadaluarsa'		=> $tanggal_berakhir,
-			'file_sertifikat'			=> $file_path,
+			'file_sertifikat'			=> $file_path['file_path'],
+			'nama_file'					=> $file_path['file_name'],
 			'keterangan'				=> $input['keterangan'],
 			'jabatan_pic'				=> $this->authentifier->get_user_detail()['posisi_pegawai'],
 			'dibuat_oleh'				=> $this->authentifier->get_user_detail()['id_pegawai'],
@@ -72,7 +81,7 @@ class Sertifikat_data extends CI_Controller {
 
 		var_dump($data);
 		die();
-		
+
 		$result = $this->sertifikat->tambah_data_pertanahan($data);
 		
 		if ($result)
@@ -119,7 +128,8 @@ class Sertifikat_data extends CI_Controller {
 			'spesifikasi_lisensi'		=> $input['spesifikasi'],
 			'tanggal_sertifikasi'		=> $tanggal_terbit,
 			'tanggal_kadaluarsa'		=> $tanggal_berakhir,
-			'file_sertifikat'			=> $file_path,
+			'file_sertifikat'			=> $file_path['file_path'],
+			'nama_file'					=> $file_path['file_name'],
 			'keterangan'				=> $input['keterangan'],
 			'jabatan_pic'				=> $this->authentifier->get_user_detail()['posisi_pegawai'],
 			'dibuat_oleh'				=> $this->authentifier->get_user_detail()['id_pegawai'],
@@ -172,7 +182,8 @@ class Sertifikat_data extends CI_Controller {
 			'judul_sertifikat'			=> $input['peralatan'],
 			'tanggal_sertifikasi'		=> $tanggal_terbit,
 			'tanggal_kadaluarsa'		=> $tanggal_berakhir,
-			'file_sertifikat'			=> $file_path,
+			'file_sertifikat'			=> $file_path['file_path'],
+			'nama_file'					=> $file_path['file_name'],
 			'keterangan'				=> $input['keterangan'],
 			'jabatan_pic'				=> $this->authentifier->get_user_detail()['posisi_pegawai'],
 			'dibuat_oleh'				=> $this->authentifier->get_user_detail()['id_pegawai'],
@@ -225,7 +236,8 @@ class Sertifikat_data extends CI_Controller {
 			'judul_sertifikat'			=> $input['peralatan'],
 			'tanggal_sertifikasi'		=> $tanggal_terbit,
 			'tanggal_kadaluarsa'		=> $tanggal_berakhir,
-			'file_sertifikat'			=> $file_path,
+			'file_sertifikat'			=> $file_path['file_path'],
+			'nama_file'					=> $file_path['file_name'],
 			'keterangan'				=> $input['keterangan'],
 			'jabatan_pic'				=> $this->authentifier->get_user_detail()['posisi_pegawai'],
 			'dibuat_oleh'				=> $this->authentifier->get_user_detail()['id_pegawai'],
@@ -277,7 +289,8 @@ class Sertifikat_data extends CI_Controller {
 			'no_sertifikat'				=> $input['no_sertifikat'],
 			'tanggal_sertifikasi'		=> $tanggal_terbit,
 			'tanggal_kadaluarsa'		=> $tanggal_berakhir,
-			'file_sertifikat'			=> $file_path,
+			'file_sertifikat'			=> $file_path['file_path'],
+			'nama_file'					=> $file_path['file_name'],
 			'keterangan'				=> $input['keterangan'],
 			'jabatan_pic'				=> $this->authentifier->get_user_detail()['posisi_pegawai'],
 			'dibuat_oleh'				=> $this->authentifier->get_user_detail()['id_pegawai'],

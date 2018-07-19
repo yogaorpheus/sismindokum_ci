@@ -17,7 +17,7 @@
             <input type="hidden" name="id_anggaran" value="<?php echo $data_anggaran['id_anggaran']; ?>">
             <div class="box box-primary">
               <div class="box-header with-border">
-                <h3 class="box-title">Form Anggaran Dasar</h3>
+                <h3 class="box-title">Edit Anggaran Dasar</h3>
 
                 <div class="box-tools pull-right">
                   <button type="button" class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-minus"></i></button>
@@ -102,13 +102,13 @@
                     <div class="form-group">
                       <label>Lampiran 1</label>
                       <input type="file" id="lampiran1" name="lampiran1">
-                      <p class="help-block"><?php echo $data_anggaran['file_anggaran_1']; ?></p>
+                      <p class="help-block"><?php echo $data_anggaran['nama_file1']; ?></p>
                     </div>
 
                     <div class="form-group">
                       <label>Lampiran 2</label>
                       <input type="file" id="lampiran2" name="lampiran2">
-                      <p class="help-block"><?php echo $data_anggaran['file_anggaran_2']; ?></p>
+                      <p class="help-block"><?php echo $data_anggaran['nama_file2']; ?></p>
                     </div>
                   </div>
 

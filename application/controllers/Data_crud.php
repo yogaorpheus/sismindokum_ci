@@ -32,6 +32,7 @@ class Data_crud extends CI_Controller {
 
 		$this->load->library('upload', $config);
 		$test_upload = $this->upload->do_upload('lampiran');
+		$file_data = array();
 		
 		if (! $test_upload)
 		{
@@ -41,9 +42,12 @@ class Data_crud extends CI_Controller {
 		{
 			$file = $this->upload->data();
 			$file_path = base_url('assets/lampiran')."/".$file['file_name'];
+
+			$file_data['file_path'] = $file_path;
+			$file_data['file_name'] = $file['file_name'];
 		}
 
-		return $file_path;
+		return $file_data;
 	}
 
 	//-------------------------------------- SEMUA DATA PERTANAHAN -----------------------------------------------
@@ -102,7 +106,8 @@ class Data_crud extends CI_Controller {
 		// Status sertifikat masih menggunakan nilai default
 		if (!is_null($file_path))
 		{
-			$data['file_sertifikat'] = $file_path;
+			$data['file_sertifikat'] = $file_path['file_path'];
+			$data['nama_file'] = $file_path['file_name'];
 		}
 
 		$result = $this->sertifikat->update_data_sertifikat($data);
@@ -219,7 +224,8 @@ class Data_crud extends CI_Controller {
 
 		if (!is_null($file_path))
 		{
-			$data['file_sertifikat'] = $file_path;
+			$data['file_sertifikat'] = $file_path['file_path'];
+			$data['nama_file'] = $file_path['file_name'];
 		}
 
 		$result = $this->sertifikat->update_data_sertifikat($data);
@@ -345,7 +351,8 @@ class Data_crud extends CI_Controller {
 
 		if (!is_null($file_path))
 		{
-			$data['file_sertifikat'] = $file_path;
+			$data['file_sertifikat'] = $file_path['file_path'];
+			$data['nama_file'] = $file_path['file_name'];
 		}
 
 		$result = $this->sertifikat->update_data_sertifikat($data);
@@ -464,7 +471,8 @@ class Data_crud extends CI_Controller {
 
 		if (!is_null($file_path))
 		{
-			$data['file_sertifikat'] = $file_path;
+			$data['file_sertifikat'] = $file_path['file_path'];
+			$data['nama_file'] = $file_path['file_name'];
 		}
 
 		$result = $this->sertifikat->update_data_sertifikat($data);
@@ -579,7 +587,8 @@ class Data_crud extends CI_Controller {
 
 		if (!is_null($file_path))
 		{
-			$data['file_sertifikat'] = $file_path;
+			$data['file_sertifikat'] = $file_path['file_path'];
+			$data['nama_file'] = $file_path['file_name'];
 		}
 
 		$result = $this->sertifikat->update_data_sertifikat($data);
