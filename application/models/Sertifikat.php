@@ -48,19 +48,37 @@ class Sertifikat extends CI_Model {
 		return $query->result_array();
 	}
 
-	public function get_sertifikat_by_id($id, $nama_jenis_sertif)
+	public function get_sertifikat_by_id($id, $nama_jenis_sertif = null)
 	{
-		$this->db->where('nama_jenis_sertifikat', $nama_jenis_sertif);
-		$id_jenis_sertifikat = $this->db->get('jenis_sertifikat')->row_array()['id_jenis_sertifikat'];
-
-		$this->db->where('nama_status', 'Selesai');
-		$this->db->where('penggunaan_tabel_status', 'sertifikat');
-		$id_status = $this->db->get('status')->row_array()['id_status'];
+		if (!is_null($nama_jenis_sertif))
+		{
+			$this->db->where('nama_jenis_sertifikat', $nama_jenis_sertif);
+			$id_jenis_sertifikat = $this->db->get('jenis_sertifikat')->row_array()['id_jenis_sertifikat'];
+		}
 
 		$this->db->where('id_sertifikat', $id);
-		$this->db->where('id_jenis_sertifikat', $id_jenis_sertifikat);
-		$this->db->where('status_sertifikat !=', $id_status);
+		
+		if (!is_null($nama_jenis_sertif))
+			$this->db->where('id_jenis_sertifikat', $id_jenis_sertifikat);
+
 		$this->db->join('status', 'status.id_status = sertifikat.status_sertifikat', 'inner');
+		$query = $this->db->get('sertifikat');
+
+		return $query->row_array();
+	}
+
+	public function get_one_sertifikat_lengkap_by_id($id)
+	{
+		$this->db->select('sertifikat.*, status.nama_status, pegawai.nama_lengkap_pegawai, dasar_hukum.kode_dasar_hukum, dasar_hukum.keterangan_dasar_hukum, lembaga.nama_lembaga, jenis_sertifikat.nama_jenis_sertifikat, sub_jenis_sertifikat.nama_sub_jenis_sertifikat, unit.nama_unit');
+		$this->db->where('id_sertifikat', $id);
+		$this->db->join('status', 'status.id_status = sertifikat.status_sertifikat', 'inner');
+		$this->db->join('pegawai', 'pegawai.id_pegawai = sertifikat.dibuat_oleh', 'left');
+		$this->db->join('dasar_hukum', 'dasar_hukum.id_dasar_hukum = sertifikat.id_dasar_hukum_sertifikat', 'left');
+		$this->db->join('lembaga', 'lembaga.id_lembaga = sertifikat.id_lembaga_sertifikat', 'left');
+		$this->db->join('jenis_sertifikat', 'jenis_sertifikat.id_jenis_sertifikat = sertifikat.id_jenis_sertifikat', 'left');
+		$this->db->join('sub_jenis_sertifikat', 'sub_jenis_sertifikat.id_sub_jenis_sertifikat = sertifikat.id_sub_jenis_sertifikat', 'left');
+		$this->db->join('unit', 'unit.id_unit = sertifikat.id_unit_sertifikat', 'left');
+
 		$query = $this->db->get('sertifikat');
 
 		return $query->row_array();
