@@ -14,6 +14,7 @@ class Sertifikat_data extends CI_Controller {
 		$this->load->model('dasar_hukum');
 		$this->load->model('jenis_sertifikat');
 		$this->load->model('log_database');
+		$this->load->model('status');
 	}
 
 	public function upload_file_lampiran()
@@ -27,7 +28,7 @@ class Sertifikat_data extends CI_Controller {
 		$this->load->library('upload', $config);
 		$test_upload = $this->upload->do_upload('lampiran');
 		
-		if (! $test_upload)
+		if (!$test_upload)
 		{
 			$this->authentifier->set_flashdata('error', 3);
 		}
@@ -69,6 +70,9 @@ class Sertifikat_data extends CI_Controller {
 			);
 		// Status sertifikat masih menggunakan nilai default
 
+		var_dump($data);
+		die();
+		
 		$result = $this->sertifikat->tambah_data_pertanahan($data);
 		
 		if ($result)
