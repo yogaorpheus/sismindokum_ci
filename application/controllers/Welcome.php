@@ -28,10 +28,11 @@ class Welcome extends CI_Controller {
 
 	public function test()
 	{
-		$this->load->library('authentifier');
+		$string = "PengUjian Alat K3";
+		$lowercase = strtolower($string);
+		$result = str_replace(" ", "_", $lowercase);
 
-		$this->authentifier->set_flashdata('error', 2);
-		return redirect ('data/lisensi');
+		echo $result;
 	}
 
 	public function tester()

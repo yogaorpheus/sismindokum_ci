@@ -28,7 +28,7 @@
               <div class="box-body">
                 <div class="row">
                   <div class="col-md-12">
-                    
+
                     <div class="form-group">
                       <label>Tanggal RUPS Sirkuler</label>
                       <input type="text" class="form-control" id="tanggal_rups" name="tanggal_rups_sirkuler" value="<?php echo $data_anggaran['tanggal_rups_sirkuler']; ?>" disabled="disabled">
@@ -94,28 +94,31 @@
                     <!-- Message. Default to the left -->
                     <?php
                     foreach ($data_remark as $key => $one_remark) {
-                      echo "<div class='direct-chat-msg'>";
-                      echo "<div class='direct-chat-info clearfix'>";
-
-                      if ($one_remark['id_pegawai'] == $this->session->userdata('staff_pjb')['id_pegawai'])
+                      if ($one_remark['dibuat_oleh'] == $this->session->userdata('staff_pjb')['id_pegawai'])
                       {
+                        echo "<div class='direct-chat-msg right'>";
+                        echo "<div class='direct-chat-info clearfix'>";
                         echo "<span class='direct-chat-name pull-right'>".$one_remark['nama_lengkap_pegawai']."</span>";
                         echo "<span class='direct-chat-timestamp pull-left'>".$one_remark['tanggal_remark']."</span>";
                       }
                       else
                       {
+                        echo "<div class='direct-chat-msg'>";
+                        echo "<div class='direct-chat-info clearfix'>";
                         echo "<span class='direct-chat-name pull-left'>".$one_remark['nama_lengkap_pegawai']."</span>";
                         echo "<span class='direct-chat-timestamp pull-right'>".$one_remark['tanggal_remark']."</span>";
                       }
 
                       echo "</div>";
-                      echo "<img class='direct-chat-img'><i class='glyphicon glyphicon-user'></i>";
+                      echo "<img class='direct-chat-img' src='".base_url('assets/img').'/user-icon.png'."' alt='user'>";
                       echo "<div class='direct-chat-text'>";
                       echo "Status Remark</br>";
                       echo $one_remark['nama_status']."</br></br>";
                       echo "Remark</br>";
                       echo $one_remark['keterangan']."</br></br>";
-                      echo "<button class='btn btn-danger btn-xs'><i class='glyphicon glyphicon-trash'></i></button>";
+                      echo "<a href='#'>";
+                      echo "<button class='btn btn-danger btn-xs Delete' type='button' data-toggle='modal' data-target='#modal_delete' id='".$one_remark['id_remark']."'><i class='glyphicon glyphicon-trash'></i></button>";
+                      echo "</a>";
                       echo "</div>";
                       echo "</div>";
                     }
@@ -172,6 +175,28 @@
         </form>
       </div>
         <!-- /.row -->
+
+      <div class="modal fade" id="modal_delete">
+        <form id="delete_lembaga" action="<?php echo base_url('remark_data/delete_remark'); ?>" method="POST">
+          <div class="modal-dialog">
+            <div class="modal-content">
+              <div class="modal-header">
+                <h4 class="modal-title">HAPUS DATA</h4>
+                <input type="hidden" id="id_data" name="id" value="">
+              </div>
+              <div class="modal-body">
+                <p>Apakah anda yakin ingin menghapus data ini?</p>
+              </div>
+              <div class="modal-footer">
+                <a id="delete_yes"><button type="submit" class="btn btn-danger pull-left">Iya, Hapus</button></a>
+                <button type="button" class="btn btn-success pull-right" data-dismiss="modal" id="delete_no">Tidak</button>
+              </div>
+            </div>
+            <!-- /.modal-content -->
+          </div>
+          <!-- /.modal-dialog -->
+        </form>    
+      </div>
     </section>
     <!-- /.content -->
 <script>
@@ -217,6 +242,12 @@
     //Date picker
     $('#datepicker2').datepicker({
       autoclose: true
+    })
+
+    $(document).on("click", ".Delete", function() {
+      var delete_id = $(this).attr('id');
+      $("#id_data").val(delete_id);
+      console.log(delete_id);
     })
   })
 </script>

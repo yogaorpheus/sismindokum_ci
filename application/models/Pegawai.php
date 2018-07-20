@@ -60,6 +60,19 @@ class Pegawai extends CI_Model {
 		return $query;
 	}
 
+	public function get_all_pegawai ($kode_distrik = null)
+	{
+		$this->db->select('nid_pegawai, nama_lengkap_pegawai, email_pegawai, no_hp_pegawai, posisi_pegawai, distrik.nama_distrik');
+		
+		if (!is_null($kode_distrik))
+			$this->db->where('kode_distrik_pegawai', $kode_distrik);
+
+		$this->db->join('distrik', 'distrik.kode_distrik = pegawai.kode_distrik_pegawai');
+		$query = $this->db->get('pegawai');
+
+		return $query->result_array();
+	}
+
 	public function get_pegawai($nid)
 	{
 		$this->db->where('nid_pegawai', $nid);

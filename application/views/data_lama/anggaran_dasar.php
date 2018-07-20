@@ -17,6 +17,7 @@
           <div class="box">
             <div class="box-header">
               <h3 class="box-title">Data Anggaran Dasar</h3>
+              <button class="btn btn-success pull-right"><i class="glyphicon glyphicon-download-alt"></i> Download Data</button>
             </div>
             <!-- /.box-header -->
             <div class="box-body">

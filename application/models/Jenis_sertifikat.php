@@ -23,4 +23,15 @@ class Jenis_sertifikat extends CI_Model {
 		return $id_jenis_sertifikat;
 	}
 
+	public function get_nama_jenis_sertifikat_by_id_sertifikat($id)
+	{
+		$this->db->select('jenis_sertifikat.nama_jenis_sertifikat');
+		$this->db->where('id_sertifikat', $id);
+		$this->db->join('jenis_sertifikat', 'jenis_sertifikat.id_jenis_sertifikat = sertifikat.id_jenis_sertifikat', 'inner');
+		$buff = $this->db->get('sertifikat');
+
+		$nama_jenis_sertifikat = $buff->row_array()['nama_jenis_sertifikat'];
+		return $nama_jenis_sertifikat;
+	}
+
 }

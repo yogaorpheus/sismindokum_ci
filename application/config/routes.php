@@ -54,6 +54,18 @@ $route['404_override'] = '';
 $route['translate_uri_dashes'] = FALSE;
 
 $route['home'] = 'home/home';
+// LEMBAGA ROUTE //
+$route['lembaga'] 						= 'lembagacontroller/index';
+$route['lembaga/tambah_lembaga']		= 'lembagacontroller/tambah_lembaga/$1';
+$route['lembaga/edit_lembaga/(:num)'] 	= 'lembagacontroller/edit_lembaga/$1';
+
+// UNIT ROUTE //
+$route['unit'] 					= 'unitcontroller/index';
+$route['unit/tambah_unit']		= 'unitcontroller/tambah_unit/$1';
+$route['unit/edit_unit/(:num)'] = 'unitcontroller/edit_unit/$1';
+
+// PEGAWAI ROUTE //
+$route['pegawai_pjb']	= 'pegawaicontroller/index';
 
 // REVIEW LAMPIRAN ROUTE //
 $route['data/pertanahan_review/(:num)'] 		= 'data_crud/pertanahan_review/$1';
@@ -69,6 +81,7 @@ $route['data_lama/slo_review/(:num)'] 					= 'data_crud/slo_review/$1';
 $route['data_lama/perizinan_review/(:num)'] 			= 'data_crud/perizinan_review/$1';
 $route['data_lama/pengujian_alat_k3_review/(:num)'] 	= 'data_crud/pengujian_alat_k3_review/$1';
 $route['data_lama/lisensi_review/(:num)'] 				= 'data_crud/lisensi_review/$1';
+
 // EDIT ROUTE //
 $route['data/pertanahan_edit/(:num)'] 			= 'data_crud/pertanahan_edit/$1';
 $route['data/anggaran_dasar_edit/(:num)'] 		= 'anggaran_dasar/anggaran_dasar_edit/$1';
@@ -76,6 +89,14 @@ $route['data/slo_edit/(:num)'] 					= 'data_crud/slo_edit/$1';
 $route['data/perizinan_edit/(:num)'] 			= 'data_crud/perizinan_edit/$1';
 $route['data/pengujian_alat_k3_edit/(:num)'] 	= 'data_crud/pengujian_alat_k3_edit/$1';
 $route['data/lisensi_edit/(:num)'] 				= 'data_crud/lisensi_edit/$1';
+
+// REMARK ROUTE //
+$route['data/pertanahan_remark/(:num)'] 			= 'remark_data/view_remark_pertanahan/$1';
+$route['data/anggaran_dasar_remark/(:num)'] 		= 'remark_data/view_remark_anggaran/$1';
+$route['data/slo_remark/(:num)'] 					= 'remark_data/view_remark_slo/$1';
+$route['data/perizinan_remark/(:num)'] 				= 'remark_data/view_remark_perizinan/$1';
+$route['data/pengujian_alat_k3_remark/(:num)'] 		= 'remark_data/view_remark_pengujian_alat_k3/$1';
+$route['data/lisensi_remark/(:num)'] 				= 'remark_data/view_remark_lisensi/$1';
 
 // DELETE ROUTE //
 $route['data/pertanahan_delete/(:num)'] 		= 'data_crud/pertanahan_delete/$1';
