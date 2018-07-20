@@ -21,7 +21,7 @@
             <!-- /.box-header -->
             <div class="box-body">
               <?php
-              print_r($menu_tampil);
+              print_r($user_detail);
               ?>
             </div>
             <!-- /.box-body -->

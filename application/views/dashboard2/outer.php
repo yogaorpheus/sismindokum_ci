@@ -16,7 +16,7 @@
   <div class="content-wrapper">
     <?php $this->load->view('base/content.php', $body); ?>
     <?php
-    //$this->load->view('testing', $menu);
+    //$this->load->view('testing', $body);
     ?>
   </div>
   <!-- /.content-wrapper -->

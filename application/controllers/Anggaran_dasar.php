@@ -150,7 +150,7 @@ class Anggaran_dasar extends CI_Controller {
 			$log_data = array(
 				'nama_tabel'		=> 'anggaran',
 				'id_pegawai'		=> $this->authentifier->get_user_detail()['id_pegawai'],
-				'id_status_log'		=> $this->status->get_id_status_by_nama("melakukan create"),
+				'id_status_log'		=> $this->status->get_id_status_by_nama("melakukan edit"),
 				'id_data'			=> $data['id_anggaran']
 				);
 			$id_log = $this->log_database->write_log($log_data);

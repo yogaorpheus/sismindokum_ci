@@ -1,7 +1,7 @@
 <!-- Content Header (Page header) -->
     <section class="content-header">
       <h1>
-        Sertifikat Perizinan
+        Sertifikat Laik Operasi - SLO
       </h1>
       <ol class="breadcrumb">
         <li><a href="#"><i class="fa fa-dashboard"></i> Home</a></li>
@@ -16,7 +16,7 @@
         <div class="col-xs-12">
           <div class="box">
             <div class="box-header">
-              <h3 class="box-title">Data Sertifikat Perizinan</h3>
+              <h3 class="box-title">Data SLO</h3>
               <button class="btn btn-success pull-right"><i class="glyphicon glyphicon-download-alt"></i> Download Data</button>
             </div>
             <!-- /.box-header -->
@@ -26,8 +26,7 @@
                 <tr>
                   <th>No.</th>
                   <th>Distrik</th>
-                  <th>Jenis Perizinan</th>
-                  <th>Peralatan</th>
+                  <th>Unit Sertifikasi</th>
                   <th>No. Sertifikat</th>
                   <th>Lembaga</th>
                   <th>PIC</th>
@@ -40,13 +39,12 @@
                 <tbody>
                 <?php
                 $no = 1; 
-                foreach ($data_perizinan as $key => $onedata) { 
+                foreach ($data_slo as $key => $onedata) { 
                 ?>
                 <tr>
                   <td style="vertical-align: middle;"><?php echo $no++; ?></td>
                   <td style="vertical-align: middle;"><?php echo $onedata['nama_distrik']; ?></td>
-                  <td style="vertical-align: middle;"><?php echo $onedata['nama_sub_jenis_sertifikat']; ?></td>
-                  <td style="vertical-align: middle;"><?php echo $onedata['judul_sertifikat']; ?></td>
+                  <td style="vertical-align: middle;"><?php echo $onedata['nama_unit']; ?></td>
                   <td style="vertical-align: middle;"><?php echo $onedata['no_sertifikat']; ?></td>
                   <td style="vertical-align: middle;"><?php echo $onedata['nama_lembaga']; ?></td>
                   <td style="vertical-align: middle;"><?php echo $onedata['jabatan_pic']; ?></td>
@@ -84,8 +82,7 @@
                 <tr>
                   <th>No.</th>
                   <th>Distrik</th>
-                  <th>Jenis Perizinan</th>
-                  <th>Peralatan</th>
+                  <th>Unit Sertifikasi</th>
                   <th>No. Sertifikat</th>
                   <th>Lembaga</th>
                   <th>PIC</th>
@@ -103,33 +100,11 @@
         </div>
         <!-- /.col -->
       </div>
-      <!-- /.row -->
-
-      <div class="modal fade" id="modal_delete">
-          <div class="modal-dialog">
-            <div class="modal-content">
-              <div class="modal-header">
-                <h4 class="modal-title">HAPUS DATA</h4>
-              </div>
-              <div class="modal-body">
-                <p>Apakah anda yakin ingin menghapus data ini?</p>
-              </div>
-              <div class="modal-footer">
-                <a id="delete_yes"><button type="button" class="btn btn-danger pull-left">Iya, Hapus</button></a>
-                <button type="button" class="btn btn-success pull-right" data-dismiss="modal" id="delete_no">Tidak</button>
-              </div>
-            </div>
-            <!-- /.modal-content -->
-          </div>
-          <!-- /.modal-dialog -->
-        </div>
-        
+      <!-- /.row -->  
     </section>
     <!-- /.content -->
     <script>
-      var delete_href = "";
-      var delete_id = "";
-
+      
       $(function () {
         // $('#example1').DataTable()
         // $('#example2').DataTable({
@@ -141,18 +116,5 @@
         //   'autoWidth'   : false
         // })
         $('#tabel1').DataTable()
-
-        $(document).on("click", ".Delete", function() {
-          delete_href = $(this).attr('href');
-          delete_id = $(this).attr('id');
-          $(this).attr('href', "#");
-          $("#delete_yes").attr('href', delete_href);
-        })
-
-        $("#delete_no").click(function() {
-          delete_id = "#" + delete_id;
-          $(delete_id).attr('href', delete_href);
-        })
-        
       })
     </script>

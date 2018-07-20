@@ -31,4 +31,13 @@ class Distrik extends CI_Model {
 		return $query->result_array();
 	}
 
+	public function get_id_distrik_by_kode ($kode)
+	{
+		$this->db->where('kode_distrik', $kode);
+		$query = $this->db->get('distrik');
+
+		$id_distrik = $query->row_array()['id_distrik'];
+		return $id_distrik;
+	}
+
 }

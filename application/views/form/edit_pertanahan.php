@@ -33,21 +33,22 @@
                     <div class="form-group">
                       <label>Distrik</label><br>
                       <?php
-                      if ($user['kode_distrik_pegawai'] == 'Z')
-                      {
-                        echo "<select class='form-control select2' style='width: 75%;' name='distrik'>";
-                      }
-                      else
-                      {
-                        echo "<select class='form-control select2' style='width: 75%;' disabled='disabled'>"; 
-                        // HANYA DIGUNAKAN SEBAGAI PENANDA BAGI USER
-                      }
+                      echo "<select class='form-control select2' style='width: 75%;' name='distrik'>";
                       
                       foreach ($distrik as $key => $one_distrik) {
                         if ($one_distrik['id_distrik'] == $data_pertanahan['id_distrik_sertifikat'])
                           echo "<option selected='selected' value=".$one_distrik['id_distrik'].">";
                         else
-                          echo "<option value=".$one_distrik['id_distrik'].">";
+                        {
+                          if ($user_detail['kode_distrik_pegawai'] == 'Z')
+                          {
+                            echo "<option value=".$one_distrik['id_distrik'].">";
+                          }
+                          else {
+                            echo "<option disabled='disabled' value=".$one_distrik['id_distrik'].">";
+                          }
+                        }
+                          
                         echo $one_distrik['nama_distrik'];
                         echo "</option>";
                       }

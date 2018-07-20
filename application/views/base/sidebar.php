@@ -51,6 +51,27 @@
           echo "</li>";
         }
         ?>
+
+        <li>
+          <a href="<?php echo base_url('lembaga'); ?>">
+            <i class="fa fa-building-o"></i>
+            <span>Lembaga</span>
+          </a>
+        </li>
+
+        <li>
+          <a href="<?php echo base_url('unit'); ?>">
+            <i class="fa fa-circle"></i>
+            <span>Unit</span>
+          </a>
+        </li>
+
+        <li>
+          <a href="<?php echo base_url('pegawai_pjb'); ?>">
+            <i class="fa fa-users"></i>
+            <span>Pegawai</span>
+          </a>
+        </li>
         
       </ul>
     </section>

@@ -104,32 +104,9 @@
         <!-- /.col -->
       </div>
       <!-- /.row -->
-
-      <div class="modal fade" id="modal_delete">
-          <div class="modal-dialog">
-            <div class="modal-content">
-              <div class="modal-header">
-                <h4 class="modal-title">HAPUS DATA</h4>
-              </div>
-              <div class="modal-body">
-                <p>Apakah anda yakin ingin menghapus data ini?</p>
-              </div>
-              <div class="modal-footer">
-                <a id="delete_yes"><button type="button" class="btn btn-danger pull-left">Iya, Hapus</button></a>
-                <button type="button" class="btn btn-success pull-right" data-dismiss="modal" id="delete_no">Tidak</button>
-              </div>
-            </div>
-            <!-- /.modal-content -->
-          </div>
-          <!-- /.modal-dialog -->
-        </div>
-        
     </section>
     <!-- /.content -->
     <script>
-      var delete_href = "";
-      var delete_id = "";
-
       $(function () {
         // $('#example1').DataTable()
         // $('#example2').DataTable({
@@ -141,18 +118,5 @@
         //   'autoWidth'   : false
         // })
         $('#tabel1').DataTable()
-
-        $(document).on("click", ".Delete", function() {
-          delete_href = $(this).attr('href');
-          delete_id = $(this).attr('id');
-          $(this).attr('href', "#");
-          $("#delete_yes").attr('href', delete_href);
-        })
-
-        $("#delete_no").click(function() {
-          delete_id = "#" + delete_id;
-          $(delete_id).attr('href', delete_href);
-        })
-        
       })
     </script>

@@ -34,4 +34,14 @@ class Status extends CI_Model {
 		return $result;
 	}
 
+	public function get_id_status_by_nama_status_dan_nama_tabel($nama_status, $nama_tabel)
+	{
+		$this->db->where('nama_status', $nama_status);
+		$this->db->where('penggunaan_tabel_status', $nama_tabel);
+		$query = $this->db->get('status');
+
+		$id_status = $query->row_array()['id_status'];
+		return $id_status;
+	}
+
 }

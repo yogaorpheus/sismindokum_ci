@@ -12,12 +12,12 @@
     <!-- Main content -->
     <section class="content">
       <div class="row">
-        <div class="col-md-12">
-          <form id="form_anggaran_dasar" action="<?php echo base_url('data_crud/slo_update'); ?>" method="POST" enctype="multipart/form-data">
-            <input type="hidden" name="id_sertifikat" value="<?php echo $data_slo['id_sertifikat']; ?>">
+        <form id="form_remark_slo" action="<?php echo base_url('remark_data/sertifikat_remark'); ?>" method="POST">
+          <div class="col-md-6">  
+            <input type="hidden" name="id_sertifikat" value="<?php echo $data_sertifikat['id_sertifikat']; ?>">
             <div class="box box-primary">
               <div class="box-header with-border">
-                <h3 class="box-title">Edit SLO</h3>
+                <h3 class="box-title">Data SLO</h3>
 
                 <div class="box-tools pull-right">
                   <button type="button" class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-minus"></i></button>
@@ -29,65 +29,136 @@
                 
                 <div class="row">
 
-                  <div class="col-md-6">
+                  <div class="col-md-12">
                     <div class="form-group">
-                      <label>Distrik</label><br>
-                      <?php
-                      if ($user['kode_distrik_pegawai'] == 'Z')
-                      {
-                        echo "<select class='form-control select2' style='width: 75%;' name='distrik'>";
-                      }
-                      else
-                      {
-                        echo "<select class='form-control select2' style='width: 75%;' disabled='disabled'>"; 
-                        // HANYA DIGUNAKAN SEBAGAI PENANDA BAGI USER
-                      }
-                      
-                      foreach ($distrik as $key => $one_distrik) {
-                        if ($one_distrik['id_distrik'] == $data_slo['id_distrik_sertifikat'])
-                          echo "<option selected='selected' value=".$one_distrik['id_distrik'].">";
-                        else
-                          echo "<option value=".$one_distrik['id_distrik'].">";
-                        echo $one_distrik['nama_distrik'];
-                        echo "</option>";
-                      }
-                      echo "</select>";
-                      
-                      ?>
+                      <label>Distrik</label>
+                      <input type="text" disabled="disabled" value="<?php echo $data_sertifikat['nama_distrik']; ?>">
                     </div>
-                  
+
                     <div class="form-group">
                       <label>Referensi SLO</label>
-                      <select class="form-control select2" style="width: 100%;" name="referensi_slo" id="referensi">
-                        <?php
-                        foreach ($dasar_hukum as $key => $one_dasar_hukum) {
-                          if ($one_dasar_hukum['id_dasar_hukum'] == $data_slo['id_dasar_hukum_sertifikat'])
-                            echo "<option selected='selected' value='".$one_dasar_hukum['id_dasar_hukum']."'>";
-                          else
-                            echo "<option value='".$one_dasar_hukum['id_dasar_hukum']."'>";
-                          echo $one_dasar_hukum['kode_dasar_hukum'];
-                          echo "</option>";
-                        }
-                        ?>
-                      </select>
-                      <p class="help-block" id="keterangan_referensi"></p>
+                      <input type="text" disabled="disabled" value="<?php echo $data_sertifikat['kode_dasar_hukum']; ?>">
+                      <p class="help-block"><?php echo $data_sertifikat['keterangan_dasar_hukum']; ?></p>
                     </div>
 
                     <div class="form-group">
                       <label>No. Sertifikat</label>
-                      <input type="text" class="form-control" id="no_sertifikat" name="no_sertifikat" value="<?php echo $data_slo['no_sertifikat']; ?>">
+                      <input type="text" disabled="disabled" value="<?php echo $data_sertifikat['no_sertifikat']; ?>">
                     </div>
 
                     <div class="form-group">
                       <label>Unit Sertifikasi</label>
-                      <select class="form-control select2" style="width: 100%;" name="unit_sertifikasi">
+                      <input type="text" disabled="disabled" value="<?php echo $data_sertifikat['nama_unit']; ?>">
+                    </div>
+
+                    <div class="form-group">
+                      <label>Lembaga</label>
+                      <input type="text" disabled="disabled" value="<?php echo $data_sertifikat['nama_lembaga']; ?>">
+                    </div>
+
+                    <div class="form-group">
+                      <label>Keterangan</label>
+                      <textarea class="form-control" disabled="disabled" name="keterangan" rows="2"><?php echo $data_sertifikat['keterangan']; ?></textarea>
+                    </div>
+
+                    <div class="form-group">
+                      <label>Tanggal Terbit</label>
+                      <input type="text" disabled="disabled" value="<?php echo $data_sertifikat['tanggal_sertifikasi']; ?>">
+                    </div>
+
+                    <div class="form-group">
+                      <label>Tanggal Berakhir</label>
+                      <input type="text" disabled="disabled" value="<?php echo $data_sertifikat['tanggal_kadaluarsa']; ?>">
+                    </div>
+
+                    <div class="form-group">
+                      <label>Lampiran</label>
+                      <p class="help-block"><?php echo $data_sertifikat['nama_file']; ?></p>
+                    </div>
+                  </div>
+                  
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="col-md-6">
+
+              <div class="box box-success direct-chat direct-chat-success">
+                <div class="box-header with-border">
+                  <h3 class="box-title">Remark Lisensi</h3>
+
+                  <div class="box-tools pull-right">
+                    <button type="button" class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-minus"></i>
+                    </button>
+                    <button type="button" class="btn btn-box-tool" data-widget="remove"><i class="fa fa-times"></i>
+                    </button>
+                  </div>
+                </div>
+                <!-- /.box-header -->
+                <div class="box-body">
+                  <!-- Conversations are loaded here -->
+                  <div class="direct-chat-messages">
+                    <!-- Message. Default to the left -->
+                    <?php
+                    foreach ($data_remark as $key => $one_remark) {
+                      if ($one_remark['dibuat_oleh'] == $this->session->userdata('staff_pjb')['id_pegawai'])
+                      {
+                        echo "<div class='direct-chat-msg right'>";
+                        echo "<div class='direct-chat-info clearfix'>";
+                        echo "<span class='direct-chat-name pull-right'>".$one_remark['nama_lengkap_pegawai']."</span>";
+                        echo "<span class='direct-chat-timestamp pull-left'>".$one_remark['tanggal_remark']."</span>";
+                      }
+                      else
+                      {
+                        echo "<div class='direct-chat-msg'>";
+                        echo "<div class='direct-chat-info clearfix'>";
+                        echo "<span class='direct-chat-name pull-left'>".$one_remark['nama_lengkap_pegawai']."</span>";
+                        echo "<span class='direct-chat-timestamp pull-right'>".$one_remark['tanggal_remark']."</span>";
+                      }
+
+                      echo "</div>";
+                      echo "<img class='direct-chat-img' src='".base_url('assets/img').'/user-icon.png'."' alt='user'>";
+                      echo "<div class='direct-chat-text'>";
+                      echo "Status Remark</br>";
+                      echo $one_remark['nama_status']."</br></br>";
+                      echo "Remark</br>";
+                      echo $one_remark['keterangan']."</br></br>";
+                      echo "<a href='#'>";
+                      echo "<button class='btn btn-danger btn-xs Delete' type='button' data-toggle='modal' data-target='#modal_delete' id='".$one_remark['id_remark']."'><i class='glyphicon glyphicon-trash'></i></button>";
+                      echo "</a>";
+                      echo "</div>";
+                      echo "</div>";
+                    }
+                    ?>
+                  </div>
+                  <!--/.direct-chat-messages-->                  
+                </div>
+                <!-- /.box-body -->
+              </div>
+              <!--/.direct-chat -->
+
+            <div class="box box-primary">
+              <div class="box-header with-border">
+                <h3 class="box-title">Remark</h3>
+
+                <div class="box-tools pull-right">
+                  <button type="button" class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-minus"></i></button>
+                  <button type="button" class="btn btn-box-tool" data-widget="remove"><i class="fa fa-remove"></i></button>
+                </div>
+              </div>
+
+              <div class="box-body">
+                <div class="row">
+                  
+                  <div class="col-md-12">
+                    <div class="form-group">
+                      <label>Status Remark</label>
+                      <select class="form-control select2" style="width: 100%;" name="status_remark" id="status_remark">
                         <?php
-                        foreach ($unit as $key => $one_unit) {
-                          if ($one_unit['id_unit'] == $data_slo['id_unit_sertifikat'])
-                            echo "<option selected='selected' value='".$one_unit['id_unit']."'>";
-                          else
-                            echo "<option value='".$one_unit['id_unit']."'>";
-                          echo $one_unit['nama_unit'];
+                        foreach ($status_remark as $key => $one_status) {
+                          echo "<option value='".$one_status['id_status']."'>";
+                          echo $one_status['nama_status'];
                           echo "</option>";
                         }
                         ?>
@@ -95,71 +166,44 @@
                     </div>
 
                     <div class="form-group">
-                      <label for="file_sertifikat">Lampiran</label>
-                      <input type="file" id="lampiran" name="lampiran">
-                      <p class="help-block"><?php echo $data_slo['nama_file']; ?></p>
-                    </div>
-
-                  </div>
-                  <div class="col-md-6">
-
-                    <div class="form-group">
-                      <label>Lembaga</label>
-                      <select class="form-control select2" style="width: 100%;" name="lembaga">
-                      <?php
-                      foreach ($lembaga as $key => $one_lembaga) {
-                        if ($one_lembaga['id_lembaga'] == $data_slo['id_lembaga_sertifikat'])
-                          echo "<option selected='selected' value='".$one_lembaga['id_lembaga']."'>";
-                        else
-                          echo "<option value='".$one_lembaga['id_lembaga']."'>";
-                        echo $one_lembaga['nama_lembaga'];
-                        echo "</option>";
-                      }
-                      ?>
-                      </select>
+                      <label>Keterangan Remark</label>
+                      <textarea class="form-control" name="keterangan" placeholder="Tuliskan keterangan remark" rows="3"></textarea>
                     </div>
 
                     <div class="form-group">
-                      <label>Keterangan</label>
-                      <textarea class="form-control" name="keterangan" placeholder="Tuliskan keterangan sertifikat" rows="4"><?php echo $data_slo['keterangan']; ?></textarea>
+                      <button type="submit" class="btn btn-success pull-right" value="Simpan">Simpan Remark</button>
                     </div>
-
-                    <div class="form-group">
-                      <label>Tanggal Terbit</label>
-                      <div class="input-group">
-                        <div class="input-group-addon">
-                          <i class="fa fa-calendar"></i>
-                        </div>
-                        <input type="text" class="form-control pull-right" id="datepicker1" name="tanggal_terbit" value="<?php echo $data_slo['tanggal_terbit']; ?>">
-                      </div>
-                    </div>
-
-                    <div class="form-group">
-                      <label>Tanggal Berakhir</label>
-                      <div class="input-group">
-                        <div class="input-group-addon">
-                          <i class="fa fa-calendar"></i>
-                        </div>
-                        <input type="text" class="form-control pull-right" id="datepicker2" name="tanggal_berakhir" value="<?php echo $data_slo['tanggal_berakhir']; ?>">
-                      </div>
-                    </div>
-
                   </div>
 
-                </div>
-              </div>
-
-              <div class="box-footer">
-                <div class="col-md-6"></div>
-                <div class="col-md-6">
-                  <button type="submit" class="btn btn-primary pull-right btn-lg">Edit dan Simpan</button>
                 </div>
               </div>
             </div>
-          </form>
-        </div>
+          </div>
+        </form>
       </div>
         <!-- /.row -->
+
+      <div class="modal fade" id="modal_delete">
+        <form id="delete_lembaga" action="<?php echo base_url('remark_data/delete_remark'); ?>" method="POST">
+          <div class="modal-dialog">
+            <div class="modal-content">
+              <div class="modal-header">
+                <h4 class="modal-title">HAPUS DATA</h4>
+                <input type="hidden" id="id_data" name="id" value="">
+              </div>
+              <div class="modal-body">
+                <p>Apakah anda yakin ingin menghapus data ini?</p>
+              </div>
+              <div class="modal-footer">
+                <a id="delete_yes"><button type="submit" class="btn btn-danger pull-left">Iya, Hapus</button></a>
+                <button type="button" class="btn btn-success pull-right" data-dismiss="modal" id="delete_no">Tidak</button>
+              </div>
+            </div>
+            <!-- /.modal-content -->
+          </div>
+          <!-- /.modal-dialog -->
+        </form>    
+      </div>
     </section>
     <!-- /.content -->
 <script>
@@ -207,46 +251,10 @@
       autoclose: true
     })
 
-    <?php
-    if ($this->session->flashdata('error') == 1)
-    {
-      ?>alert('Data sertifikat SLO berhasil dimasukkan'); <?php
-    }
-    else if ($this->session->flashdata('error') == 2)
-    {
-      ?>alert('Data sertifikat SLO gagal dimasukkan'); <?php
-    }
-    ?>
-
-    var id_dasar_hukum = $("#referensi").val();
-    var keterangan = "";
-
-    <?php
-    foreach ($dasar_hukum as $key => $value) {
-      ?>
-      if (id_dasar_hukum == <?php echo $key; ?>)
-      {
-        keterangan = "<?php echo $value['keterangan_dasar_hukum']; ?>";
-        console.log(keterangan);
-        $("#keterangan_referensi").html(keterangan);
-      }
-      <?php
-    }
-    ?>
-
-    $("#referensi").change(function() {
-      id_dasar_hukum = $("#referensi").val();
-      <?php
-      foreach ($dasar_hukum as $key => $value) {
-        ?>
-        if (id_dasar_hukum == <?php echo $key; ?>)
-        {
-          keterangan = "<?php echo $value['keterangan_dasar_hukum']; ?>";
-          $("#keterangan_referensi").html(keterangan);
-        }
-        <?php
-      }
-      ?>
+    $(document).on("click", ".Delete", function() {
+      var delete_id = $(this).attr('id');
+      $("#id_data").val(delete_id);
+      console.log(delete_id);
     })
 
   })

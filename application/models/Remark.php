@@ -42,4 +42,39 @@ class Remark extends CI_Model {
 
 		return $query->result_array();
 	}
+
+	public function get_remark_by_id($id_remark)
+	{
+		$this->db->where('id_remark', $id_remark);
+		$query = $this->db->get('remark');
+
+		return $query->row_array();
+	}
+
+	public function get_id_new_remark($id_pegawai)
+	{
+		$this->db->where('dibuat_oleh', $id_pegawai);
+		$this->db->order_by('id_remark', 'DESC');
+		$this->db->limit(1);
+		$query = $this->db->get('remark');
+
+		$id_remark = $query->row_array()['id_remark'];
+
+		return $id_remark;
+	}
+
+	public function insert_new_remark($data)
+	{
+		$query = $this->db->insert('remark', $data);
+
+		return $query;
+	}
+
+	public function delete_remark($id_remark)
+	{
+		$this->db->where('id_remark', $id_remark);
+		$query = $this->db->delete('remark');
+
+		return $query;
+	}
 }
