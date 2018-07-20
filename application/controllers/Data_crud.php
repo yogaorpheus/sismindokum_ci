@@ -88,6 +88,8 @@ class Data_crud extends CI_Controller {
 		$tanggal_terbit = DateTime::createFromFormat('m/d/Y', $input['tanggal_terbit'])->format('Y-m-d');
 		$tanggal_berakhir = DateTime::createFromFormat('m/d/Y', $input['tanggal_berakhir'])->format('Y-m-d');
 
+		$data_sertifikat = $this->sertifikat->get_sertifikat_by_id($input['id_sertifikat']);
+
 		$data = array(
 			'id_sertifikat'				=> $input['id_sertifikat'],
 			'id_dasar_hukum_sertifikat'	=> $input['referensi_pertanahan'],
@@ -122,6 +124,9 @@ class Data_crud extends CI_Controller {
 				'id_data'			=> $input['id_sertifikat']
 				);
 			$id_log = $this->log_database->write_log($log_data);
+
+			if (!is_null($file_path) && !empty($file_path))
+				unlink("assets/lampiran/".$data_sertifikat['nama_file']);
 			// Insert data sukses
 			$this->authentifier->set_flashdata('error', 1);
 		}
@@ -206,6 +211,8 @@ class Data_crud extends CI_Controller {
 		$tanggal_terbit = DateTime::createFromFormat('m/d/Y', $input['tanggal_terbit'])->format('Y-m-d');
 		$tanggal_berakhir = DateTime::createFromFormat('m/d/Y', $input['tanggal_berakhir'])->format('Y-m-d');
 
+		$data_sertifikat = $this->sertifikat->get_sertifikat_by_id($input['id_sertifikat']);
+
 		$data = array(
 			'id_sertifikat'				=> $input['id_sertifikat'],
 			'id_dasar_hukum_sertifikat'	=> $input['referensi_slo'],
@@ -240,6 +247,9 @@ class Data_crud extends CI_Controller {
 				'id_data'			=> $input['id_sertifikat']
 				);
 			$id_log = $this->log_database->write_log($log_data);
+
+			if (!is_null($file_path) && !empty($file_path))
+				unlink("assets/lampiran/".$data_sertifikat['nama_file']);
 			// Insert data sukses
 			$this->authentifier->set_flashdata('error', 1);
 		}
@@ -333,6 +343,8 @@ class Data_crud extends CI_Controller {
 		$tanggal_terbit = DateTime::createFromFormat('m/d/Y', $input['tanggal_terbit'])->format('Y-m-d');
 		$tanggal_berakhir = DateTime::createFromFormat('m/d/Y', $input['tanggal_berakhir'])->format('Y-m-d');
 
+		$data_sertifikat = $this->sertifikat->get_sertifikat_by_id($input['id_sertifikat']);
+
 		$data = array(
 			'id_sertifikat'				=> $input['id_sertifikat'],
 			'id_dasar_hukum_sertifikat'	=> $input['referensi_perizinan'],
@@ -367,6 +379,9 @@ class Data_crud extends CI_Controller {
 				'id_data'			=> $input['id_sertifikat']
 				);
 			$id_log = $this->log_database->write_log($log_data);
+
+			if (!is_null($file_path) && !empty($file_path))
+				unlink("assets/lampiran/".$data_sertifikat['nama_file']);
 			// Insert data sukses
 			$this->authentifier->set_flashdata('error', 1);
 		}
@@ -453,6 +468,8 @@ class Data_crud extends CI_Controller {
 		$tanggal_terbit = DateTime::createFromFormat('m/d/Y', $input['tanggal_terbit'])->format('Y-m-d');
 		$tanggal_berakhir = DateTime::createFromFormat('m/d/Y', $input['tanggal_berakhir'])->format('Y-m-d');
 
+		$data_sertifikat = $this->sertifikat->get_sertifikat_by_id($input['id_sertifikat']);
+
 		$data = array(
 			'id_sertifikat'				=> $input['id_sertifikat'],
 			'id_dasar_hukum_sertifikat'	=> $input['referensi_pengujian'],
@@ -487,6 +504,9 @@ class Data_crud extends CI_Controller {
 				'id_data'			=> $input['id_sertifikat']
 				);
 			$id_log = $this->log_database->write_log($log_data);
+
+			if (!is_null($file_path) && !empty($file_path))
+				unlink("assets/lampiran/".$data_sertifikat['nama_file']);
 			// Insert data sukses
 			$this->authentifier->set_flashdata('error', 1);
 		}
@@ -569,6 +589,8 @@ class Data_crud extends CI_Controller {
 		$tanggal_terbit = DateTime::createFromFormat('m/d/Y', $input['tanggal_terbit'])->format('Y-m-d');
 		$tanggal_berakhir = DateTime::createFromFormat('m/d/Y', $input['tanggal_berakhir'])->format('Y-m-d');
 
+		$data_sertifikat = $this->sertifikat->get_sertifikat_by_id($input['id_sertifikat']);
+
 		$data = array(
 			'id_sertifikat'				=> $input['id_sertifikat'],
 			'id_dasar_hukum_sertifikat'	=> $input['referensi_lisensi'],
@@ -603,6 +625,9 @@ class Data_crud extends CI_Controller {
 				'id_data'			=> $input['id_sertifikat']
 				);
 			$id_log = $this->log_database->write_log($log_data);
+			
+			if (!is_null($file_path) && !empty($file_path))
+				unlink("assets/lampiran/".$data_sertifikat['nama_file']);
 			// Insert data sukses
 			$this->authentifier->set_flashdata('error', 1);
 		}

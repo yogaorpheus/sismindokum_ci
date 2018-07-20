@@ -50,7 +50,7 @@
                   <td style="vertical-align: middle;"><?php echo $onedata['no_penerimaan_anggaran']; ?></td>
                   <td style="vertical-align: middle;"><?php echo $onedata['jabatan_pic']; ?></td>
                   <td style="vertical-align: middle;"><?php echo $onedata['nama_status']; ?></td>
-                  <td width="60px;">
+                  <td style="vertical-align: middle;" width="60px;">
                     <div class="col-md-6">
                       <?php 
                       if (!is_null($onedata['file_anggaran_1']) && !empty($onedata['file_anggaran_1']))

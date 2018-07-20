@@ -154,6 +154,10 @@
           $(delete_id).attr('href', delete_href);
         })
 
+        $(document).on("click", ".Review", function() {
+          $(this).attr('target', '_blank');
+        })
+
         <?php
         if ($this->session->flashdata('error') == 1) {
           echo "alert('Data Lisensi berhasil dihapus');";

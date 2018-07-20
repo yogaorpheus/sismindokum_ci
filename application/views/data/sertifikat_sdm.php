@@ -115,5 +115,9 @@
         //   'autoWidth'   : false
         // })
         $('#tabel1').DataTable()
+
+        $(document).on("click", ".Review", function() {
+          $(this).attr('target', '_blank');
+        })
       })
     </script>

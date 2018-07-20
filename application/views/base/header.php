@@ -19,20 +19,22 @@
           <li class="dropdown user user-menu">
             <a href="#" class="dropdown-toggle" data-toggle="dropdown">
               <i class='fa fa-user'></i>
-              <span class="hidden-xs">Alexander Pierce</span>
+              <span class="hidden-xs"><?php echo $nama_lengkap_pegawai; ?></span>
             </a>
             <ul class="dropdown-menu">
               <!-- User image -->
               <li class="user-header">
-                <i class="ion-person" style="font-size: 75px;"></i>
+                <i class="ion-person" style="font-size: 60px;"></i>
                 <p>
-                  Alexander Pierce - Web Developer
+                  <?php
+                  echo $nama_lengkap_pegawai." - ".$posisi_pegawai;
+                  ?>
                 </p>
               </li>
               <!-- Menu Footer-->
               <li class="user-footer">
                 <div class="pull-right">
-                  <a href="<?php echo base_url('auth/logout');?>" class="btn btn-default btn-flat">Sign out</a>
+                  <a href="<?php echo base_url('auth/logout');?>" class="btn btn-danger btn-flat">Sign out</a>
                 </div>
               </li>
             </ul>

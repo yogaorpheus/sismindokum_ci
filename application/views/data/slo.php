@@ -150,5 +150,10 @@
           delete_id = "#" + delete_id;
           $(delete_id).attr('href', delete_href);
         })
+
+        $(document).on("click", ".Review", function() {
+          $(this).attr('target', '_blank');
+        })
+        
       })
     </script>
