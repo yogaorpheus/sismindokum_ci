@@ -107,7 +107,7 @@ class Sertifikat extends CI_Model {
 		$this->db->where('kode_distrik', $kode_distrik);
 		$id_distrik = $this->db->get('distrik')->row_array()['id_distrik'];
 
-		$this->db->where('id_jenis_sertifikat', $id_jenis_sertifikat);
+		$this->db->where('sertifikat.id_jenis_sertifikat', $id_jenis_sertifikat);
 		$this->db->where('status_sertifikat', $id_status);
 		$this->db->join('status', 'status.id_status = sertifikat.status_sertifikat', 'inner');
 		$this->db->join('lembaga', 'lembaga.id_lembaga = sertifikat.id_lembaga_sertifikat', 'left');

@@ -15,6 +15,7 @@
         <form id="form_remark_perizinan" action="<?php echo base_url('remark_data/sertifikat_remark'); ?>" method="POST">
           <div class="col-md-6">  
             <input type="hidden" name="id_sertifikat" value="<?php echo $data_sertifikat['id_sertifikat']; ?>">
+            <input type="hidden" name="sub_link" value="<?php echo $this->uri->segment(2); ?>">
             <div class="box box-primary">
               <div class="box-header with-border">
                 <h3 class="box-title">Data Perizinan</h3>
@@ -191,6 +192,8 @@
       <div class="modal fade" id="modal_delete">
         <form id="delete_lembaga" action="<?php echo base_url('remark_data/delete_remark'); ?>" method="POST">
           <div class="modal-dialog">
+            <input type="hidden" name="id_data" value="<?php echo $data_sertifikat['id_sertifikat']; ?>">
+            <input type="hidden" name="sub_link" value="<?php echo $this->uri->segment(2); ?>">
             <div class="modal-content">
               <div class="modal-header">
                 <h4 class="modal-title">HAPUS DATA</h4>

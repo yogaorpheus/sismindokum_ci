@@ -15,6 +15,7 @@
         <form id="form_anggaran_dasar" action="<?php echo base_url('remark_data/anggaran_dasar_remark'); ?>" method="POST" enctype="multipart/form-data">
           <div class="col-md-6">  
             <input type="hidden" name="id_anggaran" value="<?php echo $data_anggaran['id_anggaran']; ?>">
+            <input type="hidden" name="sub_link" value="<?php echo $this->uri->segment(2); ?>">
             <div class="box box-primary">
               <div class="box-header with-border">
                 <h3 class="box-title">Remark Anggaran Dasar</h3>
@@ -179,6 +180,8 @@
       <div class="modal fade" id="modal_delete">
         <form id="delete_lembaga" action="<?php echo base_url('remark_data/delete_remark'); ?>" method="POST">
           <div class="modal-dialog">
+            <input type="hidden" name="id_data" value="<?php echo $data_anggaran['id_anggaran']; ?>">
+            <input type="hidden" name="sub_link" value="<?php echo $this->uri->segment(2); ?>">
             <div class="modal-content">
               <div class="modal-header">
                 <h4 class="modal-title">HAPUS DATA</h4>

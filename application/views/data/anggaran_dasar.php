@@ -54,10 +54,8 @@
                     <div class="col-md-6">
                       <?php 
                       if (!is_null($onedata['file_anggaran_1']) && !empty($onedata['file_anggaran_1']))
-                      {
-                        echo "<a href='".$onedata['file_anggaran_1']."'>"; 
-                        echo "<button class='btn btn-primary btn-xs'><i class='glyphicon glyphicon-zoom-in'></i></button>";
-                        echo "</a>";
+                      { 
+                        echo "<button class='btn btn-primary btn-xs review' title='lampiran 1' href='".$onedata['file_anggaran_1']."'><i class='glyphicon glyphicon-zoom-in'></i></button>";
                       }
                       ?>
                     </div>
@@ -65,9 +63,7 @@
                       <?php 
                       if (!is_null($onedata['file_anggaran_2']) && !empty($onedata['file_anggaran_2']))
                       {
-                        echo "<a href='".$onedata['file_anggaran_2']."'>"; 
-                        echo "<button class='btn btn-primary btn-xs'><i class='glyphicon glyphicon-zoom-in'></i></button>";
-                        echo "</a>";
+                        echo "<button class='btn btn-primary btn-xs review' title='lampiran 2' href='".$onedata['file_anggaran_2']."'><i class='glyphicon glyphicon-zoom-in'></i></button>";
                       }
                       ?>
                     </div>
@@ -170,6 +166,11 @@
         $("#delete_no").click(function() {
           delete_id = "#" + delete_id;
           $(delete_id).attr('href', delete_href);
+        })
+
+        $(document).on("click", ".review", function() {
+          var href = $(this).attr('href');
+          return window.open(href);
         })
 
       })

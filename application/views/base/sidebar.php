@@ -66,12 +66,12 @@
           </a>
         </li>
 
-        <li>
+        <!-- <li>
           <a href="<?php echo base_url('pegawai_pjb'); ?>">
             <i class="fa fa-users"></i>
             <span>Pegawai</span>
           </a>
-        </li>
+        </li> -->
         
       </ul>
     </section>

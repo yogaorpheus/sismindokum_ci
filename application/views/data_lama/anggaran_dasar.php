@@ -33,13 +33,12 @@
                   <th>PIC</th>
                   <th>Status Akta</th>
                   <th>Lampiran</th>
-                  <th>Pengaturan</th>
                 </tr>
                 </thead>
                 <tbody>
                 <?php
                 $no = 1; 
-                foreach ($data_anggaran_dasar as $key => $onedata) { 
+                foreach ($data_anggaran_lama as $key => $onedata) { 
                 ?>
                 <tr>
                   <td style="vertical-align: middle;"><?php echo $no++; ?></td>
@@ -72,29 +71,6 @@
                       ?>
                     </div>
                   </td>
-                  <td width="120px;">
-                    <?php
-                    foreach ($menu_tampil as $key => $one_menu) {
-
-                      if ($this->uri->segment(1) == $menu_utama[$key]['nama_controller']) {
-                        foreach ($one_menu as $key1 => $one_sub_menu) {
-                          
-                          if ($this->uri->segment(2) == $sub_menu[$key1]['nama_method']) {
-                            foreach ($one_sub_menu as $key2 => $one_crud) {
-                              
-                              if ($one_crud['berhak'] && $menu_crud[$key2]['is_crud'] && ($menu_crud[$key2]['nama_menu_crud'] != "Review"))
-                              {
-                                echo "<a href='".base_url($menu_utama[$key]['nama_controller']."/".$sub_menu[$key1]['nama_method'].$menu_crud[$key2]['nama_concat_method']."/".$onedata['id_anggaran'])."' class='".$menu_crud[$key2]['nama_menu_crud']."' id='".$menu_crud[$key2]['nama_menu_crud'].$onedata['id_anggaran']."'>";
-                                echo $menu_crud[$key2]['html'];
-                                echo "</a>";
-                              }
-                            }
-                          }
-                        }
-                      }
-                    }
-                    ?>
-                  </td>
                 </tr>
                 <?php }
                 ?>
@@ -110,7 +86,6 @@
                   <th>PIC</th>
                   <th>Status Akta</th>
                   <th>Lampiran</th>
-                  <th>Pengaturan</th>
                 </tr>
                 </tfoot>
               </table>

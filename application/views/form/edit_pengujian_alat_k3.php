@@ -40,7 +40,7 @@
                           echo "<option selected='selected' value=".$one_distrik['id_distrik'].">";
                         else
                         {
-                          if ($user_detail['kode_distrik_pegawai'] == 'Z')
+                          if ($user['kode_distrik_pegawai'] == 'Z')
                           {
                             echo "<option value=".$one_distrik['id_distrik'].">";
                           }
