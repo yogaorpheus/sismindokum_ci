@@ -38,6 +38,7 @@ class Anggaran extends CI_Model {
 	public function get_anggaran_by_id($id)
 	{
 		$this->db->where('id_anggaran', $id);
+		$this->db->join('status', 'status.id_status = anggaran.status_anggaran', 'inner');
 		$query = $this->db->get('anggaran');
 
 		return $query->row_array();
