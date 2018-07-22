@@ -20,9 +20,10 @@ class Data_crud extends CI_Controller {
 		$this->load->model('jenis_sertifikat');
 		$this->load->model('sub_jenis_sertifikat');
 		$this->load->model('unit');
+		$this->load->model('remainder');
 	}
 
-	public function upload_file_lampiran()
+	private function upload_file_lampiran()
 	{
 		$file_path = "";
 
@@ -51,6 +52,34 @@ class Data_crud extends CI_Controller {
 		return $file_data;
 	}
 
+	private function set_status_sertifikat($id_sertifikat)
+	{
+		$data_sertifikat = $this->sertifikat->get_sertifikat_by_id($id_sertifikat);
+		
+		$id_remainder = $data_sertifikat['id_remainder_sertifikat'];
+		$durasi_remainder = $this->remainder->get_durasi_remainder_by_id($id_remainder);
+
+		$selisih_tanggal = $this->sertifikat->get_selisih_tanggal($id_sertifikat);
+		$data = array(
+			'id_sertifikat'	=> $id_sertifikat
+			);
+
+		if ($selisih_tanggal > $durasi_remainder)
+		{
+			$data['status_sertifikat'] = $this->status->get_id_status_by_nama_status_dan_nama_tabel("Aktif", "Sertifikat");
+		}
+		else if (($selisih_tanggal <= $durasi_remainder) && ($selisih_tanggal > 0))
+		{
+			$data['status_sertifikat'] = $this->status->get_id_status_by_nama_status_dan_nama_tabel("Alarm", "Sertifikat");
+		}
+		else if ($selisih_tanggal <= 0)
+		{
+			$data['status_sertifikat'] = $this->status->get_id_status_by_nama_status_dan_nama_tabel("Kadaluarsa", "Sertifikat");
+		}
+
+		$result = $this->sertifikat->update_data_sertifikat($data);
+	}
+
 	//-------------------------------------- SEMUA DATA PERTANAHAN -----------------------------------------------
 	public function pertanahan_edit($id_sertifikat)
 	{
@@ -68,12 +97,15 @@ class Data_crud extends CI_Controller {
 		$id_jenis_sertifikat = $this->jenis_sertifikat->get_id_jenis_sertifikat('pertanahan');
 		$sub_jenis_sertifikat = $this->sub_jenis_sertifikat->get_sub_jenis_by_id_jenis_sertifikat($id_jenis_sertifikat);
 
+		$remainder = $this->remainder->get_all_remainder();
+
 		$data = array(
 			'data_pertanahan'		=> $data_pertanahan,
 			'distrik' 				=> $jenis_distrik,
 			'lembaga'				=> $lembaga,
 			'dasar_hukum'			=> $dasar_hukum,
-			'sub_jenis_sertifikat'	=> $sub_jenis_sertifikat
+			'sub_jenis_sertifikat'	=> $sub_jenis_sertifikat,
+			'remainder'				=> $remainder
 			);
 		return $this->template->load_view('form', 'edit_pertanahan', $data);
 	}
@@ -104,7 +136,8 @@ class Data_crud extends CI_Controller {
 			'keterangan'				=> $input['keterangan'],
 			'jabatan_pic'				=> $this->authentifier->get_user_detail()['posisi_pegawai'],
 			'dibuat_oleh'				=> $this->authentifier->get_user_detail()['id_pegawai'],
-			'status_sertifikat'			=> 3
+			'status_sertifikat'			=> 3,
+			'id_remainder_sertifikat'	=> $input['remainder']
 			);
 		// Status sertifikat masih menggunakan nilai default
 		if (!is_null($file_path) && !empty($file_path))
@@ -117,6 +150,8 @@ class Data_crud extends CI_Controller {
 		
 		if ($result)
 		{
+			$this->set_status_sertifikat($input['id_sertifikat']);
+
 			$log_data = array(
 				'nama_tabel'		=> 'sertifikat',
 				'id_pegawai'		=> $this->authentifier->get_user_detail()['id_pegawai'],
@@ -191,12 +226,15 @@ class Data_crud extends CI_Controller {
 		$id_menu2 = $this->menu->get_id_menu2('slo');
 		$dasar_hukum = $this->dasar_hukum->get_dasar_hukum_by_menu($id_menu2);
 
+		$remainder = $this->remainder->get_all_remainder();
+
 		$data = array(
 			'data_slo'		=> $data_slo,
 			'distrik' 		=> $jenis_distrik,
 			'lembaga'		=> $lembaga,
 			'dasar_hukum'	=> $dasar_hukum,
-			'unit'			=> $unit
+			'unit'			=> $unit,
+			'remainder'		=> $remainder
 			);
 		return $this->template->load_view('form', 'edit_slo', $data);
 	}
@@ -227,7 +265,8 @@ class Data_crud extends CI_Controller {
 			'keterangan'				=> $input['keterangan'],
 			'jabatan_pic'				=> $this->authentifier->get_user_detail()['posisi_pegawai'],
 			'dibuat_oleh'				=> $this->authentifier->get_user_detail()['id_pegawai'],
-			'status_sertifikat'			=> 3
+			'status_sertifikat'			=> 3,
+			'id_remainder_sertifikat'	=> $input['remainder']
 			);
 
 		if (!is_null($file_path) && !empty($file_path))
@@ -240,6 +279,8 @@ class Data_crud extends CI_Controller {
 		
 		if ($result)
 		{
+			$this->set_status_sertifikat($input['id_sertifikat']);
+
 			$log_data = array(
 				'nama_tabel'		=> 'sertifikat',
 				'id_pegawai'		=> $this->authentifier->get_user_detail()['id_pegawai'],
@@ -323,12 +364,15 @@ class Data_crud extends CI_Controller {
 		$id_jenis_sertifikat = $this->jenis_sertifikat->get_id_jenis_sertifikat('perizinan');
 		$sub_jenis_sertifikat = $this->sub_jenis_sertifikat->get_sub_jenis_by_id_jenis_sertifikat($id_jenis_sertifikat);
 
+		$remainder = $this->remainder->get_all_remainder();
+
 		$data = array(
 			'data_perizinan'		=> $data_perizinan,
 			'distrik' 				=> $jenis_distrik,
 			'lembaga'				=> $lembaga,
 			'dasar_hukum'			=> $dasar_hukum,
-			'sub_jenis_sertifikat'	=> $sub_jenis_sertifikat
+			'sub_jenis_sertifikat'	=> $sub_jenis_sertifikat,
+			'remainder'				=> $remainder
 			);
 		return $this->template->load_view('form', 'edit_perizinan', $data);
 	}
@@ -359,7 +403,8 @@ class Data_crud extends CI_Controller {
 			'keterangan'				=> $input['keterangan'],
 			'jabatan_pic'				=> $this->authentifier->get_user_detail()['posisi_pegawai'],
 			'dibuat_oleh'				=> $this->authentifier->get_user_detail()['id_pegawai'],
-			'status_sertifikat'			=> 3
+			'status_sertifikat'			=> 3,
+			'id_remainder_sertifikat'	=> $input['remainder']
 			);
 
 		if (!is_null($file_path) && !empty($file_path))
@@ -372,6 +417,8 @@ class Data_crud extends CI_Controller {
 		
 		if ($result)
 		{
+			$this->set_status_sertifikat($input['id_sertifikat']);
+
 			$log_data = array(
 				'nama_tabel'		=> 'sertifikat',
 				'id_pegawai'		=> $this->authentifier->get_user_detail()['id_pegawai'],
@@ -448,12 +495,15 @@ class Data_crud extends CI_Controller {
 		$id_jenis_sertifikat = $this->jenis_sertifikat->get_id_jenis_sertifikat('pengujian alat k3');
 		$sub_jenis_sertifikat = $this->sub_jenis_sertifikat->get_sub_jenis_by_id_jenis_sertifikat($id_jenis_sertifikat);
 
+		$remainder = $this->remainder->get_all_remainder();
+
 		$data = array(
 			'data_pengujian'		=> $data_pengujian,
 			'distrik' 				=> $jenis_distrik,
 			'lembaga'				=> $lembaga,
 			'dasar_hukum'			=> $dasar_hukum,
-			'sub_jenis_sertifikat'	=> $sub_jenis_sertifikat
+			'sub_jenis_sertifikat'	=> $sub_jenis_sertifikat,
+			'remainder'				=> $remainder
 			);
 		return $this->template->load_view('form', 'edit_pengujian_alat_k3', $data);
 	}
@@ -484,7 +534,8 @@ class Data_crud extends CI_Controller {
 			'keterangan'				=> $input['keterangan'],
 			'jabatan_pic'				=> $this->authentifier->get_user_detail()['posisi_pegawai'],
 			'dibuat_oleh'				=> $this->authentifier->get_user_detail()['id_pegawai'],
-			'status_sertifikat'			=> 3
+			'status_sertifikat'			=> 3,
+			'id_remainder_sertifikat'	=> $input['remainder']
 			);
 
 		if (!is_null($file_path) && !empty($file_path))
@@ -497,6 +548,8 @@ class Data_crud extends CI_Controller {
 		
 		if ($result)
 		{
+			$this->set_status_sertifikat($input['id_sertifikat']);
+
 			$log_data = array(
 				'nama_tabel'		=> 'sertifikat',
 				'id_pegawai'		=> $this->authentifier->get_user_detail()['id_pegawai'],
@@ -570,11 +623,14 @@ class Data_crud extends CI_Controller {
 		$id_menu2 = $this->menu->get_id_menu2('lisensi');
 		$dasar_hukum = $this->dasar_hukum->get_dasar_hukum_by_menu($id_menu2);
 
+		$remainder = $this->remainder->get_all_remainder();
+
 		$data = array(
 			'data_lisensi'		=> $data_lisensi,
 			'distrik' 			=> $jenis_distrik,
 			'lembaga'			=> $lembaga,
-			'dasar_hukum'		=> $dasar_hukum
+			'dasar_hukum'		=> $dasar_hukum,
+			'remainder'			=> $remainder
 			);
 		return $this->template->load_view('form', 'edit_lisensi', $data);
 	}
@@ -605,7 +661,8 @@ class Data_crud extends CI_Controller {
 			'keterangan'				=> $input['keterangan'],
 			'jabatan_pic'				=> $this->authentifier->get_user_detail()['posisi_pegawai'],
 			'dibuat_oleh'				=> $this->authentifier->get_user_detail()['id_pegawai'],
-			'status_sertifikat'			=> 3
+			'status_sertifikat'			=> 3,
+			'id_remainder_sertifikat'	=> $input['remainder']
 			);
 
 		if (!is_null($file_path) && !empty($file_path))
@@ -618,6 +675,8 @@ class Data_crud extends CI_Controller {
 		
 		if ($result)
 		{
+			$this->set_status_sertifikat($input['id_sertifikat']);
+
 			$log_data = array(
 				'nama_tabel'		=> 'sertifikat',
 				'id_pegawai'		=> $this->authentifier->get_user_detail()['id_pegawai'],

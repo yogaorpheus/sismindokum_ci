@@ -50,7 +50,7 @@
                   <td style="vertical-align: middle;"><?php echo $onedata['jabatan_pic']; ?></td>
                   <td style="vertical-align: middle;"><?php echo $onedata['tanggal_sertifikasi']; ?></td>
                   <td style="vertical-align: middle;"><?php echo $onedata['tanggal_kadaluarsa']; ?></td>
-                  <td style="vertical-align: middle;"><?php echo $onedata['nama_status']; ?></td>
+                  <td style="vertical-align: middle;"><h4><span class="label label-default"><?php echo $onedata['nama_status']; ?></span></h4></td>
                   <td style="vertical-align: middle;">
                     <button href="<?php echo $onedata['file_sertifikat']; ?>" class="btn btn-primary btn-xs review" title="lampiran"><i class="glyphicon glyphicon-zoom-in"></i></button>
                   </td>

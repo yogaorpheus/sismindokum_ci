@@ -132,6 +132,27 @@ class Sertifikat extends CI_Model {
 		return $query->result_array();
 	}
 
+	public function get_jumlah_sertifikat_by_nama_jenis($nama_sertifikat)
+	{
+		$this->db->where('nama_jenis_sertifikat', $nama_sertifikat);
+		$id_jenis_sertifikat = $this->db->get('jenis_sertifikat')->row_array()['id_jenis_sertifikat'];
+
+		$query = $this->db->query(
+			"SELECT COUNT(s.id_sertifikat) AS value, status.`nama_status` AS label
+			FROM (
+				SELECT id_sertifikat, status_sertifikat
+				FROM sertifikat
+				WHERE id_jenis_sertifikat = ".$id_jenis_sertifikat."
+			)s
+			RIGHT JOIN status
+			ON s.`status_sertifikat` = status.`id_status`
+			WHERE status.`penggunaan_tabel_status` = 'sertifikat'
+			GROUP BY status.`nama_status`"
+			);
+
+		return $query->result_array();
+	}
+
 	public function delete_sertifikat_by_id($id_sertif, $id_jenis_sertif)
 	{
 		$this->db->where('id_sertifikat', $id_sertif);
@@ -183,6 +204,18 @@ class Sertifikat extends CI_Model {
 		$query = $this->db->insert('sertifikat', $data);
 
 		return $query;
+	}
+
+	public function get_selisih_tanggal($id_sertifikat)
+	{
+		$query = $this->db->query(
+			"SELECT DATEDIFF(tanggal_kadaluarsa, tanggal_sertifikasi) AS selisih_tanggal
+			FROM sertifikat
+			WHERE sertifikat.id_sertifikat = ".$id_sertifikat
+			);
+
+		$selisih_tanggal = $query->row_array()['selisih_tanggal'];
+		return $selisih_tanggal;
 	}
 
 }

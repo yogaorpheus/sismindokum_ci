@@ -5,7 +5,9 @@
       <!-- Sidebar user panel -->
       <div class="user-panel">
         <div align="middle">
-          <img src="<?php echo base_url('assets/adminlte'); ?>/dist/img/LOGO_PJB_White.png" style="height: 50%; width: 50%;">
+          <a href="<?php echo base_url('home'); ?>">
+            <img src="<?php echo base_url('assets/adminlte'); ?>/dist/img/LOGO_PJB_White.png" style="height: 50%; width: 50%;">
+          </a>
         </div>
         <!-- <div class="pull-left info">
           <p>Alexander Pierce</p>
@@ -19,6 +21,12 @@
 
         <li class="header">MENU UTAMA</li>
         
+        <li>
+          <a href="<?php echo base_url('dashboard'); ?>">
+            <i class="fa fa-dashboard"></i>
+            <span>Dashboard</span>
+          </a>
+        </li>
         <?php
         foreach ($menu_tampil as $key => $one_menu_utama) 
         {
@@ -33,7 +41,7 @@
           else
           {
             echo "<a href='#'>";
-            echo "<i class='fa fa-circle'></i> <span>".$menu_utama[$key]['nama_menu1']."</span>";
+            echo "<i class='fa fa-file-text-o'></i> <span>".$menu_utama[$key]['nama_menu1']."</span>";
             echo "<span class='pull-right-container'><i class='fa fa-angle-left pull-right'></i></span>";
             echo "</a>";
 
@@ -61,7 +69,7 @@
 
         <li>
           <a href="<?php echo base_url('unit'); ?>">
-            <i class="fa fa-circle"></i>
+            <i class="fa fa-database"></i>
             <span>Unit</span>
           </a>
         </li>

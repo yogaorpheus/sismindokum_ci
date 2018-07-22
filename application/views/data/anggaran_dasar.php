@@ -49,7 +49,7 @@
                   <td style="vertical-align: middle;"><?php echo $onedata['tanggal_akta_anggaran']; ?></td>
                   <td style="vertical-align: middle;"><?php echo $onedata['no_penerimaan_anggaran']; ?></td>
                   <td style="vertical-align: middle;"><?php echo $onedata['jabatan_pic']; ?></td>
-                  <td style="vertical-align: middle;"><?php echo $onedata['nama_status']; ?></td>
+                  <td style="vertical-align: middle;"><h4><span class="label label-success"><?php echo $onedata['nama_status']; ?></span></h4></td>
                   <td style="vertical-align: middle;" width="60px;">
                     <div class="col-md-6">
                       <?php 
@@ -68,7 +68,7 @@
                       ?>
                     </div>
                   </td>
-                  <td width="120px;">
+                  <td style="vertical-align: middle;" width="120px;">
                     <?php
                     foreach ($menu_tampil as $key => $one_menu) {
 

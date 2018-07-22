@@ -159,7 +159,7 @@ class Anggaran_dasar extends CI_Controller {
 
 			if (!is_null($file_path1) && !empty($file_path1))
 				unlink("assets/lampiran/".$data_anggaran['nama_file1']);
-			
+
 			if (!is_null($file_path2) && !empty($file_path2))
 				unlink("assets/lampiran/".$data_anggaran['nama_file2']);
 
@@ -191,6 +191,10 @@ class Anggaran_dasar extends CI_Controller {
 
 		if ($result) 
 		{
+			// if (!is_null($data_anggaran['nama_file1']))
+			// 	unlink("assets/lampiran/".$data_anggaran['nama_file1']);
+			// if (!is_null($data_anggaran['nama_file2']))
+			// 	unlink("assets/lampiran/".$data_anggaran['nama_file2']);
 			$this->authentifier->set_flashdata('error', 1);	// Delete berhasil
 		}
 		else
