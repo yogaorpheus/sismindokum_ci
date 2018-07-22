@@ -7,7 +7,7 @@
 
 <div class="wrapper" style="overflow-y: hidden;">
 
-  <?php $this->load->view('base/header.php'); ?>
+  <?php $this->load->view('base/header.php', $user); ?>
   <!-- Left side column. contains the logo and sidebar -->
   <?php $this->load->view('base/sidebar.php', $menu); ?>
   <!-- $this->load->view('base/sidebar.php', $menu); -->

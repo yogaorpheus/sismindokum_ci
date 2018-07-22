@@ -34,4 +34,11 @@ class Jenis_sertifikat extends CI_Model {
 		return $nama_jenis_sertifikat;
 	}
 
+	public function get_all_jenis_sertifikat()
+	{
+		$query = $this->db->get('jenis_sertifikat');
+
+		return $query->result_array();
+	}
+
 }

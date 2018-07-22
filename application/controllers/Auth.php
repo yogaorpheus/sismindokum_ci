@@ -76,7 +76,7 @@ class Auth extends CI_Controller {
 	public function logout()
 	{
 		$this->authentifier->logout();
-		redirect ('home');
+		return redirect ('/');
 	}
 
 }

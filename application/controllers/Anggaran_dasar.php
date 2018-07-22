@@ -119,6 +119,8 @@ class Anggaran_dasar extends CI_Controller {
 		$tanggal_rups_sirkuler = DateTime::createFromFormat('m/d/Y', $input['tanggal_rups_sirkuler'])->format('Y-m-d');
 		$tanggal_akta = DateTime::createFromFormat('m/d/Y', $input['tanggal_akta'])->format('Y-m-d');
 
+		$data_anggaran = $this->anggaran->get_anggaran_by_id($input['id_anggaran']);
+
 		$data = array(
 			'id_anggaran'				=> $input['id_anggaran'],
 			'tanggal_rups_sirkuler'		=> $tanggal_rups_sirkuler,
@@ -155,6 +157,12 @@ class Anggaran_dasar extends CI_Controller {
 				);
 			$id_log = $this->log_database->write_log($log_data);
 
+			if (!is_null($file_path1) && !empty($file_path1))
+				unlink("assets/lampiran/".$data_anggaran['nama_file1']);
+
+			if (!is_null($file_path2) && !empty($file_path2))
+				unlink("assets/lampiran/".$data_anggaran['nama_file2']);
+
 			$this->authentifier->set_flashdata('error', 1);	// Delete berhasil
 		}
 		else
@@ -183,6 +191,10 @@ class Anggaran_dasar extends CI_Controller {
 
 		if ($result) 
 		{
+			// if (!is_null($data_anggaran['nama_file1']))
+			// 	unlink("assets/lampiran/".$data_anggaran['nama_file1']);
+			// if (!is_null($data_anggaran['nama_file2']))
+			// 	unlink("assets/lampiran/".$data_anggaran['nama_file2']);
 			$this->authentifier->set_flashdata('error', 1);	// Delete berhasil
 		}
 		else

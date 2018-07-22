@@ -33,7 +33,7 @@
                   <th>Tanggal Terbit</th>
                   <th>Tanggal Berakhir</th>
                   <th>Status</th>
-                  <th>Pengaturan</th>
+                  <th>Lampiran</th>
                 </tr>
                 </thead>
                 <tbody>
@@ -50,29 +50,9 @@
                   <td style="vertical-align: middle;"><?php echo $onedata['jabatan_pic']; ?></td>
                   <td style="vertical-align: middle;"><?php echo $onedata['tanggal_sertifikasi']; ?></td>
                   <td style="vertical-align: middle;"><?php echo $onedata['tanggal_kadaluarsa']; ?></td>
-                  <td style="vertical-align: middle;"><?php echo $onedata['nama_status']; ?></td>
-                  <td width="160px;">
-                    <?php
-                    foreach ($menu_tampil as $key => $one_menu) {
-
-                      if ($this->uri->segment(1) == $menu_utama[$key]['nama_controller']) {
-                        foreach ($one_menu as $key1 => $one_sub_menu) {
-                          
-                          if ($this->uri->segment(2) == $sub_menu[$key1]['nama_method']) {
-                            foreach ($one_sub_menu as $key2 => $one_crud) {
-                              
-                              if ($one_crud['berhak'] && $menu_crud[$key2]['is_crud'])
-                              {
-                                echo "<a href='".base_url($menu_utama[$key]['nama_controller']."/".$sub_menu[$key1]['nama_method'].$menu_crud[$key2]['nama_concat_method']."/".$onedata['id_sertifikat'])."'>";
-                                echo $menu_crud[$key2]['html'];
-                                echo "</a>";
-                              }
-                            }
-                          }
-                        }
-                      }
-                    }
-                    ?>
+                  <td style="vertical-align: middle;"><h4><span class="label label-default"><?php echo $onedata['nama_status']; ?></span></h4></td>
+                  <td style="vertical-align: middle;">
+                    <button href="<?php echo $onedata['file_sertifikat']; ?>" class="btn btn-primary btn-xs review" title="lampiran"><i class="glyphicon glyphicon-zoom-in"></i></button>
                   </td>
                 </tr>
                 <?php }
@@ -89,7 +69,7 @@
                   <th>Tanggal Terbit</th>
                   <th>Tanggal Berakhir</th>
                   <th>Status</th>
-                  <th>Pengaturan</th>
+                  <th>Lampiran</th>
                 </tr>
                 </tfoot>
               </table>
@@ -115,5 +95,10 @@
         //   'autoWidth'   : false
         // })
         $('#tabel1').DataTable()
+
+        $(document).on('click', '.review', function() {
+          var href = $(this).attr('href');
+          window.open(href);
+        })
       })
     </script>

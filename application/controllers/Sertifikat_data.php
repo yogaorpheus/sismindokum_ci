@@ -15,9 +15,10 @@ class Sertifikat_data extends CI_Controller {
 		$this->load->model('jenis_sertifikat');
 		$this->load->model('log_database');
 		$this->load->model('status');
+		$this->load->model('remainder');
 	}
 
-	public function upload_file_lampiran()
+	private function upload_file_lampiran()
 	{
 		$file_path = "";
 
@@ -46,6 +47,34 @@ class Sertifikat_data extends CI_Controller {
 		return $file_data;
 	}
 
+	private function set_status_sertifikat($id_sertifikat)
+	{
+		$data_sertifikat = $this->sertifikat->get_sertifikat_by_id($id_sertifikat);
+		
+		$id_remainder = $data_sertifikat['id_remainder_sertifikat'];
+		$durasi_remainder = $this->remainder->get_durasi_remainder_by_id($id_remainder);
+
+		$selisih_tanggal = $this->sertifikat->get_selisih_tanggal($id_sertifikat);
+		$data = array(
+			'id_sertifikat'	=> $id_sertifikat
+			);
+
+		if ($selisih_tanggal > $durasi_remainder)
+		{
+			$data['status_sertifikat'] = $this->status->get_id_status_by_nama_status_dan_nama_tabel("Aktif", "Sertifikat");
+		}
+		else if (($selisih_tanggal <= $durasi_remainder) && ($selisih_tanggal > 0))
+		{
+			$data['status_sertifikat'] = $this->status->get_id_status_by_nama_status_dan_nama_tabel("Alarm", "Sertifikat");
+		}
+		else if ($selisih_tanggal <= 0)
+		{
+			$data['status_sertifikat'] = $this->status->get_id_status_by_nama_status_dan_nama_tabel("Kadaluarsa", "Sertifikat");
+		}
+
+		$result = $this->sertifikat->update_data_sertifikat($data);
+	}
+
 	// BERIKUT ADALAH METHOD YANG AKAN DIGUNAKAN UNTUK MENAMBAH DATA PADA SETIAP SERTIFIKAT
 	public function tambah_pertanahan()
 	{
@@ -72,7 +101,8 @@ class Sertifikat_data extends CI_Controller {
 			'keterangan'				=> $input['keterangan'],
 			'jabatan_pic'				=> $this->authentifier->get_user_detail()['posisi_pegawai'],
 			'dibuat_oleh'				=> $this->authentifier->get_user_detail()['id_pegawai'],
-			'status_sertifikat'			=> 3
+			'status_sertifikat'			=> 3,
+			'id_remainder_sertifikat'	=> $input['remainder']
 			);
 		// Status sertifikat masih menggunakan nilai default
 
@@ -82,6 +112,8 @@ class Sertifikat_data extends CI_Controller {
 		{
 			$id_pegawai = $this->authentifier->get_user_detail()['id_pegawai'];
 			$id_sertifikat = $this->sertifikat->get_id_sertifikat_latest_by_user($id_pegawai);
+
+			$this->set_status_sertifikat($id_sertifikat);
 
 			$log_data = array(
 				'nama_tabel'		=> 'sertifikat',
@@ -127,7 +159,8 @@ class Sertifikat_data extends CI_Controller {
 			'keterangan'				=> $input['keterangan'],
 			'jabatan_pic'				=> $this->authentifier->get_user_detail()['posisi_pegawai'],
 			'dibuat_oleh'				=> $this->authentifier->get_user_detail()['id_pegawai'],
-			'status_sertifikat'			=> 3
+			'status_sertifikat'			=> 3,
+			'id_remainder_sertifikat'	=> $input['remainder']
 			);
 
 		$result = $this->sertifikat->tambah_data_lisensi($data);
@@ -136,6 +169,8 @@ class Sertifikat_data extends CI_Controller {
 		{
 			$id_pegawai = $this->authentifier->get_user_detail()['id_pegawai'];
 			$id_sertifikat = $this->sertifikat->get_id_sertifikat_latest_by_user($id_pegawai);
+
+			$this->set_status_sertifikat($id_sertifikat);
 
 			$log_data = array(
 				'nama_tabel'		=> 'sertifikat',
@@ -181,7 +216,8 @@ class Sertifikat_data extends CI_Controller {
 			'keterangan'				=> $input['keterangan'],
 			'jabatan_pic'				=> $this->authentifier->get_user_detail()['posisi_pegawai'],
 			'dibuat_oleh'				=> $this->authentifier->get_user_detail()['id_pegawai'],
-			'status_sertifikat'			=> 3
+			'status_sertifikat'			=> 3,
+			'id_remainder_sertifikat'	=> $input['remainder']
 			);
 
 		$result = $this->sertifikat->tambah_data_pengujian_alat_k3($data);
@@ -190,6 +226,8 @@ class Sertifikat_data extends CI_Controller {
 		{
 			$id_pegawai = $this->authentifier->get_user_detail()['id_pegawai'];
 			$id_sertifikat = $this->sertifikat->get_id_sertifikat_latest_by_user($id_pegawai);
+
+			$this->set_status_sertifikat($id_sertifikat);
 
 			$log_data = array(
 				'nama_tabel'		=> 'sertifikat',
@@ -235,7 +273,8 @@ class Sertifikat_data extends CI_Controller {
 			'keterangan'				=> $input['keterangan'],
 			'jabatan_pic'				=> $this->authentifier->get_user_detail()['posisi_pegawai'],
 			'dibuat_oleh'				=> $this->authentifier->get_user_detail()['id_pegawai'],
-			'status_sertifikat'			=> 3
+			'status_sertifikat'			=> 3,
+			'id_remainder_sertifikat'	=> $input['remainder']
 			);
 
 		$result = $this->sertifikat->tambah_data_perizinan($data);
@@ -244,6 +283,8 @@ class Sertifikat_data extends CI_Controller {
 		{
 			$id_pegawai = $this->authentifier->get_user_detail()['id_pegawai'];
 			$id_sertifikat = $this->sertifikat->get_id_sertifikat_latest_by_user($id_pegawai);
+
+			$this->set_status_sertifikat($id_sertifikat);
 
 			$log_data = array(
 				'nama_tabel'		=> 'sertifikat',
@@ -288,7 +329,8 @@ class Sertifikat_data extends CI_Controller {
 			'keterangan'				=> $input['keterangan'],
 			'jabatan_pic'				=> $this->authentifier->get_user_detail()['posisi_pegawai'],
 			'dibuat_oleh'				=> $this->authentifier->get_user_detail()['id_pegawai'],
-			'status_sertifikat'			=> 3
+			'status_sertifikat'			=> 3,
+			'id_remainder_sertifikat'	=> $input['remainder']
 			);
 
 		$result = $this->sertifikat->tambah_data_slo($data);
@@ -297,6 +339,8 @@ class Sertifikat_data extends CI_Controller {
 		{
 			$id_pegawai = $this->authentifier->get_user_detail()['id_pegawai'];
 			$id_sertifikat = $this->sertifikat->get_id_sertifikat_latest_by_user($id_pegawai);
+
+			$this->set_status_sertifikat($id_sertifikat);
 
 			$log_data = array(
 				'nama_tabel'		=> 'sertifikat',

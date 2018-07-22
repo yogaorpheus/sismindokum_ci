@@ -15,6 +15,8 @@
 <script src="<?php echo base_url('assets/adminlte'); ?>/dist/js/pages/dashboard.js"></script>
 <!-- AdminLTE for demo purposes -->
 <script src="<?php echo base_url('assets/adminlte'); ?>/dist/js/demo.js"></script>
+<!-- Select2 -->
+<script src="<?php echo base_url('assets/adminlte'); ?>/bower_components/select2/dist/js/select2.full.min.js"></script>
 <?php if ($head == 'dashboard2') { ?>
 	<!-- Morris.js charts -->
 	<script src="<?php echo base_url('assets/adminlte'); ?>/bower_components/raphael/raphael.min.js"></script>
@@ -27,8 +29,6 @@
 	<!-- jQuery Knob Chart -->
 	<script src="<?php echo base_url('assets/adminlte'); ?>/bower_components/jquery-knob/dist/jquery.knob.min.js"></script>
 <?php } else if ($head == 'form' || $head == 'remark') { ?>
-	<!-- Select2 -->
-	<script src="<?php echo base_url('assets/adminlte'); ?>/bower_components/select2/dist/js/select2.full.min.js"></script>
 	<!-- InputMask -->
 	<script src="<?php echo base_url('assets/adminlte'); ?>/plugins/input-mask/jquery.inputmask.js"></script>
 	<script src="<?php echo base_url('assets/adminlte'); ?>/plugins/input-mask/jquery.inputmask.date.extensions.js"></script>

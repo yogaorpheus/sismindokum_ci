@@ -50,8 +50,20 @@
                   <td style="vertical-align: middle;"><?php echo $onedata['jabatan_pic']; ?></td>
                   <td style="vertical-align: middle;"><?php echo $onedata['tanggal_sertifikasi']; ?></td>
                   <td style="vertical-align: middle;"><?php echo $onedata['tanggal_kadaluarsa']; ?></td>
-                  <td style="vertical-align: middle;"><?php echo $onedata['nama_status']; ?></td>
-                  <td width="120px;">
+                  <td style="vertical-align: middle;">
+                    <?php
+                    echo "<h4>";
+                    if (strtolower($onedata['nama_status']) == "aktif")
+                      echo "<span class='label label-success'>";
+                    else if (strtolower($onedata['nama_status']) == "alarm")
+                      echo "<span class='label label-warning'>";
+                    else if (strtolower($onedata['nama_status']) == "kadaluarsa")
+                      echo "<span class='label label-danger'>";
+                    echo $onedata['nama_status'];
+                    echo "</span></h4>";
+                    ?>
+                  </td>
+                  <td style="vertical-align: middle;" width="120px;">
                     <?php
                     foreach ($menu_tampil as $key => $one_menu) {
 
@@ -150,5 +162,10 @@
           delete_id = "#" + delete_id;
           $(delete_id).attr('href', delete_href);
         })
+
+        $(document).on("click", ".Review", function() {
+          $(this).attr('target', '_blank');
+        })
+        
       })
     </script>

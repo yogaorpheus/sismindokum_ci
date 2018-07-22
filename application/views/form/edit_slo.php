@@ -40,7 +40,7 @@
                           echo "<option selected='selected' value=".$one_distrik['id_distrik'].">";
                         else
                         {
-                          if ($user_detail['kode_distrik_pegawai'] == 'Z')
+                          if ($user['kode_distrik_pegawai'] == 'Z')
                           {
                             echo "<option value=".$one_distrik['id_distrik'].">";
                           }
@@ -143,6 +143,22 @@
                         </div>
                         <input type="text" class="form-control pull-right" id="datepicker2" name="tanggal_berakhir" value="<?php echo $data_slo['tanggal_berakhir']; ?>">
                       </div>
+                    </div>
+
+                    <div class="form-group">
+                      <label>Waktu Pengingat</label>
+                      <select class="form-control select2" style="width: 100%;" name="remainder">
+                      <?php
+                      foreach ($remainder as $key => $one_remainder) {
+                        if ($one_remainder['id_remainder'] == $data_slo['id_remainder_sertifikat'])
+                          echo "<option selected='selected' value='".$one_remainder['id_remainder']."'>";
+                        else
+                          echo "<option value='".$one_remainder['id_remainder']."'>";
+                        echo $one_remainder['nama_remainder'];
+                        echo "</option>";
+                      }
+                      ?>
+                      </select>
                     </div>
 
                   </div>

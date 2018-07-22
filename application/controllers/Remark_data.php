@@ -96,6 +96,9 @@ class Remark_data extends CI_Controller {
 		$input = $this->input->post();
 		$id_pegawai = $this->authentifier->get_user_detail()['id_pegawai'];
 
+		$sub_link = $input['sub_link'];
+		$id_anggaran = $input['id_anggaran'];
+
 		$data = array(
 			'id_data'	=> $input['id_anggaran'],
 			'status_remark'	=> $input['status_remark'],
@@ -125,7 +128,7 @@ class Remark_data extends CI_Controller {
 			$this->authentifier->set_flashdata('error', 2);
 		}
 
-		redirect ('data/anggaran_dasar');
+		redirect ('data/'.$sub_link.'/'.$id_anggaran);
 	}
 
 	public function sertifikat_remark()
@@ -133,9 +136,8 @@ class Remark_data extends CI_Controller {
 		$input = $this->input->post();
 		$id_pegawai = $this->authentifier->get_user_detail()['id_pegawai'];
 
-		$nama_jenis_sertifikat = $this->jenis_sertifikat->get_nama_jenis_sertifikat_by_id_sertifikat($input['id_sertifikat']);
-		$nama_jenis_sertifikat = strtolower($nama_jenis_sertifikat);
-		$nama_jenis_sertifikat = str_replace(" ", "_", $nama_jenis_sertifikat);
+		$sub_link = $input['sub_link'];
+		$id_sertifikat = $input['id_sertifikat'];
 
 		$data = array(
 			'id_data'		=> $input['id_sertifikat'],
@@ -166,12 +168,15 @@ class Remark_data extends CI_Controller {
 			$this->authentifier->set_flashdata('error', 2);
 		}
 
-		redirect ('data/'.$nama_jenis_sertifikat);
+		redirect ('data/'.$sub_link.'/'.$id_sertifikat);
 	}
 
 	public function delete_remark()
 	{
 		$input = $this->input->post();
+
+		$sub_link = $input['sub_link'];
+		$id_data = $input['id_data'];
 
 		$id_pegawai = $this->authentifier->get_user_detail()['id_pegawai'];
 		$id_remark = $input['id'];
@@ -199,6 +204,8 @@ class Remark_data extends CI_Controller {
 			$this->log_database->delete_log_by_id($id_log);
 			$this->authentifier->set_flashdata('error', 2);
 		}
+
+		return redirect ('data/'.$sub_link.'/'.$id_data);
 	}
 
 }

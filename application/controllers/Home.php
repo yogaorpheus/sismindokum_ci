@@ -6,14 +6,19 @@ class Home extends CI_Controller {
 	public function __construct() 
 	{
 		parent::__construct();
-		//Example : $this->load->model('model_name');
-		//Example : $this->load->helper(array('html', 'form', etc));
+		$this->load->library('authentifier');
+		$this->load->library('template');
 	}
 
 	public function home()
 	{
-		$data = array('login' => null);
-		$this->load->view('login', $data);
+		$this->authentifier->session_check();
+		$this->template->load_view('home', 'home');
+	}
+
+	public function index()
+	{
+		$this->load->view('login');
 	}
 
 	public function test()
