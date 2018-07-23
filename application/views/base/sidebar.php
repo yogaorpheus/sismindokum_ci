@@ -19,7 +19,7 @@
       
       <ul class="sidebar-menu" data-widget="tree">
 
-        <li class="header">MENU UTAMA</li>
+        <li class="header" style="color: #ffffff;"><strong>MENU UTAMA</strong></li>
         
         <li>
           <a href="<?php echo base_url('dashboard'); ?>">
