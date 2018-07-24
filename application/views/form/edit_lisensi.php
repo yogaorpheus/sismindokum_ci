@@ -3,9 +3,9 @@
         Sertifikat Lisensi
       </h1>
       <ol class="breadcrumb">
-        <li><a href="#"><i class="fa fa-dashboard"></i> Dashboard</a></li>
-        <li><a href="#">Masukkan Data</a></li>
-        <li class="active">Anggaran Dasar</li>
+        <li><i class="fa fa-file-text-o"></i> Review Data</li>
+        <li>Lisensi</li>
+        <li class="active">Edit Lisensi</li>
       </ol>
     </section>
 

@@ -4,7 +4,7 @@
         Sertifikat Perizinan
       </h1>
       <ol class="breadcrumb">
-        <li><a href="#"><i class="fa fa-files"></i> Review Data</a></li>
+        <li><i class="fa fa-file-text-o"></i> Review Data</li>
         <li class="active">Perizinan</li>
       </ol>
     </section>

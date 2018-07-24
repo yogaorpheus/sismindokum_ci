@@ -4,9 +4,8 @@
         Pegawai
       </h1>
       <ol class="breadcrumb">
-        <li><a href="#"><i class="fa fa-dashboard"></i> Home</a></li>
-        <li><a href="#">Data</a></li>
-        <li class="active">Status</li>
+        <li><i class="fa fa-file-text-o"></i> Review Data</li>
+        <li class="active">Pegawai</li>
       </ol>
     </section>
 

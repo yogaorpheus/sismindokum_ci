@@ -3,8 +3,8 @@
         Anggaran Dasar
       </h1>
       <ol class="breadcrumb">
-        <li><i class="fa fa-file-text-o"></i> Review Data</li>
-        <li class="active">Lisensi</li>
+        <li><i class="fa fa-file-text-o"></i> Entri Data</li>
+        <li class="active">Anggaran Dasar</li>
       </ol>
     </section>
 

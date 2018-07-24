@@ -3,7 +3,8 @@
         Unit
       </h1>
       <ol class="breadcrumb">
-        <li class="active"><i class="fa fa-dashboard"></i> Unit</li>
+        <li><i class="fa fa-file-text-o"></i> Unit</li>
+        <li class="active">Entri Unit</li>
       </ol>
     </section>
 

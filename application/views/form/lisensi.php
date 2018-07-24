@@ -3,7 +3,7 @@
         Sertifikat Lisensi
       </h1>
       <ol class="breadcrumb">
-        <li><a href="#"><i class="fa fa-file-text"></i> Entri Data</a></li>
+        <li><i class="fa fa-file-text-o"></i> Entri Data</li>
         <li class="active">Lisensi</li>
       </ol>
     </section>
