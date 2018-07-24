@@ -13,6 +13,7 @@ class Data extends CI_Controller {
 		$this->load->model('status');
 		$this->load->model('anggaran');
 		$this->load->model('sertifikat');
+		$this->load->model('sdm');
 	}
 
 	public function load_data()
@@ -64,7 +65,11 @@ class Data extends CI_Controller {
 	//-------------------------------------- SEMUA DATA SERTIFIKAT SDM -----------------------------------------------
 	public function sertifikat_sdm()
 	{
-
+		$data_sdm = $this->sdm->get_all_data_sdm("Aktif");
+		$data = array(
+			'data_sdm'	=> $data_sdm
+			);
+		$this->template->load_view('data', 'sertifikat_sdm', $data);
 	}
 	//-------------------------- DATA APAPUN TERKAIT SERTIFIKAT SDM BERAKHIR DISINI ----------------------------------
 

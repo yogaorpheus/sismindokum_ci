@@ -39,20 +39,32 @@
                 <tbody>
                 <?php
                 $no = 1; 
-                foreach ($data_sertifikat_sdm as $key => $onedata) { 
+                foreach ($data_sdm as $key => $onedata) { 
                 ?>
                 <tr>
                   <td style="vertical-align: middle;"><?php echo $no++; ?></td>
                   <td style="vertical-align: middle;"><?php echo $onedata['nama_distrik']; ?></td>
-                  <td style="vertical-align: middle;"><?php echo $onedata['nama_unit']; ?></td>
-                  <td style="vertical-align: middle;"><?php echo $onedata['no_sertifikat']; ?></td>
-                  <td style="vertical-align: middle;"><?php echo $onedata['nama_lembaga']; ?></td>
-                  <td style="vertical-align: middle;"><?php echo $onedata['jabatan_pic']; ?></td>
-                  <td style="vertical-align: middle;"><?php echo $onedata['tanggal_sertifikasi']; ?></td>
-                  <td style="vertical-align: middle;"><?php echo $onedata['tanggal_kadaluarsa']; ?></td>
-                  <td style="vertical-align: middle;"><h4><span class="label label-default"><?php echo $onedata['nama_status']; ?></span></h4></td>
+                  <td style="vertical-align: middle;"><?php echo $onedata['kode_sertifikasi']; ?></td>
+                  <td style="vertical-align: middle;"><?php echo $onedata['kompetensi']; ?></td>
+                  <td style="vertical-align: middle;"><?php echo $onedata['nama_lengkap_pegawai']; ?></td>
+                  <td style="vertical-align: middle;">MASIH KOSONG</td>
+                  <td style="vertical-align: middle;"><?php echo $onedata['tanggal_diperoleh']; ?></td>
+                  <td style="vertical-align: middle;"><?php echo $onedata['tanggal_berakhir']; ?></td>
                   <td style="vertical-align: middle;">
-                    <button href="<?php echo $onedata['file_sertifikat']; ?>" class="btn btn-primary btn-xs review" title="lampiran"><i class="glyphicon glyphicon-zoom-in"></i></button>
+                    <?php
+                    echo "<h4>";
+                    if (strtolower($onedata['nama_status']) == "aktif")
+                      echo "<span class='label label-success'>";
+                    else if (strtolower($onedata['nama_status']) == "kadaluarsa")
+                      echo "<span class='label label-danger'>";
+                    echo $onedata['nama_status'];
+                    echo "</span></h4>";
+                    ?>
+                  </td>
+                  <td style="vertical-align: middle;" width="80px;">
+                    <a href="<?php echo base_url('data_lama/sertifikat_sdm_review')."/".$onedata['id_sdm']; ?>">
+                      <button class="btn btn-primary btn-xs review" title="Lampiran"><i class="glyphicon glyphicon-zoom-in"></i></button>
+                    </a>
                   </td>
                 </tr>
                 <?php }
@@ -96,9 +108,8 @@
         // })
         $('#tabel1').DataTable()
 
-        $(document).on('click', '.review', function() {
-          var href = $(this).attr('href');
-          window.open(href);
+        $(document).on("click", ".review", function() {
+          $(this).attr('target', '_blank');
         })
       })
     </script>

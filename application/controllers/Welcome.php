@@ -20,10 +20,7 @@ class Welcome extends CI_Controller {
 	 */
 	public function index()
 	{
-
-		$test = localtime();
-		print_r($test);
-		die();
+		print_r(get_loaded_extensions());
 	}
 
 	public function test()

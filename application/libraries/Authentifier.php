@@ -106,7 +106,7 @@ class Authentifier
 	{
 		if (! $this->is_logged_in())
 		{
-			redirect ('home');
+			return redirect ('/');
 		}
 	}
 

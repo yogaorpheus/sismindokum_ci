@@ -33,58 +33,38 @@
                   <th>Tanggal Terbit</th>
                   <th>Tanggal Berakhir</th>
                   <th>Status</th>
-                  <th>Pengaturan</th>
+                  <th>Lampiran</th>
                 </tr>
                 </thead>
                 <tbody>
                 <?php
                 $no = 1; 
-                foreach ($data_sertifikat_sdm as $key => $onedata) { 
+                foreach ($data_sdm as $key => $onedata) { 
                 ?>
                 <tr>
                   <td style="vertical-align: middle;"><?php echo $no++; ?></td>
                   <td style="vertical-align: middle;"><?php echo $onedata['nama_distrik']; ?></td>
-                  <td style="vertical-align: middle;"><?php echo $onedata['nama_unit']; ?></td>
-                  <td style="vertical-align: middle;"><?php echo $onedata['no_sertifikat']; ?></td>
-                  <td style="vertical-align: middle;"><?php echo $onedata['nama_lembaga']; ?></td>
-                  <td style="vertical-align: middle;"><?php echo $onedata['jabatan_pic']; ?></td>
-                  <td style="vertical-align: middle;"><?php echo $onedata['tanggal_sertifikasi']; ?></td>
-                  <td style="vertical-align: middle;"><?php echo $onedata['tanggal_kadaluarsa']; ?></td>
+                  <td style="vertical-align: middle;"><?php echo $onedata['kode_sertifikasi']; ?></td>
+                  <td style="vertical-align: middle;"><?php echo $onedata['kompetensi']; ?></td>
+                  <td style="vertical-align: middle;"><?php echo $onedata['nama_lengkap_pegawai']; ?></td>
+                  <td style="vertical-align: middle;">MASIH KOSONG</td>
+                  <td style="vertical-align: middle;"><?php echo $onedata['tanggal_diperoleh']; ?></td>
+                  <td style="vertical-align: middle;"><?php echo $onedata['tanggal_berakhir']; ?></td>
                   <td style="vertical-align: middle;">
                     <?php
                     echo "<h4>";
                     if (strtolower($onedata['nama_status']) == "aktif")
                       echo "<span class='label label-success'>";
-                    else if (strtolower($onedata['nama_status']) == "alarm")
-                      echo "<span class='label label-warning'>";
                     else if (strtolower($onedata['nama_status']) == "kadaluarsa")
                       echo "<span class='label label-danger'>";
                     echo $onedata['nama_status'];
                     echo "</span></h4>";
                     ?>
                   </td>
-                  <td style="vertical-align: middle;" width="120px;">
-                    <?php
-                    foreach ($menu_tampil as $key => $one_menu) {
-
-                      if ($this->uri->segment(1) == $menu_utama[$key]['nama_controller']) {
-                        foreach ($one_menu as $key1 => $one_sub_menu) {
-                          
-                          if ($this->uri->segment(2) == $sub_menu[$key1]['nama_method']) {
-                            foreach ($one_sub_menu as $key2 => $one_crud) {
-                              
-                              if ($one_crud['berhak'] && $menu_crud[$key2]['is_crud'])
-                              {
-                                echo "<a href='".base_url($menu_utama[$key]['nama_controller']."/".$sub_menu[$key1]['nama_method'].$menu_crud[$key2]['nama_concat_method']."/".$onedata['id_sertifikat'])."'>";
-                                echo $menu_crud[$key2]['html'];
-                                echo "</a>";
-                              }
-                            }
-                          }
-                        }
-                      }
-                    }
-                    ?>
+                  <td style="vertical-align: middle;" width="80px;">
+                    <a href="<?php echo base_url('data/sertifikat_sdm_review')."/".$onedata['id_sdm']; ?>">
+                      <button class="btn btn-primary btn-xs Review" title="Lampiran"><i class="glyphicon glyphicon-zoom-in"></i></button>
+                    </a>
                   </td>
                 </tr>
                 <?php }
@@ -101,7 +81,7 @@
                   <th>Tanggal Terbit</th>
                   <th>Tanggal Berakhir</th>
                   <th>Status</th>
-                  <th>Pengaturan</th>
+                  <th>Lampiran</th>
                 </tr>
                 </tfoot>
               </table>

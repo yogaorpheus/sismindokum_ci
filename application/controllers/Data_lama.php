@@ -12,6 +12,7 @@ class Data_lama extends CI_Controller {
 
 		$this->load->model('anggaran');
 		$this->load->model('sertifikat');
+		$this->load->model('sdm');
 	}
 
 	//-------------------------------------- SEMUA DATA ANGGARAN DASAR -----------------------------------------------
@@ -53,7 +54,11 @@ class Data_lama extends CI_Controller {
 	//-------------------------------------- SEMUA DATA SERTIFIKAT SDM -----------------------------------------------
 	public function sertifikat_sdm()
 	{
-
+		$data_sdm = $this->sdm->get_all_data_sdm("Kadaluarsa");
+		$data = array(
+			'data_sdm'	=> $data_sdm
+			);
+		$this->template->load_view('data_lama', 'sertifikat_sdm', $data);
 	}
 	//-------------------------- DATA APAPUN TERKAIT SERTIFIKAT SDM BERAKHIR DISINI ----------------------------------
 

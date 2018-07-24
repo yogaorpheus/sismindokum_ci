@@ -341,9 +341,11 @@ class Data_crud extends CI_Controller {
 	//--------------------- DATA APAPUN TERKAIT SERTIFIKAT LAIK OPERASI BERAKHIR DISINI ----------------------------------
 
 	//-------------------------------------- SEMUA DATA SERTIFIKAT SDM -----------------------------------------------
-	public function sertifikat_sdm()
+	public function sertifikat_sdm_review($id_sdm)
 	{
+		$data_sdm = $this->sdm->get_data_sdm($id_sdm);
 
+		return redirect($data_sdm['path_lampiran']);
 	}
 	//-------------------------- DATA APAPUN TERKAIT SERTIFIKAT SDM BERAKHIR DISINI ----------------------------------
 
