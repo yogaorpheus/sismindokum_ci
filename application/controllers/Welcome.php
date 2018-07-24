@@ -23,6 +23,14 @@ class Welcome extends CI_Controller {
 		print_r(get_loaded_extensions());
 	}
 
+	public function testtest()
+	{
+		$this->load->model('ellipse');
+
+		var_dump($this->ellipse->load_sdm());
+		//phpinfo();
+	}
+
 	public function test()
 	{
 		$string = "PengUjian Alat K3";
