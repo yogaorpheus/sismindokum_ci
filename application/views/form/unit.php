@@ -40,7 +40,18 @@
                       <select class="form-control select2" style="width: 100%" name="distrik">
                         <?php
                         foreach ($data_distrik as $key => $one_distrik) {
-                          echo "<option value='".$one_distrik['id_distrik']."'>";
+                          if ($one_distrik['kode_distrik'] == $user['kode_distrik_pegawai'])
+                            echo "<option selected='selected' value=".$one_distrik['id_distrik'].">";
+                          else
+                          {
+                            if ($user['kode_distrik_pegawai'] == 'Z')
+                            {
+                              echo "<option value=".$one_distrik['id_distrik'].">";
+                            }
+                            else {
+                              echo "<option disabled='disabled' value=".$one_distrik['id_distrik'].">";
+                            }
+                          }
                           echo $one_distrik['nama_distrik'];
                           echo "</option>";
                         }

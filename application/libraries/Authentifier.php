@@ -30,7 +30,7 @@ class Authentifier
 		$menu2 = $this->ci->hak_akses->get_all_sub_menu_utama();
 		$menu_crud = $this->ci->hak_akses->get_all_menu_crud();
 
-		$hak_akses = $this->ci->hak_akses->get_hak_akses_pegawai($id_posisi_subdit["id_posisi_subdit"], $detail_pegawai['id_distrik_pegawai']);
+		$hak_akses = $this->ci->hak_akses->get_hak_akses_pegawai($id_posisi_subdit["id_posisi_subdit"], $detail_pegawai['kode_distrik_pegawai']);
 		$detail_pegawai['id_posisi_subdit'] = $id_posisi_subdit["id_posisi_subdit"];
 
 		$menu_tampil = array();

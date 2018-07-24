@@ -79,7 +79,6 @@
                   <div class='form-group'>
                     <label>Distrik</label>
                     <select class='form-control select2' style='width: 100%;' name="distrik">
-                      <option value="0">Semua Distrik Selain Kantor Pusat</option>
                       <?php
                       foreach ($distrik as $key => $value) {
                         ?><option value="<?php echo $value['id_distrik']; ?>"><?php echo $value['nama_distrik']; ?></option><?php

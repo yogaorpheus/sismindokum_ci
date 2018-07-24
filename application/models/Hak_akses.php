@@ -16,15 +16,30 @@ class Hak_akses extends CI_Model {
 		return $query;
 	}
 
-	public function get_hak_akses_pegawai($kode_posisi_subdit, $kode_distrik)
+	public function get_hak_akses_pegawai($id_posisi_subdit, $kode_distrik)
 	{
-		$query = $this->db->query("
-			SELECT menu.id_menu1, menu.id_menu2, menu.id_menu_crud
-			FROM hak_akses_menu pengakses
-			INNER JOIN menu_tampil menu ON menu.id_menu_tampil = pengakses.id_menu_tampil
-			WHERE pengakses.id_posisi_subdit = ".$kode_posisi_subdit."
-			ORDER BY menu.id_menu1 ASC, menu.id_menu2 ASC, menu.id_menu_crud ASC
-			");
+		$this->db->where('kode_distrik', $kode_distrik);
+		$id_distrik = $this->db->get('distrik')->row_array()['id_distrik'];
+
+		$this->db->select('menu_tampil.id_menu1, menu_tampil.id_menu2, menu_tampil.id_menu_crud');
+		$this->db->where('hak_akses_menu.id_posisi_subdit', $id_posisi_subdit);
+		if ($id_distrik != 1)	// Bukan kantor pusat
+		{
+			$this->db->where('hak_akses_menu.id_distrik', 99);
+		}
+		$this->db->join('menu_tampil', 'menu_tampil.id_menu_tampil = hak_akses_menu.id_menu_tampil', 'inner');
+		$this->db->order_by('menu_tampil.id_menu1', "ASC");
+		$this->db->order_by('menu_tampil.id_menu2', "ASC");
+		$this->db->order_by('menu_tampil.id_menu_crud', "ASC");
+		$query = $this->db->get('hak_akses_menu');
+
+		// $query = $this->db->query("
+		// 	SELECT menu.id_menu1, menu.id_menu2, menu.id_menu_crud
+		// 	FROM hak_akses_menu pengakses
+		// 	INNER JOIN menu_tampil menu ON menu.id_menu_tampil = pengakses.id_menu_tampil
+		// 	WHERE pengakses.id_posisi_subdit = ".$kode_posisi_subdit."
+		// 	ORDER BY menu.id_menu1 ASC, menu.id_menu2 ASC, menu.id_menu_crud ASC
+		// 	");
 
 		// tambahkan and pengakses.id_distrik = $kode_distrik apabila diperlukan
 

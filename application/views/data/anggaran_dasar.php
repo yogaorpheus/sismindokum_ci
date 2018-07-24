@@ -4,9 +4,8 @@
         Anggaran Dasar
       </h1>
       <ol class="breadcrumb">
-        <li><a href="#"><i class="fa fa-dashboard"></i> Home</a></li>
-        <li><a href="#">Data</a></li>
-        <li class="active">Status</li>
+        <li><a href="#"><i class="fa fa-files"></i> Review Data</a></li>
+        <li class="active">Anggaran Dasar</li>
       </ol>
     </section>
 
