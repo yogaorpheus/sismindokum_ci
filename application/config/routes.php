@@ -49,7 +49,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 | Examples:	my-controller/index	-> my_controller/index
 |		my-controller/my-method	-> my_controller/my_method
 */
-$route['default_controller'] = 'home/index';
+$route['default_controller'] = 'home/home';
 $route['404_override'] = '';
 $route['translate_uri_dashes'] = FALSE;
 
@@ -66,6 +66,10 @@ $route['unit/edit_unit/(:num)'] = 'unitcontroller/edit_unit/$1';
 
 // PEGAWAI ROUTE //
 $route['pegawai_pjb']	= 'pegawaicontroller/index';
+
+// DOWNLOAD ROUTE //
+$route['data/anggaran_dasar/download'] 		= 'downloadexcel/anggaran_dasar/aktif';
+$route['data_lama/anggaran_dasar/download']	= 'downloadexcel/anggaran_dasar/tidak_aktif';
 
 // REVIEW LAMPIRAN ROUTE //
 $route['data/pertanahan_review/(:num)'] 		= 'data_crud/pertanahan_review/$1';
