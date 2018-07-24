@@ -4,7 +4,7 @@
         Lembaga
       </h1>
       <ol class="breadcrumb">
-        <li class="active"><i class="fa fa-dashboard"></i> Lembaga</a></li>
+        <li class="active"><i class="fa fa-dashboard"></i> Lembaga</li>
       </ol>
     </section>
 
