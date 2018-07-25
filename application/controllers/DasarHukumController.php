@@ -74,7 +74,7 @@ class DasarHukumController extends CI_Controller {
 	public function edit_dasar_hukum($id)
 	{
 		$data_menu2 = $this->menu->get_menu2_dasar_hukum();
-		$dasar_hukum = $this->dasar_hukum->get_dasar_hukum_by_id($id)
+		$dasar_hukum = $this->dasar_hukum->get_dasar_hukum_by_id($id);
 
 		$data = array(
 			'data_menu2'	=> $data_menu2,

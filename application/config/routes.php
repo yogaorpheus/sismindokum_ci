@@ -56,12 +56,17 @@ $route['translate_uri_dashes'] = FALSE;
 $route['home'] = 'home/home';
 // LEMBAGA ROUTE //
 $route['lembaga'] 						= 'lembagacontroller/index';
-$route['lembaga/tambah_lembaga']		= 'lembagacontroller/tambah_lembaga/$1';
+$route['lembaga/tambah_lembaga']		= 'lembagacontroller/tambah_lembaga';
 $route['lembaga/edit_lembaga/(:num)'] 	= 'lembagacontroller/edit_lembaga/$1';
+
+// DASAR HUKUM ROUTE //
+$route['dasar_hukum']							= 'dasarhukumcontroller/index';
+$route['dasar_hukum/tambah_dasar_hukum']		= 'dasarhukumcontroller/tambah_dasar_hukum';
+$route['dasar_hukum/edit_dasar_hukum/(:num)']	= 'dasarhukumcontroller/edit_dasar_hukum/$1';
 
 // UNIT ROUTE //
 $route['unit'] 					= 'unitcontroller/index';
-$route['unit/tambah_unit']		= 'unitcontroller/tambah_unit/$1';
+$route['unit/tambah_unit']		= 'unitcontroller/tambah_unit';
 $route['unit/edit_unit/(:num)'] = 'unitcontroller/edit_unit/$1';
 
 // PEGAWAI ROUTE //

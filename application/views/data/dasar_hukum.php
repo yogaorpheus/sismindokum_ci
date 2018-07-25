@@ -46,7 +46,7 @@
                   <td width="120px;">
                     <div class="row">
                       <div class="col-md-6">
-                        <a href="<?php echo base_url('dasar_hukum/edit_dasar_hukum').'/'.$onedata['id_lembaga']; ?>">
+                        <a href="<?php echo base_url('dasar_hukum/edit_dasar_hukum').'/'.$onedata['id_dasar_hukum']; ?>">
                           <button type="button" class="btn btn-warning btn-xs"><i class="glyphicon glyphicon-pencil"></i></button>
                         </a>
                       </div>

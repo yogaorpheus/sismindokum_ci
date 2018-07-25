@@ -74,6 +74,13 @@
           </a>
         </li>
 
+        <li>
+          <a href="<?php echo base_url('dasar_hukum'); ?>">
+            <i class="fa fa-gavel"></i>
+            <span>Dasar Hukum</span>
+          </a>
+        </li>
+
         <!-- <li>
           <a href="<?php echo base_url('pegawai_pjb'); ?>">
             <i class="fa fa-users"></i>

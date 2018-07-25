@@ -62,7 +62,7 @@
 
               <div class="box-footer">
                 <div class="col-md-12">
-                  <button type="submit" class="btn btn-warning pull-right">Update dan Simpan Data</button>
+                  <button type="submit" class="btn btn-primary pull-right">Update dan Simpan Data</button>
                 </div>
               </div>
             </div>
