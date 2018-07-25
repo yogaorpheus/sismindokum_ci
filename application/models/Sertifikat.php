@@ -132,23 +132,29 @@ class Sertifikat extends CI_Model {
 		return $query->result_array();
 	}
 
-	public function get_jumlah_sertifikat_by_nama_jenis($nama_sertifikat)
+	public function get_jumlah_sertifikat_by_nama_jenis($nama_sertifikat, $kode_distrik_pegawai)
 	{
 		$this->db->where('nama_jenis_sertifikat', $nama_sertifikat);
 		$id_jenis_sertifikat = $this->db->get('jenis_sertifikat')->row_array()['id_jenis_sertifikat'];
 
-		$query = $this->db->query(
-			"SELECT COUNT(s.id_sertifikat) AS value, status.`nama_status` AS label
-			FROM (
-				SELECT id_sertifikat, status_sertifikat
-				FROM sertifikat
-				WHERE id_jenis_sertifikat = ".$id_jenis_sertifikat."
-			)s
-			RIGHT JOIN status
-			ON s.`status_sertifikat` = status.`id_status`
-			WHERE status.`penggunaan_tabel_status` = 'sertifikat'
-			GROUP BY status.`nama_status`"
-			);
+		$this->db->where('kode_distrik', $kode_distrik_pegawai);
+		$id_distrik = $this->db->get('distrik')->row_array()['id_distrik'];
+
+		$main_query = "";
+		$main_query .= "SELECT COUNT(s.id_sertifikat) AS value, status.nama_status AS label\n";
+		
+		$inner_query = "SELECT id_sertifikat, status_sertifikat\n";
+		$inner_query .= "FROM sertifikat WHERE id_jenis_sertifikat = ".$id_jenis_sertifikat;
+		if ($kode_distrik_pegawai != 'Z')
+			$inner_query .= " AND id_distrik_sertifikat = ".$id_distrik;
+
+		$main_query .= "FROM (".$inner_query.")s\n";
+		$main_query .= "RIGHT JOIN status ON s.status_sertifikat = status.id_status\n";
+		$main_query .= "WHERE status.penggunaan_tabel_status = 'sertifikat'";
+		$main_query .= "GROUP BY status.nama_status\n";
+		$main_query .= "ORDER BY status.id_status";
+
+		$query = $this->db->query($main_query);
 
 		return $query->result_array();
 	}
