@@ -5,6 +5,9 @@ use PhpOffice\PhpSpreadsheet\Spreadsheet;
 use PhpOffice\PhpSpreadsheet\Writer\Xlsx;
 use PhpOffice\PhpSpreadsheet\Worksheet;
 use PhpOffice\PhpSpreadsheet\Style;
+use PhpOffice\PhpSpreadsheet\Style\Border;
+use PhpOffice\PhpSpreadsheet\Style\Fill;
+use PhpOffice\PhpSpreadsheet\Style\Alignment;
 
 class DownloadExcel extends CI_Controller {
 
@@ -34,13 +37,22 @@ class DownloadExcel extends CI_Controller {
 
 		$objSpreadsheet->setActiveSheetIndex(0)
 		->getStyle('A1:K1')->getFont()->setBold(true);
-		$objSpreadsheet->setActiveSheetIndex(0)
-		->getStyle('A1:K1')->getAlignment()
-		->setHorizontal(\PhpOffice\PhpSpreadsheet\Style\Alignment::HORIZONTAL_CENTER)
-		->setVertical(\PhpOffice\PhpSpreadsheet\Style\Alignment::VERTICAL_CENTER);
-		// $objSpreadsheet->setActiveSheetIndex(0)
-		// ->getStyle('A1:K1')->getBorder()
-		// ->setBorderStyle(\PhpOffice\PhpSpreadsheet\Style\Border::BORDER_THICK);
+
+		$styleArray = [
+		    'borders' => [
+		        'allBorders' => [
+		            'borderStyle' => Border::BORDER_THIN,
+		            'color' => ['argb' => '00000000'],
+		        ],
+		    ],
+		    'alignment' => [
+		        'horizontal' => Alignment::HORIZONTAL_LEFT,
+		        'vertical' => Alignment::VERTICAL_CENTER,
+		    ],
+		];
+
+		$objSpreadsheet->getActiveSheet()->getStyle('A1:K1')->getFill()->setFillType(Fill::FILL_SOLID);
+		$objSpreadsheet->getActiveSheet()->getStyle('A1:K1')->getFill()->getStartColor()->setARGB('FF40BCD8');
 
 		$objSpreadsheet->setActiveSheetIndex(0)
 		->setCellValue('A1', 'No.')
@@ -69,6 +81,20 @@ class DownloadExcel extends CI_Controller {
 			->setCellValue('H'.$no_cell, $one_data['nama_status']);
 
 			$data_remark = $this->remark->get_remark_by_id_anggaran($one_data['id_anggaran']);
+			$count_remark = count($data_remark)-1;
+			$merge = $count_remark + $no_cell;
+
+			if($count_remark > 0)
+			{
+				$objSpreadsheet->getActiveSheet()->mergeCells('A'.$no_cell.':A'.$merge);
+				$objSpreadsheet->getActiveSheet()->mergeCells('B'.$no_cell.':B'.$merge);
+				$objSpreadsheet->getActiveSheet()->mergeCells('C'.$no_cell.':C'.$merge);
+				$objSpreadsheet->getActiveSheet()->mergeCells('D'.$no_cell.':D'.$merge);
+				$objSpreadsheet->getActiveSheet()->mergeCells('E'.$no_cell.':E'.$merge);
+				$objSpreadsheet->getActiveSheet()->mergeCells('F'.$no_cell.':F'.$merge);
+				$objSpreadsheet->getActiveSheet()->mergeCells('G'.$no_cell.':G'.$merge);
+				$objSpreadsheet->getActiveSheet()->mergeCells('H'.$no_cell.':H'.$merge);
+			}
 
 			foreach ($data_remark as $key => $one_remark) {
 				$objSpreadsheet->setActiveSheetIndex(0)
@@ -84,6 +110,11 @@ class DownloadExcel extends CI_Controller {
 
 			$no_cell++;
 		}
+
+		$objSpreadsheet->getActiveSheet()->getStyle('A1:K'.--$no_cell)->applyFromArray($styleArray);
+		$objSpreadsheet->setActiveSheetIndex(0)
+		->getStyle('A1:K1')->getAlignment()
+		->setHorizontal(Alignment::HORIZONTAL_CENTER);
 
 		$objSpreadsheet->getActiveSheet()
 		->getColumnDimension('A')->setAutoSize(true);
