@@ -10,6 +10,9 @@
     <!-- Main content -->
     <section class="content">
       <div class="row">
+        <?php
+        if (isset($data_anggaran))
+        { ?>
           <div class="col-md-6">  
             <div class="box box-primary">
               <div class="box-header with-border">
@@ -26,6 +29,9 @@
               </div>
             </div>
           </div>
+          <?php
+        }
+        ?>
 
           <div class="col-md-6">  
             <div class="box box-primary">
@@ -141,7 +147,7 @@
       element: 'anggaran_dasar_chart',
       resize: true,
       colors: ["#00a65a", "#db0419"],
-      data: [<?php echo $data_anggaran; ?>],
+      data: [<?php echo (isset($data_anggaran)) ? $data_anggaran : null; ?>],
       hideHover: 'auto'
     });
   })

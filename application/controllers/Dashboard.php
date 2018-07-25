@@ -18,68 +18,41 @@ class Dashboard extends CI_Controller {
 		$this->load->model('jenis_sertifikat');
 	}
 
-	// public function load_dashboard1()
-	// {
-	// 	$menu_opened['menu'] = $this->jenis_sertifikat->buka_sertifikat(0);
-
-	// 	$this->load->view('dashboard/head');
-	// 	$this->load->view('dashboard/header_page');
-	// 	$this->load->view('dashboard/sidebar', $menu_opened);
-	// 	$this->load->view('dashboard/content');
-	// 	$this->load->view('dashboard/footer');
-	// 	$this->load->view('dashboard/control_sidebar');
-	// 	$this->load->view('dashboard/script_closure');
-	// }
-
-	// public function load_dashboard2()
-	// {
-	// 	$this->load->view('dashboard2/head');
-	// 	$this->load->view('dashboard2/header_page');
-	// 	$this->load->view('dashboard2/sidebar');
-	// 	$this->load->view('dashboard2/content');
-	// 	$this->load->view('dashboard2/footer');
-	// 	$this->load->view('dashboard2/control_sidebar');
-	// 	$this->load->view('dashboard2/script_closure');
-	// }
-
-	// public function load_dashboard($id_posisi_bidang)
-	// {
-	// 	$data['test'] = array();
-	// 	// $this->template->load_view($kode_bidang, 'dashboard', 'content', $data);
-	// 	$this->template->load_view($id_posisi_bidang, 'dashboard2', 'content');
-	// }
-
 	public function index()
 	{
-		$data_anggaran = $this->anggaran->get_jumlah_anggaran_group_by_status();
-		$data_anggaran = $this->convert_to_readable_morris($data_anggaran);
+		$kode_distrik = $this->authentifier->get_user_detail()['kode_distrik_pegawai'];
+		$data = array();
 
-		$pertanahan = $this->sertifikat->get_jumlah_sertifikat_by_nama_jenis("pertanahan");
+		if ($kode_distrik == 'Z')
+		{
+			$data_anggaran = $this->anggaran->get_jumlah_anggaran_group_by_status();
+			$data_anggaran = $this->convert_to_readable_morris($data_anggaran);
+			$data['data_anggaran'] = $data_anggaran;
+		}
+
+		$pertanahan = $this->sertifikat->get_jumlah_sertifikat_by_nama_jenis("pertanahan", $kode_distrik);
 		$pertanahan = $this->convert_to_readable_morris($pertanahan);
 
-		$slo = $this->sertifikat->get_jumlah_sertifikat_by_nama_jenis("slo");
+		$slo = $this->sertifikat->get_jumlah_sertifikat_by_nama_jenis("slo", $kode_distrik);
 		$slo = $this->convert_to_readable_morris($slo);
 
-		$pengujian = $this->sertifikat->get_jumlah_sertifikat_by_nama_jenis("pengujian alat k3");
+		$pengujian = $this->sertifikat->get_jumlah_sertifikat_by_nama_jenis("pengujian alat k3", $kode_distrik);
 		$pengujian = $this->convert_to_readable_morris($pengujian);
 
-		$perizinan = $this->sertifikat->get_jumlah_sertifikat_by_nama_jenis("perizinan");
+		$perizinan = $this->sertifikat->get_jumlah_sertifikat_by_nama_jenis("perizinan", $kode_distrik);
 		$perizinan = $this->convert_to_readable_morris($perizinan);
 
-		$lisensi = $this->sertifikat->get_jumlah_sertifikat_by_nama_jenis("lisensi");
+		$lisensi = $this->sertifikat->get_jumlah_sertifikat_by_nama_jenis("lisensi", $kode_distrik);
 		$lisensi = $this->convert_to_readable_morris($lisensi);
 
 		$sertifikat = $this->jenis_sertifikat->get_all_jenis_sertifikat();
 
-		$data = array(
-			'data_anggaran'	=> $data_anggaran,
-			'pertanahan'	=> $pertanahan,
-			'slo'			=> $slo,
-			'pengujian'		=> $pengujian,
-			'perizinan'		=> $perizinan,
-			'lisensi'		=> $lisensi,
-			'sertifikat'	=> $sertifikat
-			);
+		$data['pertanahan'] = $pertanahan;
+		$data['slo']		= $slo;
+		$data['pengujian']	= $pengujian;
+		$data['perizinan']	= $perizinan;
+		$data['lisensi']	= $lisensi;
+		$data['sertifikat']	= $sertifikat;
 
 		$this->template->load_view('dashboard2', 'dashboard', $data);
 	}
