@@ -33,11 +33,13 @@ class Welcome extends CI_Controller {
 
 	public function test()
 	{
-		$string = "PengUjian Alat K3";
-		$lowercase = strtolower($string);
-		$result = str_replace(" ", "_", $lowercase);
 
-		echo $result;
+		$char = 'A';
+		echo $char;
+		echo "<br>";
+
+		$char++;
+		echo $char;
 	}
 
 	public function kirim_email()

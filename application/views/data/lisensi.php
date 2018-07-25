@@ -16,7 +16,9 @@
           <div class="box">
             <div class="box-header">
               <h3 class="box-title">Data Lisensi</h3>
-              <button class="btn btn-success pull-right"><i class="glyphicon glyphicon-download-alt"></i> Download Data</button>
+              <a href="<?php echo base_url('data/lisensi/download');?>">
+                <button class="btn btn-success pull-right"><i class="glyphicon glyphicon-download-alt"></i> Download Data</button>
+              </a>
             </div>
             <!-- /.box-header -->
             <div class="box-body">
