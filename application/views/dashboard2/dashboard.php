@@ -123,7 +123,7 @@
           hideHover: 'auto'
         });
       }
-      else if (jenis_chart == "pengujian") {
+      else if (jenis_chart == "pengujian_alat_k3") {
         new Morris.Donut({
           element: 'sertifikat_chart',
           resize: true,

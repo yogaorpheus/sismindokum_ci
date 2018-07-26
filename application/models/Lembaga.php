@@ -28,16 +28,15 @@ class Lembaga extends CI_Model {
 	{
 		if (!is_null($nama_status))
 		{
-			$this->db->where('nama_status', $nama_status);
-			$this->db->where('penggunaan_tabel_status', "lembaga");
-			$id_status = $this->db->get('status')->row_array()['id_status'];
+			$nama_status = "Aktif";
 		}
+		$this->db->where('nama_status', $nama_status);
+		$this->db->where('penggunaan_tabel_status', "lembaga");
+		$id_status = $this->db->get('status')->row_array()['id_status'];
 
 		$this->db->select('lembaga.*, pegawai.nama_lengkap_pegawai, status.nama_status');
-		if (isset($id_status))
-		{
-			$this->db->where('lembaga.status_lembaga', $id_status);
-		}
+		$this->db->where('lembaga.status_lembaga', $id_status);
+		
 		$this->db->join('status', 'status.id_status = lembaga.status_lembaga', 'inner');
 		$this->db->join('pegawai', 'pegawai.id_pegawai = lembaga.dibuat_oleh', 'inner');
 		$query = $this->db->get('lembaga');

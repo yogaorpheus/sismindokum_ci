@@ -33,28 +33,28 @@
                   <div class="col-md-12">
                     <div class="form-group">
                       <label>Distrik</label>
-                      <input type="text" disabled="disabled" value="<?php echo $data_sertifikat['nama_distrik']; ?>">
+                      <input class="form-control" type="text" disabled="disabled" value="<?php echo $data_sertifikat['nama_distrik']; ?>">
                     </div>
 
                     <div class="form-group">
                       <label>Referensi SLO</label>
-                      <input type="text" disabled="disabled" value="<?php echo $data_sertifikat['kode_dasar_hukum']; ?>">
+                      <input class="form-control" type="text" disabled="disabled" value="<?php echo $data_sertifikat['kode_dasar_hukum']; ?>">
                       <p class="help-block"><?php echo $data_sertifikat['keterangan_dasar_hukum']; ?></p>
                     </div>
 
                     <div class="form-group">
                       <label>No. Sertifikat</label>
-                      <input type="text" disabled="disabled" value="<?php echo $data_sertifikat['no_sertifikat']; ?>">
+                      <input class="form-control" type="text" disabled="disabled" value="<?php echo $data_sertifikat['no_sertifikat']; ?>">
                     </div>
 
                     <div class="form-group">
                       <label>Unit Sertifikasi</label>
-                      <input type="text" disabled="disabled" value="<?php echo $data_sertifikat['nama_unit']; ?>">
+                      <input class="form-control" type="text" disabled="disabled" value="<?php echo $data_sertifikat['nama_unit']; ?>">
                     </div>
 
                     <div class="form-group">
                       <label>Lembaga</label>
-                      <input type="text" disabled="disabled" value="<?php echo $data_sertifikat['nama_lembaga']; ?>">
+                      <input class="form-control" type="text" disabled="disabled" value="<?php echo $data_sertifikat['nama_lembaga']; ?>">
                     </div>
 
                     <div class="form-group">
@@ -64,12 +64,12 @@
 
                     <div class="form-group">
                       <label>Tanggal Terbit</label>
-                      <input type="text" disabled="disabled" value="<?php echo $data_sertifikat['tanggal_sertifikasi']; ?>">
+                      <input class="form-control" type="text" disabled="disabled" value="<?php echo $data_sertifikat['tanggal_sertifikasi']; ?>">
                     </div>
 
                     <div class="form-group">
                       <label>Tanggal Berakhir</label>
-                      <input type="text" disabled="disabled" value="<?php echo $data_sertifikat['tanggal_kadaluarsa']; ?>">
+                      <input class="form-control" type="text" disabled="disabled" value="<?php echo $data_sertifikat['tanggal_kadaluarsa']; ?>">
                     </div>
 
                     <div class="form-group">

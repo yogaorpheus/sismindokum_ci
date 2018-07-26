@@ -63,6 +63,20 @@ class Remark extends CI_Model {
 		return $id_remark;
 	}
 
+	public function get_remark_selesai_by_id_sertifikat($id_sertifikat)
+	{
+		$this->db->where('nama_status', "Selesai");
+		$this->db->where('penggunaan_tabel_status', "remark");
+		$id_status = $this->db->get('status')->row_array()['id_status'];
+
+		$this->db->where('status_remark', $id_status);
+		$this->db->where('id_data', $id_sertifikat);
+		$this->db->where('tabel_data', "sertifikat");
+		$query = $this->db->get('remark');
+
+		return $query->result_array();
+	}
+
 	public function insert_new_remark($data)
 	{
 		$query = $this->db->insert('remark', $data);

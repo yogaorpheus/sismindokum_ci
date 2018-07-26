@@ -228,7 +228,7 @@ class Sertifikat extends CI_Model {
 	public function get_selisih_tanggal($id_sertifikat)
 	{
 		$query = $this->db->query(
-			"SELECT DATEDIFF(tanggal_kadaluarsa, tanggal_sertifikasi) AS selisih_tanggal
+			"SELECT DATEDIFF(tanggal_kadaluarsa, now()) AS selisih_tanggal
 			FROM sertifikat
 			WHERE sertifikat.id_sertifikat = ".$id_sertifikat
 			);

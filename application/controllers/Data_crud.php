@@ -261,7 +261,6 @@ class Data_crud extends CI_Controller {
 			'no_sertifikat'				=> $input['no_sertifikat'],
 			'tanggal_sertifikasi'		=> $tanggal_terbit,
 			'tanggal_kadaluarsa'		=> $tanggal_berakhir,
-			'file_sertifikat'			=> $file_path,
 			'keterangan'				=> $input['keterangan'],
 			'jabatan_pic'				=> $this->authentifier->get_user_detail()['posisi_pegawai'],
 			'dibuat_oleh'				=> $this->authentifier->get_user_detail()['id_pegawai'],

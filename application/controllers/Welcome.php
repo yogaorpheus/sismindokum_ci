@@ -33,13 +33,14 @@ class Welcome extends CI_Controller {
 
 	public function test()
 	{
+		$string = "Namaku Yoga Samudra";
+		echo $string;
+		echo "<br><br>";
+		echo "hilangin 4 karakter dari belakang";
+		echo "<br><br>";
 
-		$char = 'A';
-		echo $char;
-		echo "<br>";
-
-		$char++;
-		echo $char;
+		$string = substr($string, 0, -4);
+		echo $string;
 	}
 
 	public function kirim_email()

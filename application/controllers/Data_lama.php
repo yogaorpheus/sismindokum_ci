@@ -54,7 +54,7 @@ class Data_lama extends CI_Controller {
 	//-------------------------------------- SEMUA DATA SERTIFIKAT SDM -----------------------------------------------
 	public function sertifikat_sdm()
 	{
-		$data_sdm = $this->sdm->get_all_data_sdm("Kadaluarsa");
+		$data_sdm = $this->sdm->get_all_data_sdm($this->authentifier->get_user_detail()['kode_distrik_pegawai'], "Kadaluarsa");
 		$data = array(
 			'data_sdm'	=> $data_sdm
 			);

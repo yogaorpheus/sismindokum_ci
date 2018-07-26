@@ -48,6 +48,19 @@ class Remark_data extends CI_Controller {
 		return $data;
 	}
 
+	private function set_status_sertifikat($id_sertifikat, $nama_status)
+	{
+		$id_status = $this->status->get_id_status_by_nama_status_dan_nama_tabel($nama_status, "sertifikat");
+
+		$data = array(
+			'status_sertifikat'	=> $id_status,
+			'id_sertifikat'		=> $id_sertifikat
+			);
+		$result = $this->sertifikat->update_data_sertifikat($data);
+
+		return $result;
+	}
+
 	public function view_remark_anggaran($id_anggaran)
 	{
 		$data = $this->get_data_remark_anggaran($id_anggaran);
@@ -128,7 +141,7 @@ class Remark_data extends CI_Controller {
 			$this->authentifier->set_flashdata('error', 2);
 		}
 
-		redirect ('data/'.$sub_link.'/'.$id_anggaran);
+		return redirect ('data/'.$sub_link.'/'.$id_anggaran);
 	}
 
 	public function sertifikat_remark()
@@ -161,6 +174,19 @@ class Remark_data extends CI_Controller {
 				);
 			$id_log = $this->log_database->write_log($log_data);
 
+			$remark_selesai = $this->remark->get_remark_selesai_by_id_sertifikat($id_sertifikat);
+
+			if (!is_null($remark_selesai) && !empty($remark_selesai))
+			{
+				// Ada remark selesai pada sertifikat
+				$check_selesai = $this->set_status_sertifikat($id_sertifikat, "Selesai");
+				if ($check_selesai)
+				{
+					$sub_link_2 = substr($sub_link, 0, -7);
+					return redirect('data/'.$sub_link_2);
+				}
+			}
+
 			$this->authentifier->set_flashdata('error', 1);
 		}
 		else
@@ -168,7 +194,7 @@ class Remark_data extends CI_Controller {
 			$this->authentifier->set_flashdata('error', 2);
 		}
 
-		redirect ('data/'.$sub_link.'/'.$id_sertifikat);
+		return redirect ('data/'.$sub_link.'/'.$id_sertifikat);
 	}
 
 	public function delete_remark()
