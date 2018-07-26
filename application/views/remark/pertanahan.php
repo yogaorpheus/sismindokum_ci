@@ -33,33 +33,33 @@
                   <div class="col-md-12">
                     <div class="form-group">
                       <label>Distrik</label>
-                      <input type="text" disabled="disabled" value="<?php echo $data_sertifikat['nama_distrik']; ?>">
+                      <input class="form-control" type="text" disabled="disabled" value="<?php echo $data_sertifikat['nama_distrik']; ?>">
                     </div>
 
                     <div class="form-group">
                       <label>Referensi Pertanahan</label>
-                      <input type="text" disabled="disabled" value="<?php echo $data_sertifikat['kode_dasar_hukum']; ?>">
+                      <input class="form-control" type="text" disabled="disabled" value="<?php echo $data_sertifikat['kode_dasar_hukum']; ?>">
                       <p class="help-block"><?php echo $data_sertifikat['keterangan_dasar_hukum']; ?></p>
                     </div>
 
                     <div class="form-group">
                       <label>No. Sertifikat</label>
-                      <input type="text" disabled="disabled" value="<?php echo $data_sertifikat['no_sertifikat']; ?>">
+                      <input class="form-control" type="text" disabled="disabled" value="<?php echo $data_sertifikat['no_sertifikat']; ?>">
                     </div>
 
                     <div class="form-group">
                       <label>Lokasi Sertifikat</label>
-                      <input type="text" disabled="disabled" value="<?php echo $data_sertifikat['judul_sertifikat']; ?>">
+                      <input class="form-control" type="text" disabled="disabled" value="<?php echo $data_sertifikat['judul_sertifikat']; ?>">
                     </div>
 
                     <div class="form-group">
                       <label>Jenis Sertifikat</label>
-                      <input type="text" disabled="disabled" value="<?php echo $data_sertifikat['nama_sub_jenis_sertifikat']; ?>">
+                      <input class="form-control" type="text" disabled="disabled" value="<?php echo $data_sertifikat['nama_sub_jenis_sertifikat']; ?>">
                     </div>
 
                     <div class="form-group">
                       <label>Lembaga</label>
-                      <input type="text" disabled="disabled" value="<?php echo $data_sertifikat['nama_lembaga']; ?>">
+                      <input class="form-control" type="text" disabled="disabled" value="<?php echo $data_sertifikat['nama_lembaga']; ?>">
                     </div>
 
                     <div class="form-group">
@@ -69,12 +69,12 @@
 
                     <div class="form-group">
                       <label>Tanggal Terbit</label>
-                      <input type="text" disabled="disabled" value="<?php echo $data_sertifikat['tanggal_sertifikasi']; ?>">
+                      <input class="form-control" type="text" disabled="disabled" value="<?php echo $data_sertifikat['tanggal_sertifikasi']; ?>">
                     </div>
 
                     <div class="form-group">
                       <label>Tanggal Berakhir</label>
-                      <input type="text" disabled="disabled" value="<?php echo $data_sertifikat['tanggal_kadaluarsa']; ?>">
+                      <input class="form-control" type="text" disabled="disabled" value="<?php echo $data_sertifikat['tanggal_kadaluarsa']; ?>">
                     </div>
 
                     <div class="form-group">
@@ -126,9 +126,9 @@
                       echo "</div>";
                       echo "<img class='direct-chat-img' src='".base_url('assets/img').'/user-icon.png'."' alt='user'>";
                       echo "<div class='direct-chat-text'>";
-                      echo "Status Remark</br>";
+                      echo "<u>Status Remark</u></br>";
                       echo $one_remark['nama_status']."</br></br>";
-                      echo "Remark</br>";
+                      echo "<u>Remark</u></br>";
                       echo $one_remark['keterangan']."</br></br>";
                       echo "<a href='#'>";
                       echo "<button class='btn btn-danger btn-xs Delete' type='button' data-toggle='modal' data-target='#modal_delete' id='".$one_remark['id_remark']."'><i class='glyphicon glyphicon-trash'></i></button>";

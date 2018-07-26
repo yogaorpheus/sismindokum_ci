@@ -113,9 +113,9 @@
                       echo "</div>";
                       echo "<img class='direct-chat-img' src='".base_url('assets/img').'/user-icon.png'."' alt='user'>";
                       echo "<div class='direct-chat-text'>";
-                      echo "Status Remark</br>";
+                      echo "<u>Status Remark</u></br>";
                       echo $one_remark['nama_status']."</br></br>";
-                      echo "Remark</br>";
+                      echo "<u>Remark</u></br>";
                       echo $one_remark['keterangan']."</br></br>";
                       echo "<a href='#'>";
                       echo "<button class='btn btn-danger btn-xs Delete' type='button' data-toggle='modal' data-target='#modal_delete' id='".$one_remark['id_remark']."'><i class='glyphicon glyphicon-trash'></i></button>";

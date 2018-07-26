@@ -17,13 +17,18 @@ class Sertifikat extends CI_Model {
 
 		$this->db->where('nama_status', 'Selesai');
 		$this->db->where('penggunaan_tabel_status', 'sertifikat');
-		$id_status = $this->db->get('status')->row_array()['id_status'];
+		$id_status_selesai = $this->db->get('status')->row_array()['id_status'];
+
+		$this->db->where('nama_status', 'Dihapus');
+		$this->db->where('penggunaan_tabel_status', 'sertifikat');
+		$id_status_dihapus = $this->db->get('status')->row_array()['id_status'];
 
 		$this->db->where('kode_distrik', $kode_distrik);
 		$id_distrik = $this->db->get('distrik')->row_array()['id_distrik'];
 
 		//$this->db->select('sertifikat.*, status.nama_status');
-		$this->db->where('status_sertifikat !=', $id_status);
+		$this->db->where('status_sertifikat !=', $id_status_selesai);
+		$this->db->where('status_sertifikat !=', $id_status_dihapus);
 		$this->db->where('sertifikat.id_jenis_sertifikat', $id_jenis_sertifikat);
 		$this->db->join('status', 'status.id_status = sertifikat.status_sertifikat', 'inner');
 		$this->db->join('lembaga', 'lembaga.id_lembaga = sertifikat.id_lembaga_sertifikat', 'left');

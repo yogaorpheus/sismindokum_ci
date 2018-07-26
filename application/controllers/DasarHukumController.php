@@ -14,6 +14,7 @@ class DasarHukumController extends CI_Controller {
 		$this->load->model('dasar_hukum');
 		$this->load->model('log_database');
 		$this->load->model('menu');
+		$this->load->model('status');
 	}
 
 	public function index()

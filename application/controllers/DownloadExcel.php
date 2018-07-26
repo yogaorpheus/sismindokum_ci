@@ -898,8 +898,14 @@ class DownloadExcel extends CI_Controller {
 	{
 		$this->load->model('distrik');
 		
-		$id_distrik_pegawai = $this->distrik->get_id_distrik_by_kode($this->authentifier->get_user_detail()['kode_distrik_pegawai']);
-		$data = $this->unit->get_all_detailed_unit($id_distrik_pegawai);
+		if ($this->authentifier->get_user_detail()['kode_distrik_pegawai'] != 'Z')
+		{
+			$id_distrik_pegawai = $this->distrik->get_id_distrik_by_kode($this->authentifier->get_user_detail()['kode_distrik_pegawai']);
+			$data = $this->unit->get_all_detailed_unit($id_distrik_pegawai);
+		}
+		else {
+			$data = $this->unit->get_all_detailed_unit();
+		}
 
 		$objSpreadsheet = new Spreadsheet();
 

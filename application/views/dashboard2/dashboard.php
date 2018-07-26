@@ -85,7 +85,7 @@
       new Morris.Donut({
           element: 'sertifikat_chart',
           resize: true,
-          colors: ["#00a65a", "#fc9c02", "#db0419", "#0f3cad"],
+          colors: ["#00a65a", "#fc9c02", "#db0419", "#0f3cad", "#000000"],
           data: [<?php echo $pertanahan; ?>],
           hideHover: 'auto'
         });
@@ -100,7 +100,7 @@
         new Morris.Donut({
           element: 'sertifikat_chart',
           resize: true,
-          colors: ["#00a65a", "#fc9c02", "#db0419", "#0f3cad"],
+          colors: ["#00a65a", "#fc9c02", "#db0419", "#0f3cad", "#000000"],
           data: [<?php echo $pertanahan; ?>],
           hideHover: 'auto'
         });
@@ -109,7 +109,7 @@
         new Morris.Donut({
           element: 'sertifikat_chart',
           resize: true,
-          colors: ["#00a65a", "#fc9c02", "#db0419", "#0f3cad"],
+          colors: ["#00a65a", "#fc9c02", "#db0419", "#0f3cad", "#000000"],
           data: [<?php echo $slo; ?>],
           hideHover: 'auto'
         });
@@ -118,7 +118,7 @@
         new Morris.Donut({
           element: 'sertifikat_chart',
           resize: true,
-          colors: ["#00a65a", "#fc9c02", "#db0419", "#0f3cad"],
+          colors: ["#00a65a", "#fc9c02", "#db0419", "#0f3cad", "#000000"],
           data: [<?php echo $lisensi; ?>],
           hideHover: 'auto'
         });
@@ -127,7 +127,7 @@
         new Morris.Donut({
           element: 'sertifikat_chart',
           resize: true,
-          colors: ["#00a65a", "#fc9c02", "#db0419", "#0f3cad"],
+          colors: ["#00a65a", "#fc9c02", "#db0419", "#0f3cad", "#000000"],
           data: [<?php echo $pengujian; ?>],
           hideHover: 'auto'
         });
@@ -136,7 +136,7 @@
         new Morris.Donut({
           element: 'sertifikat_chart',
           resize: true,
-          colors: ["#00a65a", "#fc9c02", "#db0419", "#0f3cad"],
+          colors: ["#00a65a", "#fc9c02", "#db0419", "#0f3cad", "#000000"],
           data: [<?php echo $perizinan; ?>],
           hideHover: 'auto'
         });
