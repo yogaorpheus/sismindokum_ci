@@ -9,15 +9,36 @@ class Lembaga extends CI_Model {
 		$this->load->database();
 	}
 
-	public function get_all_lembaga()
+	public function get_all_lembaga($nama_status = null)
 	{
+		if (is_null($nama_status))
+		{
+			$nama_status = "Aktif";
+		}
+		$this->db->where('nama_status', $nama_status);
+		$this->db->where('penggunaan_tabel_status', "lembaga");
+		$id_status = $this->db->get('status')->row_array()['id_status'];
+
+		$this->db->where('lembaga.id_status', $id_status);
 		$query = $this->db->get('lembaga');
 		return $query->result_array();
 	}
 
-	public function get_all_detailed_lembaga()
+	public function get_all_detailed_lembaga($nama_status = null)
 	{
-		$this->db->select('lembaga.*, pegawai.nama_lengkap_pegawai');
+		if (!is_null($nama_status))
+		{
+			$this->db->where('nama_status', $nama_status);
+			$this->db->where('penggunaan_tabel_status', "lembaga");
+			$id_status = $this->db->get('status');
+		}
+
+		$this->db->select('lembaga.*, pegawai.nama_lengkap_pegawai, status.nama_status');
+		if (isset($id_status))
+		{
+			$this->db->where('lembaga.status_lembaga', $id_status);
+		}
+		$this->db->join('status', 'status.id_status = lembaga.status_lembaga', 'inner');
 		$this->db->join('pegawai', 'pegawai.id_pegawai = lembaga.dibuat_oleh', 'inner');
 		$query = $this->db->get('lembaga');
 		return $query->result_array();
@@ -68,8 +89,16 @@ class Lembaga extends CI_Model {
 
 	public function delete_lembaga($id_lembaga)
 	{
+		$this->db->where('nama_status', "Dihapus");
+		$this->db->where('penggunaan_tabel_status', "lembaga");
+		$id_status_dihapus = $this->db->get('status')->row_array()['id_status'];
+
+		$data = array(
+			'status_lembaga'	=> $id_status_dihapus
+			);
 		$this->db->where('id_lembaga', $id_lembaga);
-		$query = $this->db->delete('lembaga');
+		$this->db->set($data);
+		$query = $this->db->update('lembaga');
 
 		return $query;
 	}

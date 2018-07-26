@@ -9,9 +9,18 @@ class Dasar_hukum extends CI_Model {
 		$this->load->database();
 	}
 
-	public function get_dasar_hukum_by_menu($id_menu2)
+	public function get_dasar_hukum_by_menu($id_menu2, $nama_status = null)
 	{
+		if (is_null($nama_status))
+		{
+			$nama_status = "Aktif";
+		}
+		$this->db->where('nama_status', $nama_status);
+		$this->db->where('penggunaan_tabel_status', "dasar_hukum");
+		$id_status = $this->db->get('status')->row_array()['id_status'];
+
 		$this->db->where('id_menu2', $id_menu2);
+		$this->db->where('status_dasar_hukum', $id_status);
 		$query = $this->db->get('dasar_hukum')->result_array();
 
 		$new_array = array();
@@ -26,9 +35,18 @@ class Dasar_hukum extends CI_Model {
 		return $new_array;
 	}
 
-	public function get_all_dasar_hukum()
+	public function get_all_dasar_hukum($nama_status = null)
 	{
+		if (is_null($nama_status))
+		{
+			$nama_status = "Aktif";
+		}
+		$this->db->where('nama_status', $nama_status);
+		$this->db->where('penggunaan_tabel_status', "dasar_hukum");
+		$id_status = $this->db->get('status')->row_array()['id_status'];
+
 		$this->db->select('dasar_hukum.*, menu2.nama_menu2, pegawai.nama_lengkap_pegawai');
+		$this->db->where('status_dasar_hukum', $id_status);
 		$this->db->join('menu2', 'menu2.id_menu2 = dasar_hukum.id_menu2', 'inner');
 		$this->db->join('pegawai', 'pegawai.id_pegawai = dasar_hukum.dibuat_oleh', 'inner');
 		$query = $this->db->get('dasar_hukum');
@@ -79,6 +97,11 @@ class Dasar_hukum extends CI_Model {
 
 	public function insert_dasar_hukum($data)
 	{
+		$this->db->where('nama_status', "Aktif");
+		$this->db->where('penggunaan_tabel_status', "dasar_hukum");
+		$id_status = $this->db->get('status')->row_array()['id_status'];
+
+		$data['status_dasar_hukum'] = $id_status;
 		$query = $this->db->insert('dasar_hukum', $data);
 
 		return $query;
@@ -95,8 +118,16 @@ class Dasar_hukum extends CI_Model {
 
 	public function delete_dasar_hukum($id_dasar_hukum)
 	{
+		$this->db->where('nama_status', "Dihapus");
+		$this->db->where('penggunaan_tabel_status', "dasar_hukum");
+		$id_status_dihapus = $this->db->get('status')->row_array()['id_status'];
+
+		$data = array(
+			'status_dasar_hukum'	=> $id_status_dihapus
+			);
 		$this->db->where('id_dasar_hukum', $id_dasar_hukum);
-		$query = $this->db->delete('dasar_hukum');
+		$this->db->set($data);
+		$query = $this->db->update('dasar_hukum');
 
 		return $query;
 	}

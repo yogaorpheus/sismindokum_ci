@@ -22,6 +22,9 @@ class DownloadExcel extends CI_Controller {
 		$this->load->model('sertifikat');
 		$this->load->model('sdm');
 		$this->load->model('remark');
+		$this->load->model('lembaga');
+		$this->load->model('unit');
+		$this->load->model('dasar_hukum');
 	}
 
 	// private function pre_setting_excel($objSpreadsheet, $columnCount)
@@ -727,6 +730,309 @@ class DownloadExcel extends CI_Controller {
 
 		header('Content-Type: application/vnd.ms-excel');
 		header('Content-Disposition: attachment;filename="Data Lisensi.xlsx"');
+		header('Cache-Control: max-age=0');
+
+		$writer = new Xlsx($objSpreadsheet);
+		$writer->save('php://output');
+	}
+
+	public function sertifikat_sdm($status = 1)
+	{
+		if ($status)
+			$data = $this->sdm->get_all_data_sdm($this->authentifier->get_user_detail()['kode_distrik_pegawai'], "Aktif");
+		else
+			$data = $this->sdm->get_all_data_sdm($this->authentifier->get_user_detail()['kode_distrik_pegawai'], "Kadaluarsa");
+
+		$objSpreadsheet = new Spreadsheet();
+
+		$objSpreadsheet->getProperties()->setCreator('YogaOcean - Administrator')
+		->setLastModifiedBy('YogaOcean - Administrator')
+		->setTitle('Test Excel Ocean');
+
+		$objSpreadsheet->setActiveSheetIndex(0)
+		->getStyle('A1:I1')->getFont()->setBold(true);
+
+		$styleArray = [
+		    'borders' => [
+		        'allBorders' => [
+		            'borderStyle' => Border::BORDER_THIN,
+		            'color' => ['argb' => '00000000'],
+		        ],
+		    ],
+		    'alignment' => [
+		        'horizontal' => Alignment::HORIZONTAL_LEFT,
+		        'vertical' => Alignment::VERTICAL_CENTER,
+		    ],
+		];
+
+		$objSpreadsheet->getActiveSheet()->getStyle('A1:I1')->getFill()->setFillType(Fill::FILL_SOLID);
+		$objSpreadsheet->getActiveSheet()->getStyle('A1:I1')->getFill()->getStartColor()->setARGB('FF40BCD8');
+
+		$objSpreadsheet->setActiveSheetIndex(0)
+		->setCellValue('A1', 'No.')
+		->setCellValue('B1', 'Distrik')
+		->setCellValue('C1', 'Kode')
+		->setCellValue('D1', 'Judul Sertifikat')
+		->setCellValue('E1', 'Nama Karyawan')
+		->setCellValue('F1', 'Lembaga')
+		->setCellValue('G1', 'Tanggal Terbit')
+		->setCellValue('H1', 'Tanggal Berakhir')
+		->setCellValue('I1', 'Status Sertifikat');
+
+		$no_cell = 2;
+		$no_data = 1;
+		foreach ($data as $key => $one_data) {
+			$objSpreadsheet->setActiveSheetIndex(0)
+			->setCellValue('A'.$no_cell, $no_data++)
+			->setCellValue('B'.$no_cell, $one_data['nama_distrik'])
+			->setCellValue('C'.$no_cell, $one_data['kode_sertifikasi'])
+			->setCellValue('D'.$no_cell, $one_data['kompetensi'])
+			->setCellValue('E'.$no_cell, $one_data['nama_lengkap_pegawai'])
+			->setCellValue('F'.$no_cell, $one_data['nama_lembaga'])
+			->setCellValue('G'.$no_cell, $one_data['tanggal_sertifikasi'])
+			->setCellValue('H'.$no_cell, $one_data['tanggal_kadaluarsa'])
+			->setCellValue('I'.$no_cell, $one_data['nama_status']);
+
+			$no_cell++;
+		}
+
+		$objSpreadsheet->getActiveSheet()->getStyle('A1:I'.--$no_cell)->applyFromArray($styleArray);
+		$objSpreadsheet->setActiveSheetIndex(0)
+		->getStyle('A1:I1')->getAlignment()
+		->setHorizontal(Alignment::HORIZONTAL_CENTER);
+
+		for ($count = 'A'; $count <= 'I'; $count++)
+		{
+			$objSpreadsheet->getActiveSheet()
+			->getColumnDimension($count)->setAutoSize(true);
+		}
+		$objSpreadsheet->getActiveSheet()->getColumnDimension('D')->setWidth(40);
+		$objSpreadsheet->getActiveSheet()->getStyle('D2:D'.$no_cell)->getAlignment()->setWrapText(true);
+
+		$objSpreadsheet->getActiveSheet()->setTitle('Report Excel');
+		$objSpreadsheet->setActiveSheetIndex(0);
+
+		header('Content-Type: application/vnd.ms-excel');
+		header('Content-Disposition: attachment;filename="Data Sertifikat SDM.xlsx"');
+		header('Cache-Control: max-age=0');
+
+		$writer = new Xlsx($objSpreadsheet);
+		$writer->save('php://output');
+	}
+
+	public function lembaga($status = 1)
+	{
+		if ($status)
+			$data = $this->lembaga->get_all_detailed_lembaga("Aktif");
+		else
+			$data = $this->lembaga->get_all_detailed_lembaga("Dihapus");
+
+		$objSpreadsheet = new Spreadsheet();
+
+		$objSpreadsheet->getProperties()->setCreator('YogaOcean - Administrator')
+		->setLastModifiedBy('YogaOcean - Administrator')
+		->setTitle('Test Excel Ocean');
+
+		$objSpreadsheet->setActiveSheetIndex(0)
+		->getStyle('A1:E1')->getFont()->setBold(true);
+
+		$styleArray = [
+		    'borders' => [
+		        'allBorders' => [
+		            'borderStyle' => Border::BORDER_THIN,
+		            'color' => ['argb' => '00000000'],
+		        ],
+		    ],
+		    'alignment' => [
+		        'horizontal' => Alignment::HORIZONTAL_LEFT,
+		        'vertical' => Alignment::VERTICAL_CENTER,
+		    ],
+		];
+
+		$objSpreadsheet->getActiveSheet()->getStyle('A1:E1')->getFill()->setFillType(Fill::FILL_SOLID);
+		$objSpreadsheet->getActiveSheet()->getStyle('A1:E1')->getFill()->getStartColor()->setARGB('FF40BCD8');
+
+		$objSpreadsheet->setActiveSheetIndex(0)
+		->setCellValue('A1', 'No.')
+		->setCellValue('B1', 'Nama Lembaga')
+		->setCellValue('C1', 'Alamat Lembaga')
+		->setCellValue('D1', 'No. Telepon')
+		->setCellValue('E1', 'Dibuat oleh');
+
+		$no_cell = 2;
+		$no_data = 1;
+		foreach ($data as $key => $one_data) {
+			$objSpreadsheet->setActiveSheetIndex(0)
+			->setCellValue('A'.$no_cell, $no_data++)
+			->setCellValue('B'.$no_cell, $one_data['nama_lembaga'])
+			->setCellValue('C'.$no_cell, $one_data['alamat_lembaga'])
+			->setCellValue('D'.$no_cell, $one_data['no_telp'])
+			->setCellValue('E'.$no_cell, $one_data['nama_lengkap_pegawai']);
+
+			$no_cell++;
+		}
+
+		$objSpreadsheet->getActiveSheet()->getStyle('A1:E'.--$no_cell)->applyFromArray($styleArray);
+		$objSpreadsheet->setActiveSheetIndex(0)
+		->getStyle('A1:E1')->getAlignment()
+		->setHorizontal(Alignment::HORIZONTAL_CENTER);
+
+		for ($count = 'A'; $count <= 'E'; $count++)
+		{
+			$objSpreadsheet->getActiveSheet()
+			->getColumnDimension($count)->setAutoSize(true);
+		}
+		
+		$objSpreadsheet->getActiveSheet()->setTitle('Report Excel');
+		$objSpreadsheet->setActiveSheetIndex(0);
+
+		header('Content-Type: application/vnd.ms-excel');
+		header('Content-Disposition: attachment;filename="Data Lembaga Aktif.xlsx"');
+		header('Cache-Control: max-age=0');
+
+		$writer = new Xlsx($objSpreadsheet);
+		$writer->save('php://output');
+	}
+
+	public function unit()
+	{
+		$this->load->model('distrik');
+		
+		$id_distrik_pegawai = $this->distrik->get_id_distrik_by_kode($this->authentifier->get_user_detail()['kode_distrik_pegawai']);
+		$data = $this->unit->get_all_detailed_unit($id_distrik_pegawai);
+
+		$objSpreadsheet = new Spreadsheet();
+
+		$objSpreadsheet->getProperties()->setCreator('YogaOcean - Administrator')
+		->setLastModifiedBy('YogaOcean - Administrator')
+		->setTitle('Test Excel Ocean');
+
+		$objSpreadsheet->setActiveSheetIndex(0)
+		->getStyle('A1:D1')->getFont()->setBold(true);
+
+		$styleArray = [
+		    'borders' => [
+		        'allBorders' => [
+		            'borderStyle' => Border::BORDER_THIN,
+		            'color' => ['argb' => '00000000'],
+		        ],
+		    ],
+		    'alignment' => [
+		        'horizontal' => Alignment::HORIZONTAL_LEFT,
+		        'vertical' => Alignment::VERTICAL_CENTER,
+		    ],
+		];
+
+		$objSpreadsheet->getActiveSheet()->getStyle('A1:D1')->getFill()->setFillType(Fill::FILL_SOLID);
+		$objSpreadsheet->getActiveSheet()->getStyle('A1:D1')->getFill()->getStartColor()->setARGB('FF40BCD8');
+
+		$objSpreadsheet->setActiveSheetIndex(0)
+		->setCellValue('A1', 'No.')
+		->setCellValue('B1', 'Nama Distrik')
+		->setCellValue('C1', 'Nama Unit')
+		->setCellValue('D1', 'Dibuat oleh');
+
+		$no_cell = 2;
+		$no_data = 1;
+		foreach ($data as $key => $one_data) {
+			$objSpreadsheet->setActiveSheetIndex(0)
+			->setCellValue('A'.$no_cell, $no_data++)
+			->setCellValue('B'.$no_cell, $one_data['nama_distrik'])
+			->setCellValue('C'.$no_cell, $one_data['nama_unit'])
+			->setCellValue('D'.$no_cell, $one_data['nama_lengkap_pegawai']);
+
+			$no_cell++;
+		}
+
+		$objSpreadsheet->getActiveSheet()->getStyle('A1:D'.--$no_cell)->applyFromArray($styleArray);
+		$objSpreadsheet->setActiveSheetIndex(0)
+		->getStyle('A1:D1')->getAlignment()
+		->setHorizontal(Alignment::HORIZONTAL_CENTER);
+
+		for ($count = 'A'; $count <= 'D'; $count++)
+		{
+			$objSpreadsheet->getActiveSheet()
+			->getColumnDimension($count)->setAutoSize(true);
+		}
+		
+		$objSpreadsheet->getActiveSheet()->setTitle('Report Excel');
+		$objSpreadsheet->setActiveSheetIndex(0);
+
+		header('Content-Type: application/vnd.ms-excel');
+		header('Content-Disposition: attachment;filename="Data Unit.xlsx"');
+		header('Cache-Control: max-age=0');
+
+		$writer = new Xlsx($objSpreadsheet);
+		$writer->save('php://output');
+	}
+
+	public function dasar_hukum()
+	{
+		$data = $this->dasar_hukum->get_all_dasar_hukum();
+
+		$objSpreadsheet = new Spreadsheet();
+
+		$objSpreadsheet->getProperties()->setCreator('YogaOcean - Administrator')
+		->setLastModifiedBy('YogaOcean - Administrator')
+		->setTitle('Test Excel Ocean');
+
+		$objSpreadsheet->setActiveSheetIndex(0)
+		->getStyle('A1:E1')->getFont()->setBold(true);
+
+		$styleArray = [
+		    'borders' => [
+		        'allBorders' => [
+		            'borderStyle' => Border::BORDER_THIN,
+		            'color' => ['argb' => '00000000'],
+		        ],
+		    ],
+		    'alignment' => [
+		        'horizontal' => Alignment::HORIZONTAL_LEFT,
+		        'vertical' => Alignment::VERTICAL_CENTER,
+		    ],
+		];
+
+		$objSpreadsheet->getActiveSheet()->getStyle('A1:E1')->getFill()->setFillType(Fill::FILL_SOLID);
+		$objSpreadsheet->getActiveSheet()->getStyle('A1:E1')->getFill()->getStartColor()->setARGB('FF40BCD8');
+
+		$objSpreadsheet->setActiveSheetIndex(0)
+		->setCellValue('A1', 'No.')
+		->setCellValue('B1', 'Jenis Sertifikat')
+		->setCellValue('C1', 'Kode')
+		->setCellValue('D1', 'Keterangan')
+		->setCellValue('E1', 'Dibuat oleh');
+
+		$no_cell = 2;
+		$no_data = 1;
+		foreach ($data as $key => $one_data) {
+			$objSpreadsheet->setActiveSheetIndex(0)
+			->setCellValue('A'.$no_cell, $no_data++)
+			->setCellValue('B'.$no_cell, $one_data['nama_menu2'])
+			->setCellValue('C'.$no_cell, $one_data['kode_dasar_hukum'])
+			->setCellValue('D'.$no_cell, $one_data['keterangan_dasar_hukum'])
+			->setCellValue('E'.$no_cell, $one_data['nama_lengkap_pegawai']);
+
+			$no_cell++;
+		}
+
+		$objSpreadsheet->getActiveSheet()->getStyle('A1:E'.--$no_cell)->applyFromArray($styleArray);
+		$objSpreadsheet->setActiveSheetIndex(0)
+		->getStyle('A1:E1')->getAlignment()
+		->setHorizontal(Alignment::HORIZONTAL_CENTER);
+
+		for ($count = 'A'; $count <= 'E'; $count++)
+		{
+			$objSpreadsheet->getActiveSheet()
+			->getColumnDimension($count)->setAutoSize(true);
+		}
+		$objSpreadsheet->getActiveSheet()->getColumnDimension('D')->setWidth(40);
+		$objSpreadsheet->getActiveSheet()->getStyle('D2:D'.$no_cell)->getAlignment()->setWrapText(true);
+		
+		$objSpreadsheet->getActiveSheet()->setTitle('Report Excel');
+		$objSpreadsheet->setActiveSheetIndex(0);
+
+		header('Content-Type: application/vnd.ms-excel');
+		header('Content-Disposition: attachment;filename="Data Dasar Hukum.xlsx"');
 		header('Cache-Control: max-age=0');
 
 		$writer = new Xlsx($objSpreadsheet);

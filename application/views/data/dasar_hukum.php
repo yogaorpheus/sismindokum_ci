@@ -17,7 +17,9 @@
               <a href="<?php echo base_url('dasar_hukum/tambah_dasar_hukum'); ?>">
                 <button class="btn btn-primary pull-left"><i class="glyphicon glyphicon-plus"></i> Tambah Dasar Hukum</button>
               </a>
-              <!-- <button class="btn btn-success pull-right"><i class="glyphicon glyphicon-download-alt"></i> Download Data</button> -->
+              <a href="<?php echo base_url('dasar_hukum/download'); ?>">
+                <button class="btn btn-success pull-right"><i class="glyphicon glyphicon-download-alt"></i> Download Data</button>
+              </a>
             </div>
             <!-- /.box-header -->
             <div class="box-body">

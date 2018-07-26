@@ -17,7 +17,9 @@
               <a href="<?php echo base_url('lembaga/tambah_lembaga'); ?>">
                 <button class="btn btn-primary pull-left"><i class="glyphicon glyphicon-plus"></i> Tambah Data Lembaga</button>
               </a>
-              <button class="btn btn-success pull-right"><i class="glyphicon glyphicon-download-alt"></i> Download Data</button>
+              <a href="<?php echo base_url('lembaga/download'); ?>">
+                <button class="btn btn-success pull-right"><i class="glyphicon glyphicon-download-alt"></i> Download Data</button>
+              </a>
             </div>
             <!-- /.box-header -->
             <div class="box-body">

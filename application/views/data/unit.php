@@ -17,7 +17,9 @@
               <a href="<?php echo base_url('unit/tambah_unit'); ?>">
                 <button class="btn btn-primary pull-left"><i class="glyphicon glyphicon-plus"></i> Tambah Data Unit</button>
               </a>
-              <button class="btn btn-success pull-right"><i class="glyphicon glyphicon-download-alt"></i> Download Data</button>
+              <a href="<?php echo base_url('unit/download'); ?>">
+                <button class="btn btn-success pull-right"><i class="glyphicon glyphicon-download-alt"></i> Download Data</button>
+              </a>
             </div>
             <!-- /.box-header -->
             <div class="box-body">

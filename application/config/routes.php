@@ -85,6 +85,11 @@ $route['data/pengujian_alat_k3/download']		= 'downloadexcel/pengujian/1';
 $route['data_lama/pengujian_alat_k3/download']	= 'downloadexcel/pengujian/0';
 $route['data/lisensi/download']					= 'downloadexcel/lisensi/1';
 $route['data_lama/lisensi/download']			= 'downloadexcel/lisensi/0';
+$route['data/sertifikat_sdm/download']			= 'downloadexcel/sertifikat_sdm/1';
+$route['data_lama/sertifikat_sdm/download']		= 'downloadexcel/sertifikat_sdm/0';
+$route['lembaga/download']						= 'downloadexcel/lembaga/1';
+$route['unit/download']							= 'downloadexcel/unit'
+$route['dasar_hukum/download']					= 'downloadexcel/dasar_hukum';
 
 // REVIEW LAMPIRAN ROUTE //
 $route['data/pertanahan_review/(:num)'] 		= 'data_crud/pertanahan_review/$1';

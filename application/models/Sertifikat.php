@@ -161,9 +161,17 @@ class Sertifikat extends CI_Model {
 
 	public function delete_sertifikat_by_id($id_sertif, $id_jenis_sertif)
 	{
+		$this->db->where('nama_status', "Dihapus");
+		$this->db->where('penggunaan_tabel_status', "sertifikat");
+		$id_status_dihapus = $this->db->get('status')->row_array()['id_status'];
+
+		$data = array(
+			'status_sertifikat'	=> $id_status_dihapus
+			);
 		$this->db->where('id_sertifikat', $id_sertif);
 		$this->db->where('id_jenis_sertifikat', $id_jenis_sertif);
-		$query = $this->db->delete('sertifikat');
+		$this->db->set($data);
+		$query = $this->db->update('sertifikat');
 
 		return $query;
 	}

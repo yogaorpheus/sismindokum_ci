@@ -82,8 +82,16 @@ class Anggaran extends CI_Model {
 
 	public function delete_anggaran_by_id($id)
 	{
+		$this->db->where('nama_status', "Tidak Aktif");
+		$this->db->where('penggunaan_tabel_status', "anggaran");
+		$id_status_dihapus = $this->db->get('status')->row_array()['id_status'];
+
+		$data = array(
+			'status_anggaran'	=> $id_status_dihapus
+			);
 		$this->db->where('id_anggaran', $id);
-		$query = $this->db->delete('anggaran');
+		$this->db->set($data);
+		$query = $this->db->update('anggaran');
 
 		return $query;
 	}

@@ -221,7 +221,7 @@ class Data_crud extends CI_Controller {
 
 		$jenis_distrik = $this->distrik->get_all_distrik();
 		$lembaga = $this->lembaga->get_all_lembaga();
-		$unit = $this->unit->get_all_unit();
+		$unit = $this->unit->get_all_unit_by_kode_distrik($this->authentifier->get_user_detail()['kode_distrik_pegawai'], "Aktif");
 
 		$id_menu2 = $this->menu->get_id_menu2('slo');
 		$dasar_hukum = $this->dasar_hukum->get_dasar_hukum_by_menu($id_menu2);
