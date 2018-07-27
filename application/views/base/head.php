@@ -67,3 +67,10 @@
   </script>
   <!-- Bootstrap 3.3.7 -->
   <script src="<?php echo base_url('assets/adminlte'); ?>/bower_components/bootstrap/dist/js/bootstrap.min.js"></script>
+
+  <style>
+    .lihover:hover {
+      background-color: rgba(163, 152, 141, 0.6);
+      
+    }
+  </style>

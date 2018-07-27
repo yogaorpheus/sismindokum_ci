@@ -1,5 +1,5 @@
 <!-- Content Header (Page header) -->
-    <section class="wrapper" style="opacity: 0.9; background-color: #024b5c">
+    <section class="wrapper" style="opacity: 0.9; background-color: #106f80">
       <section class="content-header col-md-12" style="height: 561px; background-image: url(<?php echo base_url("assets/img/bg_pjb_small.png")?>); background-repeat: no-repeat; background-position: right top; background-size: 850px 659px;">
         <img src="<?php echo base_url("assets/img/logo_pjb_white_small.png")?>" style="width: 30%; height: 25%;">
         <hr width="33%" align="left">

@@ -29,13 +29,15 @@
 </head>
 <body>
 	
-	<div class="limiter">
+	<div class="limiter" style="background-color: #1c929c;">
+		<br><br>
+		<div align="middle" style="margin-bottom: -110px; margin-top: -6px">
+			<img src="<?php echo base_url('assets/img'); ?>/logo_pjb_white_small.png" width="13%" height="13%">
+		</div>
+		
 		<div class="container-login100">
 			<div class="wrap-login100">
 				<form class="login100-form validate-form" method="POST" action="<?php echo base_url('auth/login'); ?>">
-					<span class="login100-form-title p-b-26">
-						<img src="<?php echo base_url('assets/img'); ?>/logo_pjb_small.png" width="70%" height="70%">
-					</span>
 					<span class="login100-form-title p-b-48">
 						<img src="<?php echo base_url('assets/img'); ?>/sismindokum_small.png" width="100%" height="100%">
 					</span>

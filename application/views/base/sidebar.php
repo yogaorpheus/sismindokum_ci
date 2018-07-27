@@ -1,7 +1,7 @@
   <!-- Left side column. contains the logo and sidebar -->
-  <aside class="main-sidebar">
+  <aside class="main-sidebar" style="background-color: #106f80; background-image: url(<?php echo base_url('assets/img/bg_pjb_small.png');?>); background-size: 700%; background-position: 20% 0%;">
     <!-- sidebar: style can be found in sidebar.less -->
-    <section class="sidebar">
+    <section class="sidebar" style="">
       <!-- Sidebar user panel -->
       <div class="user-panel">
         <div align="middle">
@@ -19,10 +19,10 @@
       
       <ul class="sidebar-menu" data-widget="tree">
 
-        <li class="header" style="color: #ffffff;"><strong>MENU UTAMA</strong></li>
+        <li class="header" style="color: #ffffff; background: rgba(14, 88, 110, 0.5);"><strong>MENU UTAMA</strong></li>
         
-        <li>
-          <a href="<?php echo base_url('dashboard'); ?>">
+        <li> <!-- warna bg -->
+          <a href="<?php echo base_url('dashboard'); ?>" style="background-color: rgba(43, 137, 160, 0.5);"> <!-- warna hover -->
             <i class="fa fa-dashboard"></i>
             <span>Dashboard</span>
           </a>
@@ -40,16 +40,16 @@
           }
           else
           {
-            echo "<a href='#'>";
+            echo "<a href='#' style='background-color: rgba(43, 137, 160, 0.5);'>";
             echo "<i class='fa fa-file-text-o'></i> <span>".$menu_utama[$key]['nama_menu1']."</span>";
             echo "<span class='pull-right-container'><i class='fa fa-angle-left pull-right'></i></span>";
             echo "</a>";
 
-            echo "<ul class='treeview-menu'>";
+            echo "<ul class='treeview-menu' style='background: rgba(37, 142, 166, 0.6);'>";
             foreach ($one_menu_utama as $key1 => $one_sub_menu) 
             {
               echo "<li>";
-              echo "<a href=".base_url($menu_utama[$key]['nama_controller']."/".$sub_menu[$key1]['nama_method']).">";
+              echo "<a href=".base_url($menu_utama[$key]['nama_controller']."/".$sub_menu[$key1]['nama_method'])." class='lihover' style='color: white;'>";
               echo "<i class='fa fa-circle'></i> ".$sub_menu[$key1]['nama_menu2'];
               echo "</a>";
               echo "</li>";
@@ -61,21 +61,21 @@
         ?>
 
         <li>
-          <a href="<?php echo base_url('lembaga'); ?>">
+          <a href="<?php echo base_url('lembaga'); ?>" style="background-color: rgba(43, 137, 160, 0.5);">
             <i class="fa fa-building-o"></i>
             <span>Lembaga</span>
           </a>
         </li>
 
         <li>
-          <a href="<?php echo base_url('unit'); ?>">
+          <a href="<?php echo base_url('unit'); ?>" style="background-color: rgba(43, 137, 160, 0.5);">
             <i class="fa fa-database"></i>
             <span>Unit</span>
           </a>
         </li>
 
         <li>
-          <a href="<?php echo base_url('dasar_hukum'); ?>">
+          <a href="<?php echo base_url('dasar_hukum'); ?>" style="background-color: rgba(43, 137, 160, 0.5);">
             <i class="fa fa-gavel"></i>
             <span>Dasar Hukum</span>
           </a>
