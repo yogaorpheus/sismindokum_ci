@@ -75,6 +75,13 @@ class Sertifikat_data extends CI_Controller {
 		$result = $this->sertifikat->update_data_sertifikat($data);
 	}
 
+	private function set_tahun_berakhir_forever()
+	{
+		$tahun_berakhir_forever = "12/31/4999";
+
+		return $tahun_berakhir_forever;
+	}
+
 	// BERIKUT ADALAH METHOD YANG AKAN DIGUNAKAN UNTUK MENAMBAH DATA PADA SETIAP SERTIFIKAT
 	public function tambah_pertanahan()
 	{
@@ -84,6 +91,12 @@ class Sertifikat_data extends CI_Controller {
 
 		$id_jenis_sertifikat = $this->jenis_sertifikat->get_id_jenis_sertifikat('pertanahan');
 		$tanggal_terbit = DateTime::createFromFormat('m/d/Y', $input['tanggal_terbit'])->format('Y-m-d');
+
+		if (empty($input['tanggal_berakhir']))
+		{
+			$input['tanggal_berakhir'] = $this->set_tahun_berakhir_forever();
+		}
+
 		$tanggal_berakhir = DateTime::createFromFormat('m/d/Y', $input['tanggal_berakhir'])->format('Y-m-d');
 
 		$data = array(
@@ -142,6 +155,10 @@ class Sertifikat_data extends CI_Controller {
 
 		$id_jenis_sertifikat = $this->jenis_sertifikat->get_id_jenis_sertifikat('lisensi');
 		$tanggal_terbit = DateTime::createFromFormat('m/d/Y', $input['tanggal_terbit'])->format('Y-m-d');
+		if (empty($input['tanggal_berakhir']))
+		{
+			$input['tanggal_berakhir'] = $this->set_tahun_berakhir_forever();
+		}
 		$tanggal_berakhir = DateTime::createFromFormat('m/d/Y', $input['tanggal_berakhir'])->format('Y-m-d');
 
 		$data = array(
@@ -199,6 +216,10 @@ class Sertifikat_data extends CI_Controller {
 
 		$id_jenis_sertifikat = $this->jenis_sertifikat->get_id_jenis_sertifikat('pengujian alat k3');
 		$tanggal_terbit = DateTime::createFromFormat('m/d/Y', $input['tanggal_terbit'])->format('Y-m-d');
+		if (empty($input['tanggal_berakhir']))
+		{
+			$input['tanggal_berakhir'] = $this->set_tahun_berakhir_forever();
+		}
 		$tanggal_berakhir = DateTime::createFromFormat('m/d/Y', $input['tanggal_berakhir'])->format('Y-m-d');
 
 		$data = array(
@@ -256,6 +277,10 @@ class Sertifikat_data extends CI_Controller {
 
 		$id_jenis_sertifikat = $this->jenis_sertifikat->get_id_jenis_sertifikat('perizinan');
 		$tanggal_terbit = DateTime::createFromFormat('m/d/Y', $input['tanggal_terbit'])->format('Y-m-d');
+		if (empty($input['tanggal_berakhir']))
+		{
+			$input['tanggal_berakhir'] = $this->set_tahun_berakhir_forever();
+		}
 		$tanggal_berakhir = DateTime::createFromFormat('m/d/Y', $input['tanggal_berakhir'])->format('Y-m-d');
 
 		$data = array(
@@ -313,6 +338,10 @@ class Sertifikat_data extends CI_Controller {
 
 		$id_jenis_sertifikat = $this->jenis_sertifikat->get_id_jenis_sertifikat('slo');
 		$tanggal_terbit = DateTime::createFromFormat('m/d/Y', $input['tanggal_terbit'])->format('Y-m-d');
+		if (empty($input['tanggal_berakhir']))
+		{
+			$input['tanggal_berakhir'] = $this->set_tahun_berakhir_forever();
+		}
 		$tanggal_berakhir = DateTime::createFromFormat('m/d/Y', $input['tanggal_berakhir'])->format('Y-m-d');
 
 		$data = array(
