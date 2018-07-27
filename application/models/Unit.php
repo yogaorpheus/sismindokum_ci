@@ -42,7 +42,7 @@ class Unit extends CI_Model {
 		}
 
 		if (isset($id_distrik))
-			$this->db->where('id_distrik', $id_distrik);
+			$this->db->where('id_distrik_unit', $id_distrik);
 
 		$this->db->where('status_unit', $id_status);
 		$query = $this->db->get('unit');

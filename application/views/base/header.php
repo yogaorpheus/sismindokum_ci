@@ -25,9 +25,10 @@
               <!-- User image -->
               <li class="user-header" style="background-color: #136f86">
                 <i class="ion-person" style="font-size: 60px;"></i>
-                <p>
+                <p style="font-size: 15px;">
                   <?php
-                  echo $nama_lengkap_pegawai." - ".$posisi_pegawai;
+                  echo $nama_lengkap_pegawai."<br><b>".$posisi_pegawai."</b><br>";
+                  echo $lokasi_distrik_pegawai;
                   ?>
                 </p>
               </li>
