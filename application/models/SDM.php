@@ -24,7 +24,7 @@ class SDM extends CI_Model {
 			$id_distrik = $this->db->get('distrik')->row_array()['id_distrik'];
 		}
 
-		$this->db->select('sdm.*, distrik.nama_distrik, pegawai.nama_lengkap_pegawai, status.nama_status');
+		$this->db->select('sdm.*, distrik.nama_distrik, pegawai.nama_lengkap_pegawai, status.nama_status, lembaga.nama_lembaga');
 		if (isset($id_status))
 		{
 			$this->db->where('sdm.status_sdm', $id_status);
@@ -51,5 +51,27 @@ class SDM extends CI_Model {
 		$query = $this->db->get('sdm');
 
 		return $query->row_array();
+	}
+
+	public function update_lembaga_sdm($data)
+	{
+		$this->db->where('id_pegawai', $data['id_pegawai']);
+		$this->db->where('kode_sertifikasi', $data['kode_sertifikasi']);
+		$this->db->set($data);
+		$query = $this->db->update('sdm');
+
+		return $query;
+	}
+
+	public function get_old_data_lembaga_sdm()
+	{
+		$query = $this->db->query(
+			"SELECT sdm_old.`nid`, sdm_old.`nama_lengkap`, sdm_old.`kode_sertifikasi`, sdm_old.`nama_lembaga`, lembaga.`id_lembaga`
+			FROM sdm_old
+			LEFT JOIN lembaga ON lembaga.`nama_lembaga` = sdm_old.`nama_lembaga`
+			WHERE sdm_old.`nama_lembaga` IS NOT NULL;"
+			);
+
+		return $query->result_array();
 	}
 }

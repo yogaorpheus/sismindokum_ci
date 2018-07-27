@@ -48,7 +48,7 @@
                   <td style="vertical-align: middle;"><?php echo $onedata['kode_sertifikasi']; ?></td>
                   <td style="vertical-align: middle;"><?php echo $onedata['kompetensi']; ?></td>
                   <td style="vertical-align: middle;"><?php echo $onedata['nama_lengkap_pegawai']; ?></td>
-                  <td style="vertical-align: middle;">MASIH KOSONG</td>
+                  <td style="vertical-align: middle;"><?php echo $onedata['nama_lembaga']; ?></td>
                   <td style="vertical-align: middle;"><?php echo $onedata['tanggal_diperoleh']; ?></td>
                   <td style="vertical-align: middle;"><?php echo $onedata['tanggal_berakhir']; ?></td>
                   <td style="vertical-align: middle;">

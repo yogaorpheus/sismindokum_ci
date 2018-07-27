@@ -40,7 +40,7 @@ class Pegawai extends CI_Model {
 		return $count;
 	}
 
-	public function insert_or_update_data_pegawai($nid, $data)
+	private function insert_or_update_data_pegawai($nid, $data)
 	{
 		$this->db->where('nid_pegawai', $nid);
 		$check_existence = $this->db->get('pegawai')->result_array();
@@ -155,5 +155,13 @@ class Pegawai extends CI_Model {
 		}
 
 		return $check;
+	}
+
+	public function get_id_pegawai_by_nid($nid)
+	{
+		$this->db->where('nid_pegawai', $nid);
+		$id_pegawai = $this->db->get('pegawai')->row_array()['id_pegawai'];
+
+		return $id_pegawai;
 	}
 }
