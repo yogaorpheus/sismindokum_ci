@@ -33,7 +33,7 @@
                     <div class="form-group">
                       <label>Distrik</label><br>
                       <?php
-                      echo "<select class='form-control select2' style='width: 75%;' name='distrik'>";
+                      echo "<select class='form-control select2' style='width: 75%;' name='distrik' id='distrik'>";
                       
                       foreach ($distrik as $key => $one_distrik) {
                         if ($one_distrik['id_distrik'] == $data_slo['id_distrik_sertifikat'])
@@ -81,7 +81,7 @@
 
                     <div class="form-group">
                       <label>Unit Sertifikasi</label>
-                      <select class="form-control select2" style="width: 100%;" name="unit_sertifikasi">
+                      <select class="form-control select2" style="width: 100%;" name="unit_sertifikasi" id="unit_sertifikasi">
                         <?php
                         foreach ($unit as $key => $one_unit) {
                           if ($one_unit['id_unit'] == $data_slo['id_unit_sertifikat'])
@@ -264,6 +264,42 @@
         <?php
       }
       ?>
+    })
+
+    $('#distrik').change(function() {
+      var id_distrik = $('#distrik').val();
+      $('#unit_sertifikasi').find('option').remove().end();
+
+        <?php
+        foreach ($unit as $key => $one_unit) {
+          ?>
+          if (id_distrik == <?php echo $one_unit['id_distrik_unit']; ?>)
+          {
+            var id_unit = <?php echo $one_unit['id_unit']; ?>;
+            var nama_unit = "<?php echo $one_unit['nama_unit']; ?>";
+            $('#unit_sertifikasi').append("<option value='"+ id_unit +"'>"+ nama_unit + "</option");
+          }
+          <?php
+        }
+        ?>
+    })
+
+    $(document).ready(function() {
+      var id_distrik = $('#distrik').val();
+      $('#unit_sertifikasi').find('option').remove().end();
+
+        <?php
+        foreach ($unit as $key => $one_unit) {
+          ?>
+          if (id_distrik == <?php echo $one_unit['id_distrik_unit']; ?>)
+          {
+            var id_unit = <?php echo $one_unit['id_unit']; ?>;
+            var nama_unit = "<?php echo $one_unit['nama_unit']; ?>";
+            $('#unit_sertifikasi').append("<option value='"+ id_unit +"'>"+ nama_unit + "</option");
+          }
+          <?php
+        }
+        ?>
     })
 
   })

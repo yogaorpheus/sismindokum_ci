@@ -61,6 +61,19 @@ class Remark_data extends CI_Controller {
 		return $result;
 	}
 
+	private function set_status_anggaran($id_anggaran, $nama_status)
+	{
+		$id_status = $this->status->get_id_status_by_nama_status_dan_nama_tabel($nama_status, "anggaran");
+
+		$data = array(
+			'status_anggaran'	=> $id_status,
+			'id_anggaran'		=> $id_anggaran
+			);
+		$result = $this->anggaran->update_anggaran_dasar($data);
+
+		return $result;
+	}
+
 	public function view_remark_anggaran($id_anggaran)
 	{
 		$data = $this->get_data_remark_anggaran($id_anggaran);
@@ -133,6 +146,19 @@ class Remark_data extends CI_Controller {
 				'id_data'			=> $id_remark
 				);
 			$id_log = $this->log_database->write_log($log_data);
+
+			$remark_selesai = $this->remark->get_remark_selesai_by_id_anggaran($id_anggaran);
+
+			if (!is_null($remark_selesai) && !empty($remark_selesai))
+			{
+				// Ada remark selesai pada sertifikat
+				$check_selesai = $this->set_status_anggaran($id_anggaran, "Tidak Aktif");
+				if ($check_selesai)
+				{
+					$sub_link_2 = substr($sub_link, 0, -7);
+					return redirect('data/'.$sub_link_2);
+				}
+			}
 
 			$this->authentifier->set_flashdata('error', 1);
 		}
