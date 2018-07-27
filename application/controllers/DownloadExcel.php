@@ -788,10 +788,14 @@ class DownloadExcel extends CI_Controller {
 			->setCellValue('C'.$no_cell, $one_data['kode_sertifikasi'])
 			->setCellValue('D'.$no_cell, $one_data['kompetensi'])
 			->setCellValue('E'.$no_cell, $one_data['nama_lengkap_pegawai'])
-			->setCellValue('F'.$no_cell, $one_data['nama_lembaga'])
-			->setCellValue('G'.$no_cell, $one_data['tanggal_sertifikasi'])
-			->setCellValue('H'.$no_cell, $one_data['tanggal_kadaluarsa'])
+			->setCellValue('G'.$no_cell, $one_data['tanggal_diperoleh'])
+			->setCellValue('H'.$no_cell, $one_data['tanggal_berakhir'])
 			->setCellValue('I'.$no_cell, $one_data['nama_status']);
+
+			if (isset($one_data['nama_lembaga']) || !is_null($one_data['nama_lembaga']))
+			{
+				$objSpreadsheet->setActiveSheetIndex(0)->setCellValue('F'.$no_cell, $one_data['nama_lembaga']);
+			}
 
 			$no_cell++;
 		}

@@ -31,6 +31,28 @@ class Welcome extends CI_Controller {
 		//phpinfo();
 	}
 
+	public function update_lembaga_sertif_sdm()
+	{
+		$this->load->model('sdm');
+		$this->load->model('pegawai');
+
+		$query = $this->sdm->get_old_data_lembaga_sdm();
+
+		$data = array();
+		$count = 1;
+		foreach ($query as $key => $one_data) {
+			$data['id_lembaga'] = $one_data['id_lembaga'];
+			$data['id_pegawai'] = $this->pegawai->get_id_pegawai_by_nid($one_data['nid']);
+			$data['kode_sertifikasi'] = $one_data['kode_sertifikasi'];
+
+			$result = $this->sdm->update_lembaga_sdm($data);
+			if ($result)
+				echo "Data ".$count++." - Berhasil Dimasukkan<br>";
+			else
+				echo "Data ".$count++." - Gagal Dimasukkan<br><br>";
+		}
+	}
+
 	public function test()
 	{
 		$string = "Namaku Yoga Samudra";

@@ -164,6 +164,29 @@ class Sertifikat extends CI_Model {
 		return $query->result_array();
 	}
 
+	public function get_alarmed_dan_expired_sertifikat_dan_pic()
+	{
+		$this->db->where('nama_status', "Alarm");
+		$this->db->where('penggunaan_tabel_status', "sertifikat");
+		$id_alarmed = $this->db->get('status')->row_array()['id_status'];
+
+		$this->db->where('nama_status', "Kadaluarsa");
+		$this->db->where('penggunaan_tabel_status', "sertifikat");
+		$id_expired = $this->db->get('status')->row_array()['id_status'];
+
+		$this->db->select('sertifikat.*, pegawai.nid_pegawai, pegawai.nama_lengkap_pegawai, jenis_sertifikat.nama_jenis_sertifikat, status.nama_status, remainder.*, distrik.nama_distrik, pegawai.email_pegawai');
+		$this->db->where('status_sertifikat', $id_alarmed);
+		$this->db->or_where('status_sertifikat', $id_expired);
+		$this->db->join('pegawai', 'pegawai.id_pegawai = sertifikat.dibuat_oleh', 'inner');
+		$this->db->join('jenis_sertifikat', 'jenis_sertifikat.id_jenis_sertifikat = sertifikat.id_jenis_sertifikat', 'inner');
+		$this->db->join('remainder', 'remainder.id_remainder = sertifikat.id_remainder_sertifikat', 'inner');
+		$this->db->join('status', 'status.id_status = sertifikat.status_sertifikat', 'inner');
+		$this->db->join('distrik', 'distrik.id_distrik = sertifikat.id_distrik_sertifikat', 'inner');
+		$result = $this->db->get('sertifikat');
+
+		return $result->result_array();
+	}
+
 	public function delete_sertifikat_by_id($id_sertif, $id_jenis_sertif)
 	{
 		$this->db->where('nama_status', "Dihapus");

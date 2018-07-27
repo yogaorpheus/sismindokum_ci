@@ -26,7 +26,7 @@ class Lembaga extends CI_Model {
 
 	public function get_all_detailed_lembaga($nama_status = null)
 	{
-		if (!is_null($nama_status))
+		if (is_null($nama_status))
 		{
 			$nama_status = "Aktif";
 		}
@@ -36,7 +36,6 @@ class Lembaga extends CI_Model {
 
 		$this->db->select('lembaga.*, pegawai.nama_lengkap_pegawai, status.nama_status');
 		$this->db->where('lembaga.status_lembaga', $id_status);
-		
 		$this->db->join('status', 'status.id_status = lembaga.status_lembaga', 'inner');
 		$this->db->join('pegawai', 'pegawai.id_pegawai = lembaga.dibuat_oleh', 'inner');
 		$query = $this->db->get('lembaga');
