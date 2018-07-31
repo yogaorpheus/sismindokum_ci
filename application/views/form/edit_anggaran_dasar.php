@@ -41,7 +41,7 @@
                     </div>
 
                     <div class="form-group">
-                      <label>Tahun Anggaran</label><br>
+                      <label>Tahun</label><br>
                       <select class="form-control select2" style="width: 25%;" name="tahun_anggaran">
                         <?php
                         $year_now = date("Y");

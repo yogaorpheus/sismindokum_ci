@@ -16,9 +16,22 @@
           <div class="box">
             <div class="box-header">
               <h3 class="box-title">Data Sertifikat Pengujian Alat K3</h3>
-              <a href="<?php echo base_url('data/pengujian_alat_k3/download');?>">
-                <button class="btn btn-success pull-right"><i class="glyphicon glyphicon-download-alt"></i> Download Data</button>
-              </a>
+              <?php
+              if ($this->session->userdata('staff_pjb')['kode_distrik_pegawai'] == 'Z')
+              {
+                ?>
+                <button class="btn btn-success pull-right" data-toggle="modal" data-target="#modal_download"><i class="glyphicon glyphicon-download-alt"></i> Download Data</button>
+                <?php
+              }
+              else
+              {
+                ?>
+                <a href="<?php echo base_url('data_lama/pengujian_alat_k3/download');?>">
+                  <button class="btn btn-success pull-right"><i class="glyphicon glyphicon-download-alt"></i> Download Data</button>
+                </a>
+                <?php
+              }
+              ?>
             </div>
             <!-- /.box-header -->
             <div class="box-body">
@@ -85,24 +98,57 @@
         <!-- /.col -->
       </div>
       <!-- /.row -->
+
+      <div class="modal modal-primary fade" id="modal_download">
+          <div class="modal-dialog">
+            <div class="modal-content">
+              <div class="modal-header">
+                <h4 class="modal-title">MENGUNDUH DATA</h4>
+              </div>
+              <div class="modal-body">
+                <div class="form-group">
+                  <label>Distrik</label><br>
+                  <select class="form-control select2" name="distrik_download" id="distrik_download" style="width: 100%;">
+                    <option value="0" selected="selected">Semua Distrik</option>
+                    <?php
+                    foreach ($distrik as $key => $one_distrik) {
+                      echo "<option value='".$one_distrik['kode_distrik']."'>";
+                      echo $one_distrik['nama_distrik'];
+                      echo "</option>";
+                    }
+                    ?>
+                  </select>
+                </div>
+              </div>
+              <div class="modal-footer">
+                <a id="download_btn" href="<?php echo base_url('data_lama/pengujian_alat_k3/download'); ?>"><button type="button" class="btn btn-success pull-left">Unduh Data</button></a>
+                <button type="button" class="btn btn-danger pull-right" data-dismiss="modal" id="download_abort">Batal Mengunduh</button>
+              </div>
+            </div>
+            <!-- /.modal-content -->
+          </div>
+          <!-- /.modal-dialog -->
+        </div>
     </section>
     <!-- /.content -->
     <script>
       $(function () {
-        // $('#example1').DataTable()
-        // $('#example2').DataTable({
-        //   'paging'      : true,
-        //   'lengthChange': false,
-        //   'searching'   : false,
-        //   'ordering'    : true,
-        //   'info'        : true,
-        //   'autoWidth'   : false
-        // })
+        
+        $('.select2').select2()
+
         $('#tabel1').DataTable() 
 
         $(document).on('click', '.review', function() {
           var href = $(this).attr('href');
           window.open(href);
+        })
+
+        $("#distrik_download").change(function() {
+          var kode_distrik = $("#distrik_download").val();
+
+          if (kode_distrik == '0')
+            kode_distrik = "";
+          $("#download_btn").attr('href', "<?php echo base_url('data_lama/pengujian_alat_k3/download')."/"; ?>"+kode_distrik);
         })
       })
     </script>

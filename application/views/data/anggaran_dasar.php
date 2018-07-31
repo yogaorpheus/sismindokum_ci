@@ -146,15 +146,7 @@
       var delete_id = "";
 
       $(function () {
-        // $('#example1').DataTable()
-        // $('#example2').DataTable({
-        //   'paging'      : true,
-        //   'lengthChange': false,
-        //   'searching'   : false,
-        //   'ordering'    : true,
-        //   'info'        : true,
-        //   'autoWidth'   : false
-        // })
+        
         $('#tabel1').DataTable()
 
         $(document).on("click", ".Delete", function() {

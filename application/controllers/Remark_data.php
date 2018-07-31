@@ -167,7 +167,7 @@ class Remark_data extends CI_Controller {
 			$this->authentifier->set_flashdata('error', 2);
 		}
 
-		return redirect ('data/'.$sub_link.'/'.$id_anggaran);
+		redirect ('data/'.$sub_link.'/'.$id_anggaran);
 	}
 
 	public function sertifikat_remark()
@@ -220,7 +220,7 @@ class Remark_data extends CI_Controller {
 			$this->authentifier->set_flashdata('error', 2);
 		}
 
-		return redirect ('data/'.$sub_link.'/'.$id_sertifikat);
+		redirect ('data/'.$sub_link.'/'.$id_sertifikat);
 	}
 
 	public function delete_remark()
@@ -257,7 +257,7 @@ class Remark_data extends CI_Controller {
 			$this->authentifier->set_flashdata('error', 2);
 		}
 
-		return redirect ('data/'.$sub_link.'/'.$id_data);
+		redirect ('data/'.$sub_link.'/'.$id_data);
 	}
 
 }

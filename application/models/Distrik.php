@@ -20,7 +20,7 @@ class Distrik extends CI_Model {
 		$this->db->where('kode_distrik', $kode_distrik);
 		$query = $this->db->get('distrik');
 
-		return $query->result_array();
+		return $query->row_array();
 	}
 
 	public function get_distrik_by_id_distrik($id)
@@ -28,7 +28,7 @@ class Distrik extends CI_Model {
 		$this->db->where('id_distrik', $id);
 		$query = $this->db->get('distrik');
 
-		return $query->result_array();
+		return $query->row_array();
 	}
 
 	public function get_id_distrik_by_kode ($kode)

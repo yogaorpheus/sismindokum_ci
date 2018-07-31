@@ -36,7 +36,7 @@
                     </div>
 
                     <div class="form-group">
-                      <label>Tahun Anggaran</label>
+                      <label>Tahun</label>
                       <input type="text" class="form-control" id="tahun_anggaran" name="tahun_anggaran" value="<?php echo $data_anggaran['tahun_anggaran']; ?>" disabled="disabled">
                     </div>
 

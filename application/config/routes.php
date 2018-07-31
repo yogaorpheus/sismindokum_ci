@@ -73,6 +73,7 @@ $route['unit/edit_unit/(:num)'] = 'unitcontroller/edit_unit/$1';
 $route['pegawai_pjb']	= 'pegawaicontroller/index';
 
 // DOWNLOAD ROUTE //
+	// WITHOUT DISTRICT CODE //
 $route['data/anggaran_dasar/download'] 			= 'downloadexcel/anggaran_dasar/aktif';
 $route['data_lama/anggaran_dasar/download']		= 'downloadexcel/anggaran_dasar/tidak_aktif';
 $route['data/pertanahan/download']				= 'downloadexcel/pertanahan/1';
@@ -90,6 +91,20 @@ $route['data_lama/sertifikat_sdm/download']		= 'downloadexcel/sertifikat_sdm/0';
 $route['lembaga/download']						= 'downloadexcel/lembaga/1';
 $route['unit/download']							= 'downloadexcel/unit';
 $route['dasar_hukum/download']					= 'downloadexcel/dasar_hukum';
+	// WITH DISTRICT CODE
+$route['data/pertanahan/download/(:any)']				= 'downloadexcel/pertanahan/1/$1';
+$route['data_lama/pertanahan/download/(:any)']			= 'downloadexcel/pertanahan/0/$1';
+$route['data/slo/download/(:any)']						= 'downloadexcel/slo/1/$1';
+$route['data_lama/slo/download/(:any)']					= 'downloadexcel/slo/0/$1';
+$route['data/perizinan/download/(:any)']				= 'downloadexcel/perizinan/1/$1';
+$route['data_lama/perizinan/download/(:any)']			= 'downloadexcel/perizinan/0/$1';
+$route['data/pengujian_alat_k3/download/(:any)']		= 'downloadexcel/pengujian/1/$1';
+$route['data_lama/pengujian_alat_k3/download/(:any)']	= 'downloadexcel/pengujian/0/$1';
+$route['data/lisensi/download/(:any)']					= 'downloadexcel/lisensi/1/$1';
+$route['data_lama/lisensi/download/(:any)']				= 'downloadexcel/lisensi/0/$1';
+$route['data/sertifikat_sdm/download/(:any)']			= 'downloadexcel/sertifikat_sdm/1/$1';
+$route['data_lama/sertifikat_sdm/download/(:any)']		= 'downloadexcel/sertifikat_sdm/0/$1';
+$route['unit/download/(:any)']							= 'downloadexcel/unit/$1';
 
 // REVIEW LAMPIRAN ROUTE //
 $route['data/pertanahan_review/(:num)'] 		= 'data_crud/pertanahan_review/$1';

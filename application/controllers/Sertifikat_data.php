@@ -18,12 +18,12 @@ class Sertifikat_data extends CI_Controller {
 		$this->load->model('remainder');
 	}
 
-	private function upload_file_lampiran()
+	private function upload_file_lampiran($nama_sub_folder)
 	{
 		$file_path = "";
 
-		$config['upload_path']          = './assets/lampiran/';
-        $config['allowed_types']        = 'gif|jpg|jpeg|png|pdf|docx|doc';
+		$config['upload_path']          = './lampiran/'.$nama_sub_folder.'/';
+        $config['allowed_types']        = 'gif|jpg|jpeg|png|pdf|docx|doc|rar|zip';
        	$config['remove_spaces']		= true;
        	$config['max_size']				= '10000';
 
@@ -38,7 +38,7 @@ class Sertifikat_data extends CI_Controller {
 		else
 		{
 			$file = $this->upload->data();
-			$file_path = base_url('assets/lampiran')."/".$file['file_name'];
+			$file_path = base_url('lampiran')."/".$nama_sub_folder."/".$file['file_name'];
 
 			$file_data['file_path'] = $file_path;
 			$file_data['file_name'] = $file['file_name'];
@@ -78,6 +78,7 @@ class Sertifikat_data extends CI_Controller {
 	private function set_tahun_berakhir_forever()
 	{
 		$tahun_berakhir_forever = "12/31/4999";
+		$tahun_berakhir_forever = DateTime::createFromFormat('m/d/Y', $tahun_berakhir_forever)->format('Y-m-d');
 
 		return $tahun_berakhir_forever;
 	}
@@ -85,19 +86,16 @@ class Sertifikat_data extends CI_Controller {
 	// BERIKUT ADALAH METHOD YANG AKAN DIGUNAKAN UNTUK MENAMBAH DATA PADA SETIAP SERTIFIKAT
 	public function tambah_pertanahan()
 	{
-		$file_path = $this->upload_file_lampiran();
+		$file_path = $this->upload_file_lampiran("pertanahan");
 
 		$input = $this->input->post();
 
 		$id_jenis_sertifikat = $this->jenis_sertifikat->get_id_jenis_sertifikat('pertanahan');
 		$tanggal_terbit = DateTime::createFromFormat('m/d/Y', $input['tanggal_terbit'])->format('Y-m-d');
-
-		if (empty($input['tanggal_berakhir']))
-		{
-			$input['tanggal_berakhir'] = $this->set_tahun_berakhir_forever();
-		}
-
 		$tanggal_berakhir = DateTime::createFromFormat('m/d/Y', $input['tanggal_berakhir'])->format('Y-m-d');
+
+		if ($tanggal_berakhir == '0000-00-00')
+			$tanggal_berakhir = $this->set_tahun_berakhir_forever();
 
 		$data = array(
 			'id_dasar_hukum_sertifikat'	=> $input['referensi_pertanahan'],
@@ -149,17 +147,16 @@ class Sertifikat_data extends CI_Controller {
 
 	public function tambah_lisensi()
 	{
-		$file_path = $this->upload_file_lampiran();
+		$file_path = $this->upload_file_lampiran("lisensi");
 
 		$input = $this->input->post();
 
 		$id_jenis_sertifikat = $this->jenis_sertifikat->get_id_jenis_sertifikat('lisensi');
 		$tanggal_terbit = DateTime::createFromFormat('m/d/Y', $input['tanggal_terbit'])->format('Y-m-d');
-		if (empty($input['tanggal_berakhir']))
-		{
-			$input['tanggal_berakhir'] = $this->set_tahun_berakhir_forever();
-		}
 		$tanggal_berakhir = DateTime::createFromFormat('m/d/Y', $input['tanggal_berakhir'])->format('Y-m-d');
+
+		if ($tanggal_berakhir == '0000-00-00')
+			$tanggal_berakhir = $this->set_tahun_berakhir_forever();
 
 		$data = array(
 			'id_dasar_hukum_sertifikat'	=> $input['referensi_lisensi'],
@@ -210,17 +207,16 @@ class Sertifikat_data extends CI_Controller {
 
 	public function tambah_pengujian_alat_k3()
 	{
-		$file_path = $this->upload_file_lampiran();
+		$file_path = $this->upload_file_lampiran("pengujian");
 
 		$input = $this->input->post();
 
 		$id_jenis_sertifikat = $this->jenis_sertifikat->get_id_jenis_sertifikat('pengujian alat k3');
 		$tanggal_terbit = DateTime::createFromFormat('m/d/Y', $input['tanggal_terbit'])->format('Y-m-d');
-		if (empty($input['tanggal_berakhir']))
-		{
-			$input['tanggal_berakhir'] = $this->set_tahun_berakhir_forever();
-		}
 		$tanggal_berakhir = DateTime::createFromFormat('m/d/Y', $input['tanggal_berakhir'])->format('Y-m-d');
+
+		if ($tanggal_berakhir == '0000-00-00')
+			$tanggal_berakhir = $this->set_tahun_berakhir_forever();
 
 		$data = array(
 			'id_dasar_hukum_sertifikat'	=> $input['referensi_pengujian'],
@@ -271,17 +267,16 @@ class Sertifikat_data extends CI_Controller {
 
 	public function tambah_perizinan()
 	{
-		$file_path = $this->upload_file_lampiran();
+		$file_path = $this->upload_file_lampiran("perizinan");
 
 		$input = $this->input->post();
 
 		$id_jenis_sertifikat = $this->jenis_sertifikat->get_id_jenis_sertifikat('perizinan');
 		$tanggal_terbit = DateTime::createFromFormat('m/d/Y', $input['tanggal_terbit'])->format('Y-m-d');
-		if (empty($input['tanggal_berakhir']))
-		{
-			$input['tanggal_berakhir'] = $this->set_tahun_berakhir_forever();
-		}
 		$tanggal_berakhir = DateTime::createFromFormat('m/d/Y', $input['tanggal_berakhir'])->format('Y-m-d');
+
+		if ($tanggal_berakhir == '0000-00-00')
+			$tanggal_berakhir = $this->set_tahun_berakhir_forever();
 
 		$data = array(
 			'id_dasar_hukum_sertifikat'	=> $input['referensi_perizinan'],
@@ -330,7 +325,7 @@ class Sertifikat_data extends CI_Controller {
 		return redirect('form/perizinan');
 	}
 
-	public function tambah_slo()
+	public function tambah_slo("slo")
 	{
 		$file_path = $this->upload_file_lampiran();
 
@@ -338,11 +333,10 @@ class Sertifikat_data extends CI_Controller {
 
 		$id_jenis_sertifikat = $this->jenis_sertifikat->get_id_jenis_sertifikat('slo');
 		$tanggal_terbit = DateTime::createFromFormat('m/d/Y', $input['tanggal_terbit'])->format('Y-m-d');
-		if (empty($input['tanggal_berakhir']))
-		{
-			$input['tanggal_berakhir'] = $this->set_tahun_berakhir_forever();
-		}
 		$tanggal_berakhir = DateTime::createFromFormat('m/d/Y', $input['tanggal_berakhir'])->format('Y-m-d');
+
+		if ($tanggal_berakhir == '0000-00-00')
+			$tanggal_berakhir = $this->set_tahun_berakhir_forever();
 
 		$data = array(
 			'id_dasar_hukum_sertifikat'	=> $input['referensi_slo'],

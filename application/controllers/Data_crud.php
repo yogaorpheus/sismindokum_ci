@@ -28,7 +28,7 @@ class Data_crud extends CI_Controller {
 		$file_path = "";
 
 		$config['upload_path']          = './assets/lampiran/';
-        $config['allowed_types']        = 'gif|jpg|jpeg|png|pdf|docx|doc';
+        $config['allowed_types']        = 'gif|jpg|jpeg|png|pdf|docx|doc|rar|zip';
        	$config['remove_spaces']		= true;
        	$config['max_size']				= '10000';
 
@@ -78,6 +78,14 @@ class Data_crud extends CI_Controller {
 		}
 
 		$result = $this->sertifikat->update_data_sertifikat($data);
+	}
+
+	private function set_tahun_berakhir_forever()
+	{
+		$tahun_berakhir_forever = "12/31/4999";
+		$tahun_berakhir_forever = DateTime::createFromFormat('m/d/Y', $tahun_berakhir_forever)->format('Y-m-d');
+
+		return $tahun_berakhir_forever;
 	}
 
 	//-------------------------------------- SEMUA DATA PERTANAHAN -----------------------------------------------

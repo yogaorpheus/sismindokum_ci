@@ -26,12 +26,19 @@ class Sertifikat extends CI_Model {
 		$this->db->where('kode_distrik', $kode_distrik);
 		$id_distrik = $this->db->get('distrik')->row_array()['id_distrik'];
 
-		//$this->db->select('sertifikat.*, status.nama_status');
+		if ($id_jenis_sertifikat == 1 || $id_jenis_sertifikat == 3 || $id_jenis_sertifikat == 4)
+			$this->db->select('sertifikat.*, status.nama_status, lembaga.nama_lembaga, sub_jenis_sertifikat.nama_sub_jenis_sertifikat, distrik.nama_distrik, pegawai.nama_lengkap_pegawai');
+		else if ($id_jenis_sertifikat == 2)
+			$this->db->select('sertifikat.*, status.nama_status, lembaga.nama_lembaga, unit.nama_unit, distrik.nama_distrik, pegawai.nama_lengkap_pegawai');
+		else
+			$this->db->select('sertifikat.*, status.nama_status, lembaga.nama_lembaga, distrik.nama_distrik, pegawai.nama_lengkap_pegawai');
+		
 		$this->db->where('status_sertifikat !=', $id_status_selesai);
 		$this->db->where('status_sertifikat !=', $id_status_dihapus);
 		$this->db->where('sertifikat.id_jenis_sertifikat', $id_jenis_sertifikat);
 		$this->db->join('status', 'status.id_status = sertifikat.status_sertifikat', 'inner');
 		$this->db->join('lembaga', 'lembaga.id_lembaga = sertifikat.id_lembaga_sertifikat', 'left');
+		$this->db->join('pegawai', 'pegawai.id_pegawai = sertifikat.dibuat_oleh', 'inner');
 		
 		if ($id_jenis_sertifikat == 1 || $id_jenis_sertifikat == 3 || $id_jenis_sertifikat == 4)
 		{
@@ -112,10 +119,18 @@ class Sertifikat extends CI_Model {
 		$this->db->where('kode_distrik', $kode_distrik);
 		$id_distrik = $this->db->get('distrik')->row_array()['id_distrik'];
 
+		if ($id_jenis_sertifikat == 1 || $id_jenis_sertifikat == 3 || $id_jenis_sertifikat == 4)
+			$this->db->select('sertifikat.*, status.nama_status, lembaga.nama_lembaga, sub_jenis_sertifikat.nama_sub_jenis_sertifikat, distrik.nama_distrik, pegawai.nama_lengkap_pegawai');
+		else if ($id_jenis_sertifikat == 2)
+			$this->db->select('sertifikat.*, status.nama_status, lembaga.nama_lembaga, unit.nama_unit, distrik.nama_distrik, pegawai.nama_lengkap_pegawai');
+		else
+			$this->db->select('sertifikat.*, status.nama_status, lembaga.nama_lembaga, distrik.nama_distrik, pegawai.nama_lengkap_pegawai');
+
 		$this->db->where('sertifikat.id_jenis_sertifikat', $id_jenis_sertifikat);
 		$this->db->where('status_sertifikat', $id_status);
 		$this->db->join('status', 'status.id_status = sertifikat.status_sertifikat', 'inner');
 		$this->db->join('lembaga', 'lembaga.id_lembaga = sertifikat.id_lembaga_sertifikat', 'left');
+		$this->db->join('pegawai', 'pegawai.id_pegawai = sertifikat.dibuat_oleh', 'inner');
 
 		if ($id_jenis_sertifikat == 1 || $id_jenis_sertifikat == 3 || $id_jenis_sertifikat == 4)
 		{

@@ -28,8 +28,10 @@ class Anggaran extends CI_Model {
 		$this->db->where('penggunaan_tabel_status', "anggaran");
 		$id_status = $this->db->get('status')->row_array()['id_status'];
 
+		$this->db->select('anggaran.*, status.nama_status, pegawai.nama_lengkap_pegawai');
 		$this->db->where('status_anggaran', $id_status);
 		$this->db->join('status', 'status.id_status = anggaran.status_anggaran', 'inner');
+		$this->db->join('pegawai', 'pegawai.id_pegawai = anggaran.dibuat_oleh', 'inner');
 		$query = $this->db->get('anggaran');
 
 		return $query->result_array();

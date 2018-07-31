@@ -13,6 +13,7 @@ class Data_lama extends CI_Controller {
 		$this->load->model('anggaran');
 		$this->load->model('sertifikat');
 		$this->load->model('sdm');
+		$this->load->model('distrik');
 	}
 
 	//-------------------------------------- SEMUA DATA ANGGARAN DASAR -----------------------------------------------
@@ -31,8 +32,11 @@ class Data_lama extends CI_Controller {
 	public function pertanahan()
 	{
 		$data_pertanahan = $this->sertifikat->get_all_sertifikat_lama("pertanahan", $this->authentifier->get_user_detail()['kode_distrik_pegawai']);
+		$jenis_distrik = $this->distrik->get_all_distrik();
+
 		$data = array(
-			'data_pertanahan' 	=> $data_pertanahan
+			'data_pertanahan' 	=> $data_pertanahan,
+			'distrik'			=> $jenis_distrik
 			);
 
 		$this->template->load_view('data_lama', 'pertanahan', $data);
@@ -43,8 +47,11 @@ class Data_lama extends CI_Controller {
 	public function slo()
 	{
 		$data_slo = $this->sertifikat->get_all_sertifikat_lama("slo", $this->authentifier->get_user_detail()['kode_distrik_pegawai']);
+		$jenis_distrik = $this->distrik->get_all_distrik();
+
 		$data = array(
-			'data_slo' 	=> $data_slo
+			'data_slo' 	=> $data_slo,
+			'distrik'	=> $jenis_distrik
 			);
 
 		$this->template->load_view('data_lama', 'slo', $data);
@@ -55,8 +62,11 @@ class Data_lama extends CI_Controller {
 	public function sertifikat_sdm()
 	{
 		$data_sdm = $this->sdm->get_all_data_sdm($this->authentifier->get_user_detail()['kode_distrik_pegawai'], "Kadaluarsa");
+		$jenis_distrik = $this->distrik->get_all_distrik();
+
 		$data = array(
-			'data_sdm'	=> $data_sdm
+			'data_sdm'	=> $data_sdm,
+			'distrik'	=> $jenis_distrik
 			);
 		$this->template->load_view('data_lama', 'sertifikat_sdm', $data);
 	}
@@ -66,8 +76,11 @@ class Data_lama extends CI_Controller {
 	public function perizinan()
 	{
 		$data_perizinan = $this->sertifikat->get_all_sertifikat_lama("perizinan", $this->authentifier->get_user_detail()['kode_distrik_pegawai']);
+		$jenis_distrik = $this->distrik->get_all_distrik();
+
 		$data = array(
-			'data_perizinan' 	=> $data_perizinan
+			'data_perizinan' 	=> $data_perizinan,
+			'distrik'			=> $jenis_distrik
 			);
 
 		$this->template->load_view('data_lama', 'perizinan', $data);
@@ -78,8 +91,11 @@ class Data_lama extends CI_Controller {
 	public function pengujian_alat_k3()
 	{
 		$data_pengujian = $this->sertifikat->get_all_sertifikat_lama("pengujian alat k3", $this->authentifier->get_user_detail()['kode_distrik_pegawai']);
+		$jenis_distrik = $this->distrik->get_all_distrik();
+
 		$data = array(
-			'data_pengujian' 	=> $data_pengujian
+			'data_pengujian' 	=> $data_pengujian,
+			'distrik'			=> $jenis_distrik
 			);
 
 		$this->template->load_view('data_lama', 'pengujian_alat_k3', $data);
@@ -90,8 +106,11 @@ class Data_lama extends CI_Controller {
 	public function lisensi()
 	{
 		$data_lisensi = $this->sertifikat->get_all_sertifikat_lama("lisensi", $this->authentifier->get_user_detail()['kode_distrik_pegawai']);
+		$jenis_distrik = $this->distrik->get_all_distrik();
+
 		$data = array(
-			'data_lisensi' 	=> $data_lisensi
+			'data_lisensi' 	=> $data_lisensi,
+			'distrik'		=> $jenis_distrik
 			);
 
 		$this->template->load_view('data_lama', 'lisensi', $data);

@@ -60,26 +60,33 @@
         }
         ?>
 
-        <li>
-          <a href="<?php echo base_url('lembaga'); ?>" style="background-color: rgba(43, 137, 160, 0.5);">
-            <i class="fa fa-building-o"></i>
-            <span>Lembaga</span>
-          </a>
-        </li>
+        <?php
+        if ($this->session->userdata('staff_pjb')['kode_subdit_pegawai'] == '024' && $this->session->userdata('staff_pjb')['kode_distrik_pegawai'] == 'Z')
+        {
+          ?>
+          <li>
+            <a href="<?php echo base_url('lembaga'); ?>" style="background-color: rgba(43, 137, 160, 0.5);">
+              <i class="fa fa-building-o"></i>
+              <span>Lembaga</span>
+            </a>
+          </li>
 
-        <li>
-          <a href="<?php echo base_url('unit'); ?>" style="background-color: rgba(43, 137, 160, 0.5);">
-            <i class="fa fa-database"></i>
-            <span>Unit</span>
-          </a>
-        </li>
+          <li>
+            <a href="<?php echo base_url('unit'); ?>" style="background-color: rgba(43, 137, 160, 0.5);">
+              <i class="fa fa-database"></i>
+              <span>Unit</span>
+            </a>
+          </li>
 
-        <li>
-          <a href="<?php echo base_url('dasar_hukum'); ?>" style="background-color: rgba(43, 137, 160, 0.5);">
-            <i class="fa fa-gavel"></i>
-            <span>Dasar Hukum</span>
-          </a>
-        </li>
+          <li>
+            <a href="<?php echo base_url('dasar_hukum'); ?>" style="background-color: rgba(43, 137, 160, 0.5);">
+              <i class="fa fa-gavel"></i>
+              <span>Dasar Hukum</span>
+            </a>
+          </li>
+          <?php
+        }
+        ?>
 
         <!-- <li>
           <a href="<?php echo base_url('pegawai_pjb'); ?>">

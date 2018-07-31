@@ -24,8 +24,8 @@
             <ul class="dropdown-menu">
               <!-- User image -->
               <li class="user-header" style="background-color: #136f86">
-                <i class="ion-person" style="font-size: 60px;"></i>
-                <p style="font-size: 15px;">
+                <i class="ion-person" style="font-size: 40px;"></i>
+                <p style="font-size: 13px;">
                   <?php
                   echo $nama_lengkap_pegawai."<br><b>".$posisi_pegawai."</b><br>";
                   echo $lokasi_distrik_pegawai;
