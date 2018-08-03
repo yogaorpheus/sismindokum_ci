@@ -18,7 +18,7 @@ class SDM extends CI_Model {
 			$id_status = $this->db->get('status')->row_array()['id_status'];	
 		}
 
-		if ($kode_distrik != 'Z')
+		if ($kode_distrik != 'ALL')
 		{
 			$this->db->where('kode_distrik', $kode_distrik);
 			$id_distrik = $this->db->get('distrik')->row_array()['id_distrik'];

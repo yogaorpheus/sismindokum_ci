@@ -29,8 +29,8 @@
 
                   <div class="col-md-12">
                     <div class="form-group">
-                      <label>Jenis Sertifikat</label>
-                      <select class="form-control select2" name="menu2_add" style="width: 100%;">
+                      <label>Sub Menu</label>
+                      <select class="form-control select2" name="menu2_add" style="width: 100%;" required>
                         <?php
                         foreach ($data_menu2 as $key => $one_data) {
                           echo "<option value='".$one_data['id_menu2']."'>";
@@ -42,13 +42,18 @@
                     </div>
 
                     <div class="form-group">
+                      <label id="sub_jenis">Nama Jenis</label>
+                      <input class="form-control" name="nama_sub_jenis_sertifikat" type="text" required>
+                    </div>
+
+                    <div class="form-group">
                       <label>Kode Dasar Hukum</label>
-                      <input class="form-control" name="kode_dasar_hukum_add" type="text">
+                      <input class="form-control" name="kode_dasar_hukum_add" type="text" required>
                     </div>
 
                     <div class="form-group">
                       <label>Keterangan Dasar Hukum</label>
-                      <textarea class="form-control" name="keterangan_add" placeholder="Tulis keterangan dasar hukum" rows="3"></textarea>
+                      <textarea class="form-control" name="keterangan_add" placeholder="Tulis keterangan dasar hukum" rows="3" required></textarea>
                     </div>
                   </div>
                   
@@ -71,6 +76,8 @@
   $(function () {
     //Initialize Select2 Elements
     $('.select2').select2()
+
+    $()
 
   })
 </script>

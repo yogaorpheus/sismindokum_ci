@@ -27,7 +27,8 @@
                 <thead>
                 <tr>
                   <th>No.</th>
-                  <th>Jenis Sertifikat</th>
+                  <th>Sub Menu</th>
+                  <th>Nama Jenis</th>
                   <th>Kode</th>
                   <th>Keterangan</th>
                   <th>Dibuat oleh</th>
@@ -42,6 +43,7 @@
                 <tr>
                   <td style="vertical-align: middle;"><?php echo $no++; ?></td>
                   <td style="vertical-align: middle;"><?php echo $onedata['nama_menu2']; ?></td>
+                  <td style="vertical-align: middle;"><?php echo $onedata['nama_sub_jenis_sertifikat']; ?></td>
                   <td style="vertical-align: middle;"><?php echo $onedata['kode_dasar_hukum']; ?></td>
                   <td style="vertical-align: middle;"><?php echo $onedata['keterangan_dasar_hukum']; ?></td>
                   <td style="vertical-align: middle;"><?php echo $onedata['nama_lengkap_pegawai']; ?></td>

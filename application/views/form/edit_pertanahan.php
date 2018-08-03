@@ -58,22 +58,21 @@
                     </div>
                     
                     <div class="form-group">
-                      <label>Referensi Pertanahan</label>
-                      <select class="form-control select2" style="width: 100%;" name="referensi_pertanahan" id="referensi">
-                      <?php
-                      foreach ($dasar_hukum as $key => $one_dasar_hukum) {
-                        if ($one_dasar_hukum['id_dasar_hukum'] == $data_pertanahan['id_dasar_hukum_sertifikat'])
-                          echo "<option selected='selected' value='".$one_dasar_hukum['id_dasar_hukum']."'>";
-                        else
-                          echo "<option value='".$one_dasar_hukum['id_dasar_hukum']."'>";
-                        echo $one_dasar_hukum['kode_dasar_hukum'];
-                        echo "</option>";
-                      }
-                      ?>
+                      <label>Jenis Pertanahan</label>
+                      <select class="form-control select2" style="width: 100%;" name="jenis_pertanahan">
+                        <?php
+                        foreach ($dasar_hukum as $key => $one_dasarhukum) {
+                          if ($one_dasarhukum['id_dasar_hukum'] == $data_pertanahan['id_dasar_hukum_sertifikat'])
+                            echo "<option selected='selected' value='".$one_dasarhukum['id_dasar_hukum']."'>";
+                          else
+                            echo "<option value='".$one_dasarhukum['id_dasar_hukum']."'>";
+                          echo $one_dasarhukum['nama_sub_jenis_sertifikat'];
+                          echo "</option>";
+                        }
+                        ?>
                       </select>
-                      <p class="help-block" id="keterangan_referensi"></p>
                     </div>
-
+                    
                     <div class="form-group">
                       <label>No. Sertifikat</label>
                       <input type="text" class="form-control" id="no_sertifikat" name="no_sertifikat" value="<?php echo $data_pertanahan['no_sertifikat']; ?>">
@@ -82,22 +81,6 @@
                     <div class="form-group">
                       <label>Lokasi Sertifikat</label>
                       <input type="text" class="form-control" id="lokasi_sertifikat" name="lokasi_sertifikat" value="<?php echo $data_pertanahan['judul_sertifikat']; ?>">
-                    </div>
-
-                    <div class="form-group">
-                      <label>Jenis Sertifikat</label>
-                      <select class="form-control select2" style="width: 100%;" name="jenis_sertifikat">
-                        <?php
-                        foreach ($sub_jenis_sertifikat as $key => $one_sub_jenis) {
-                          if ($one_sub_jenis['id_sub_jenis_sertifikat'] == $data_pertanahan['id_sub_jenis_sertifikat'])
-                            echo "<option selected='selected' value='".$one_sub_jenis['id_sub_jenis_sertifikat']."'>";
-                          else
-                            echo "<option value='".$one_sub_jenis['id_sub_jenis_sertifikat']."'>";
-                          echo $one_sub_jenis['nama_sub_jenis_sertifikat'];
-                          echo "</option>";
-                        }
-                        ?>
-                      </select>
                     </div>
 
                   </div>

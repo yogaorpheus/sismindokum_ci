@@ -58,22 +58,21 @@
                     </div>
 
                     <div class="form-group">
-                      <label>Referensi Perizinan</label>
-                      <select class="form-control select2" style="width: 100%;" name="referensi_perizinan" id="referensi">
+                      <label>Jenis Perizinan</label>
+                      <select class="form-control select2" style="width: 100%;" name="jenis_perizinan">
                         <?php
-                        foreach ($dasar_hukum as $key => $one_dasar_hukum) {
-                          if ($one_dasar_hukum['id_dasar_hukum'] == $data_perizinan['id_dasar_hukum_sertifikat'])
-                            echo "<option selected='selected' value='".$one_dasar_hukum['id_dasar_hukum']."'>";
+                        foreach ($dasar_hukum as $key => $one_dasarhukum) {
+                          if ($one_dasarhukum['id_dasar_hukum'] == $data_perizinan['id_dasar_hukum_sertifikat'])
+                            echo "<option selected='selected' value='".$one_dasarhukum['id_dasar_hukum']."'>";
                           else
-                            echo "<option value='".$one_dasar_hukum['id_dasar_hukum']."'>";
-                          echo $one_dasar_hukum['kode_dasar_hukum'];
+                            echo "<option value='".$one_dasarhukum['id_dasar_hukum']."'>";
+                          echo $one_dasarhukum['nama_sub_jenis_sertifikat'];
                           echo "</option>";
                         }
                         ?>
                       </select>
-                      <p class="help-block" id="keterangan_referensi"></p>
                     </div>
-
+                    
                     <div class="form-group">
                       <label>No. Perizinan</label>
                       <input type="text" class="form-control" id="no_sertifikat" name="no_sertifikat" value="<?php echo $data_perizinan['no_sertifikat']; ?>">
@@ -82,22 +81,6 @@
                     <div class="form-group">
                       <label>Peralatan</label>
                       <input type="text" class="form-control" id="peralatan" name="peralatan" value="<?php echo $data_perizinan['judul_sertifikat']; ?>">
-                    </div>
-
-                    <div class="form-group">
-                      <label>Jenis Perizinan</label>
-                      <select class="form-control select2" style="width: 100%;" name="jenis_perizinan">
-                        <?php
-                        foreach ($sub_jenis_sertifikat as $key => $one_sub_jenis) {
-                          if ($one_sub_jenis['id_sub_jenis_sertifikat'] == $data_perizinan['id_sub_jenis_sertifikat'])
-                            echo "<option selected='selected' value='".$one_sub_jenis['id_sub_jenis_sertifikat']."'>";
-                          else
-                            echo "<option value='".$one_sub_jenis['id_sub_jenis_sertifikat']."'>";
-                          echo $one_sub_jenis['nama_sub_jenis_sertifikat'];
-                          echo "</option>";
-                        }
-                        ?>
-                      </select>
                     </div>
 
                   </div>

@@ -56,20 +56,6 @@
                     </div>
                   
                     <div class="form-group">
-                      <label>Referensi SLO</label>
-                      <select class="form-control select2" style="width: 100%;" name="referensi_slo" id="referensi">
-                        <?php
-                        foreach ($dasar_hukum as $key => $one_dasar_hukum) {
-                          echo "<option value='".$one_dasar_hukum['id_dasar_hukum']."'>";
-                          echo $one_dasar_hukum['kode_dasar_hukum'];
-                          echo "</option>";
-                        }
-                        ?>
-                      </select>
-                      <p class="help-block" id="keterangan_referensi"></p>
-                    </div>
-
-                    <div class="form-group">
                       <label>No. Sertifikat</label>
                       <input type="text" class="form-control" id="no_sertifikat" name="no_sertifikat">
                     </div>

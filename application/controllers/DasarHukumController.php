@@ -44,6 +44,7 @@ class DasarHukumController extends CI_Controller {
 
 		$data = array(
 			'kode_dasar_hukum'			=> $input['kode_dasar_hukum_add'],
+			'nama_sub_jenis_sertifikat'	=> $input['nama_sub_jenis_sertifikat'],
 			'keterangan_dasar_hukum'	=> $input['keterangan_add'],
 			'dibuat_oleh'				=> $id_pegawai,
 			'id_menu2'					=> $input['menu2_add']
@@ -93,6 +94,7 @@ class DasarHukumController extends CI_Controller {
 		$data = array(
 			'id_dasar_hukum'			=> $id_dasar_hukum,
 			'kode_dasar_hukum'			=> $input['kode_dasar_hukum_edit'],
+			'nama_sub_jenis_sertifikat'	=> $input['nama_sub_jenis_sertifikat'],
 			'keterangan_dasar_hukum'	=> $input['keterangan_edit'],
 			'dibuat_oleh'				=> $id_pegawai,
 			'id_menu2'					=> $input['menu2_edit']

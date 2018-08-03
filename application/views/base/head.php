@@ -18,6 +18,10 @@
   <link rel="stylesheet" href="<?php echo base_url('assets/adminlte'); ?>/dist/css/skins/_all-skins.min.css">
   <?php if ($head == 'dashboard2') { ?>
     <!-- <title> DASHBOARD </title> -->
+    <!-- Highcharts -->
+    <script src="<?php echo base_url('assets/highcharts'); ?>/highcharts.js"></script>
+    <script src="<?php echo base_url('assets/highcharts'); ?>/modules/exporting.js"></script>
+    <script src="<?php echo base_url('assets/highcharts'); ?>/modules/export-data.js"></script>
     <!-- Morris chart -->
     <link rel="stylesheet" href="<?php echo base_url('assets/adminlte'); ?>/bower_components/morris.js/morris.css">
     <!-- jvectormap -->

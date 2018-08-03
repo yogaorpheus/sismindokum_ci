@@ -56,19 +56,18 @@
                     </div>
 
                     <div class="form-group">
-                      <label>Referensi Pengujian</label>
-                      <select class="form-control select2" style="width: 100%;" name="referensi_pengujian" id="referensi">
+                      <label>Jenis Pengujian</label>
+                      <select class="form-control select2" style="width: 100%;" name="jenis_pengujian">
                         <?php
                         foreach ($dasar_hukum as $key => $one_dasar_hukum) {
                           echo "<option value='".$one_dasar_hukum['id_dasar_hukum']."'>";
-                          echo $one_dasar_hukum['kode_dasar_hukum'];
+                          echo $one_dasar_hukum['nama_sub_jenis_sertifikat'];
                           echo "</option>";
                         }
                         ?>
                       </select>
-                      <p class="help-block" id="keterangan_referensi"></p>
                     </div>
-
+                    
                     <div class="form-group">
                       <label>No. Pengujian</label>
                       <input type="text" class="form-control" id="no_sertifikat" name="no_sertifikat">
@@ -77,19 +76,6 @@
                     <div class="form-group">
                       <label>Peralatan / Lokasi</label>
                       <input type="text" class="form-control" id="peralatan" name="peralatan">
-                    </div>
-
-                    <div class="form-group">
-                      <label>Jenis Pengujian</label>
-                      <select class="form-control select2" style="width: 100%;" name="jenis_pengujian">
-                        <?php
-                        foreach ($sub_jenis_sertifikat as $key => $one_sub_jenis) {
-                          echo "<option value='".$one_sub_jenis['id_sub_jenis_sertifikat']."'>";
-                          echo $one_sub_jenis['nama_sub_jenis_sertifikat'];
-                          echo "</option>";
-                        }
-                        ?>
-                      </select>
                     </div>
 
                   </div>

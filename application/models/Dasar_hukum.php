@@ -28,7 +28,8 @@ class Dasar_hukum extends CI_Model {
 			$new_array[$value['id_dasar_hukum']] = array(
 				'id_dasar_hukum'			=> $value['id_dasar_hukum'],
 				'kode_dasar_hukum'			=> $value['kode_dasar_hukum'],
-				'keterangan_dasar_hukum'	=> $value['keterangan_dasar_hukum']
+				'keterangan_dasar_hukum'	=> $value['keterangan_dasar_hukum'],
+				'nama_sub_jenis_sertifikat'	=> $value['nama_sub_jenis_sertifikat']
 				);
 		}
 

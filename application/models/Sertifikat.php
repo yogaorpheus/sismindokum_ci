@@ -27,7 +27,7 @@ class Sertifikat extends CI_Model {
 		$id_distrik = $this->db->get('distrik')->row_array()['id_distrik'];
 
 		if ($id_jenis_sertifikat == 1 || $id_jenis_sertifikat == 3 || $id_jenis_sertifikat == 4)
-			$this->db->select('sertifikat.*, status.nama_status, lembaga.nama_lembaga, sub_jenis_sertifikat.nama_sub_jenis_sertifikat, distrik.nama_distrik, pegawai.nama_lengkap_pegawai');
+			$this->db->select('sertifikat.*, status.nama_status, lembaga.nama_lembaga, dasar_hukum.nama_sub_jenis_sertifikat, distrik.nama_distrik, pegawai.nama_lengkap_pegawai');
 		else if ($id_jenis_sertifikat == 2)
 			$this->db->select('sertifikat.*, status.nama_status, lembaga.nama_lembaga, unit.nama_unit, distrik.nama_distrik, pegawai.nama_lengkap_pegawai');
 		else
@@ -42,14 +42,14 @@ class Sertifikat extends CI_Model {
 		
 		if ($id_jenis_sertifikat == 1 || $id_jenis_sertifikat == 3 || $id_jenis_sertifikat == 4)
 		{
-			$this->db->join('sub_jenis_sertifikat', 'sub_jenis_sertifikat.id_sub_jenis_sertifikat = sertifikat.id_sub_jenis_sertifikat', 'left');
+			$this->db->join('dasar_hukum', 'dasar_hukum.id_dasar_hukum = sertifikat.id_dasar_hukum_sertifikat', 'left');
 		}
 		else if ($id_jenis_sertifikat == 2)
 		{
 			$this->db->join('unit', 'unit.id_unit = sertifikat.id_unit_sertifikat', 'left');
 		}
 
-		if ($kode_distrik != 'Z')
+		if ($kode_distrik != 'ALL')
 		{
 			$this->db->where('sertifikat.id_distrik_sertifikat', $id_distrik);
 		}
@@ -89,7 +89,7 @@ class Sertifikat extends CI_Model {
 		$this->db->join('dasar_hukum', 'dasar_hukum.id_dasar_hukum = sertifikat.id_dasar_hukum_sertifikat', 'left');
 		$this->db->join('lembaga', 'lembaga.id_lembaga = sertifikat.id_lembaga_sertifikat', 'left');
 		$this->db->join('jenis_sertifikat', 'jenis_sertifikat.id_jenis_sertifikat = sertifikat.id_jenis_sertifikat', 'left');
-		$this->db->join('sub_jenis_sertifikat', 'sub_jenis_sertifikat.id_sub_jenis_sertifikat = sertifikat.id_sub_jenis_sertifikat', 'left');
+		//$this->db->join('sub_jenis_sertifikat', 'sub_jenis_sertifikat.id_sub_jenis_sertifikat = sertifikat.id_sub_jenis_sertifikat', 'left');
 		$this->db->join('unit', 'unit.id_unit = sertifikat.id_unit_sertifikat', 'left');
 
 		$query = $this->db->get('sertifikat');
@@ -120,7 +120,7 @@ class Sertifikat extends CI_Model {
 		$id_distrik = $this->db->get('distrik')->row_array()['id_distrik'];
 
 		if ($id_jenis_sertifikat == 1 || $id_jenis_sertifikat == 3 || $id_jenis_sertifikat == 4)
-			$this->db->select('sertifikat.*, status.nama_status, lembaga.nama_lembaga, sub_jenis_sertifikat.nama_sub_jenis_sertifikat, distrik.nama_distrik, pegawai.nama_lengkap_pegawai');
+			$this->db->select('sertifikat.*, status.nama_status, lembaga.nama_lembaga, dasar_hukum.nama_sub_jenis_sertifikat, distrik.nama_distrik, pegawai.nama_lengkap_pegawai');
 		else if ($id_jenis_sertifikat == 2)
 			$this->db->select('sertifikat.*, status.nama_status, lembaga.nama_lembaga, unit.nama_unit, distrik.nama_distrik, pegawai.nama_lengkap_pegawai');
 		else
@@ -134,14 +134,14 @@ class Sertifikat extends CI_Model {
 
 		if ($id_jenis_sertifikat == 1 || $id_jenis_sertifikat == 3 || $id_jenis_sertifikat == 4)
 		{
-			$this->db->join('sub_jenis_sertifikat', 'sub_jenis_sertifikat.id_sub_jenis_sertifikat = sertifikat.id_sub_jenis_sertifikat', 'left');
+			$this->db->join('dasar_hukum', 'dasar_hukum.id_dasar_hukum = sertifikat.id_dasar_hukum_sertifikat', 'left');
 		}
 		else if ($id_jenis_sertifikat == 2)
 		{
 			$this->db->join('unit', 'unit.id_unit = sertifikat.id_unit_sertifikat', 'left');
 		}
 
-		if ($kode_distrik != 'Z')
+		if ($kode_distrik != 'ALL')
 		{
 			$this->db->where('sertifikat.id_distrik_sertifikat', $id_distrik);
 		}
@@ -161,11 +161,11 @@ class Sertifikat extends CI_Model {
 		$id_distrik = $this->db->get('distrik')->row_array()['id_distrik'];
 
 		$main_query = "";
-		$main_query .= "SELECT COUNT(s.id_sertifikat) AS value, status.nama_status AS label\n";
+		$main_query .= "SELECT COUNT(s.id_sertifikat) AS y, status.nama_status AS name\n";
 		
 		$inner_query = "SELECT id_sertifikat, status_sertifikat\n";
 		$inner_query .= "FROM sertifikat WHERE id_jenis_sertifikat = ".$id_jenis_sertifikat;
-		if ($kode_distrik_pegawai != 'Z')
+		if ($kode_distrik_pegawai != 'ALL')
 			$inner_query .= " AND id_distrik_sertifikat = ".$id_distrik;
 
 		$main_query .= "FROM (".$inner_query.")s\n";

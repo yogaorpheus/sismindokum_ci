@@ -22,12 +22,12 @@ class Sertifikat_data extends CI_Controller {
 	{
 		$file_path = "";
 
-		$config['upload_path']          = './lampiran/'.$nama_sub_folder.'/';
+		$config['upload_path']          = './assets/lampiran/'.$nama_sub_folder.'/';
         $config['allowed_types']        = 'gif|jpg|jpeg|png|pdf|docx|doc|rar|zip';
        	$config['remove_spaces']		= true;
        	$config['max_size']				= '10000';
 
-		$this->load->library('upload', $config);
+       	$this->load->library('upload', $config);
 		$test_upload = $this->upload->do_upload('lampiran');
 		$file_data = array();
 		
@@ -38,8 +38,8 @@ class Sertifikat_data extends CI_Controller {
 		else
 		{
 			$file = $this->upload->data();
-			$file_path = base_url('lampiran')."/".$nama_sub_folder."/".$file['file_name'];
-
+			$file_path = base_url('assets/lampiran')."/".$nama_sub_folder."/".$file['file_name'];
+			
 			$file_data['file_path'] = $file_path;
 			$file_data['file_name'] = $file['file_name'];
 		}
@@ -98,10 +98,9 @@ class Sertifikat_data extends CI_Controller {
 			$tanggal_berakhir = $this->set_tahun_berakhir_forever();
 
 		$data = array(
-			'id_dasar_hukum_sertifikat'	=> $input['referensi_pertanahan'],
 			'id_lembaga_sertifikat'		=> $input['lembaga'],
 			'id_jenis_sertifikat'		=> $id_jenis_sertifikat,
-			'id_sub_jenis_sertifikat'	=> $input['jenis_sertifikat'],
+			'id_dasar_hukum_sertifikat'	=> $input['jenis_pertanahan'],
 			'id_distrik_sertifikat'		=> $input['distrik'],
 			'no_sertifikat'				=> $input['no_sertifikat'],
 			'judul_sertifikat'			=> $input['lokasi_sertifikat'],
@@ -159,7 +158,6 @@ class Sertifikat_data extends CI_Controller {
 			$tanggal_berakhir = $this->set_tahun_berakhir_forever();
 
 		$data = array(
-			'id_dasar_hukum_sertifikat'	=> $input['referensi_lisensi'],
 			'id_lembaga_sertifikat'		=> $input['lembaga'],
 			'id_jenis_sertifikat'		=> $id_jenis_sertifikat,
 			'id_distrik_sertifikat'		=> $input['distrik'],
@@ -219,10 +217,9 @@ class Sertifikat_data extends CI_Controller {
 			$tanggal_berakhir = $this->set_tahun_berakhir_forever();
 
 		$data = array(
-			'id_dasar_hukum_sertifikat'	=> $input['referensi_pengujian'],
 			'id_lembaga_sertifikat'		=> $input['lembaga'],
 			'id_jenis_sertifikat'		=> $id_jenis_sertifikat,
-			'id_sub_jenis_sertifikat'	=> $input['jenis_pengujian'],
+			'id_dasar_hukum_sertifikat'	=> $input['jenis_pengujian'],
 			'id_distrik_sertifikat'		=> $input['distrik'],
 			'no_sertifikat'				=> $input['no_sertifikat'],
 			'judul_sertifikat'			=> $input['peralatan'],
@@ -279,10 +276,9 @@ class Sertifikat_data extends CI_Controller {
 			$tanggal_berakhir = $this->set_tahun_berakhir_forever();
 
 		$data = array(
-			'id_dasar_hukum_sertifikat'	=> $input['referensi_perizinan'],
 			'id_lembaga_sertifikat'		=> $input['lembaga'],
 			'id_jenis_sertifikat'		=> $id_jenis_sertifikat,
-			'id_sub_jenis_sertifikat'	=> $input['jenis_perizinan'],
+			'id_dasar_hukum_sertifikat'	=> $input['jenis_perizinan'],
 			'id_distrik_sertifikat'		=> $input['distrik'],
 			'no_sertifikat'				=> $input['no_sertifikat'],
 			'judul_sertifikat'			=> $input['peralatan'],
@@ -325,9 +321,9 @@ class Sertifikat_data extends CI_Controller {
 		return redirect('form/perizinan');
 	}
 
-	public function tambah_slo("slo")
+	public function tambah_slo()
 	{
-		$file_path = $this->upload_file_lampiran();
+		$file_path = $this->upload_file_lampiran("slo");
 
 		$input = $this->input->post();
 
@@ -339,7 +335,6 @@ class Sertifikat_data extends CI_Controller {
 			$tanggal_berakhir = $this->set_tahun_berakhir_forever();
 
 		$data = array(
-			'id_dasar_hukum_sertifikat'	=> $input['referensi_slo'],
 			'id_lembaga_sertifikat'		=> $input['lembaga'],
 			'id_jenis_sertifikat'		=> $id_jenis_sertifikat,
 			'id_unit_sertifikat'		=> $input['unit_sertifikasi'],

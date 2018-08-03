@@ -23,28 +23,28 @@ class Data_crud extends CI_Controller {
 		$this->load->model('remainder');
 	}
 
-	private function upload_file_lampiran()
+	private function upload_file_lampiran($nama_sub_folder)
 	{
 		$file_path = "";
 
-		$config['upload_path']          = './assets/lampiran/';
+		$config['upload_path']          = './assets/lampiran/'.$nama_sub_folder.'/';
         $config['allowed_types']        = 'gif|jpg|jpeg|png|pdf|docx|doc|rar|zip';
        	$config['remove_spaces']		= true;
        	$config['max_size']				= '10000';
 
-		$this->load->library('upload', $config);
+       	$this->load->library('upload', $config);
 		$test_upload = $this->upload->do_upload('lampiran');
 		$file_data = array();
 		
-		if (! $test_upload)
+		if (!$test_upload)
 		{
 			$this->authentifier->set_flashdata('error', 3);
 		}
 		else
 		{
 			$file = $this->upload->data();
-			$file_path = base_url('assets/lampiran')."/".$file['file_name'];
-
+			$file_path = base_url('assets/lampiran')."/".$nama_sub_folder."/".$file['file_name'];
+			
 			$file_data['file_path'] = $file_path;
 			$file_data['file_name'] = $file['file_name'];
 		}
@@ -103,7 +103,7 @@ class Data_crud extends CI_Controller {
 		$dasar_hukum = $this->dasar_hukum->get_dasar_hukum_by_menu($id_menu2);
 
 		$id_jenis_sertifikat = $this->jenis_sertifikat->get_id_jenis_sertifikat('pertanahan');
-		$sub_jenis_sertifikat = $this->sub_jenis_sertifikat->get_sub_jenis_by_id_jenis_sertifikat($id_jenis_sertifikat);
+		//$sub_jenis_sertifikat = $this->sub_jenis_sertifikat->get_sub_jenis_by_id_jenis_sertifikat($id_jenis_sertifikat);
 
 		$remainder = $this->remainder->get_all_remainder();
 
@@ -112,7 +112,6 @@ class Data_crud extends CI_Controller {
 			'distrik' 				=> $jenis_distrik,
 			'lembaga'				=> $lembaga,
 			'dasar_hukum'			=> $dasar_hukum,
-			'sub_jenis_sertifikat'	=> $sub_jenis_sertifikat,
 			'remainder'				=> $remainder
 			);
 		return $this->template->load_view('form', 'edit_pertanahan', $data);
@@ -120,7 +119,7 @@ class Data_crud extends CI_Controller {
 
 	public function pertanahan_update()
 	{
-		$file_path = $this->upload_file_lampiran();
+		$file_path = $this->upload_file_lampiran("pertanahan");
 
 		$input = $this->input->post();
 
@@ -132,10 +131,9 @@ class Data_crud extends CI_Controller {
 
 		$data = array(
 			'id_sertifikat'				=> $input['id_sertifikat'],
-			'id_dasar_hukum_sertifikat'	=> $input['referensi_pertanahan'],
 			'id_lembaga_sertifikat'		=> $input['lembaga'],
 			'id_jenis_sertifikat'		=> $id_jenis_sertifikat,
-			'id_sub_jenis_sertifikat'	=> $input['jenis_sertifikat'],
+			'id_dasar_hukum_sertifikat'	=> $input['jenis_pertanahan'],
 			'id_distrik_sertifikat'		=> $input['distrik'],
 			'no_sertifikat'				=> $input['no_sertifikat'],
 			'judul_sertifikat'			=> $input['lokasi_sertifikat'],
@@ -240,7 +238,7 @@ class Data_crud extends CI_Controller {
 			'data_slo'		=> $data_slo,
 			'distrik' 		=> $jenis_distrik,
 			'lembaga'		=> $lembaga,
-			'dasar_hukum'	=> $dasar_hukum,
+			//'dasar_hukum'	=> $dasar_hukum,
 			'unit'			=> $unit,
 			'remainder'		=> $remainder
 			);
@@ -249,7 +247,7 @@ class Data_crud extends CI_Controller {
 
 	public function slo_update()
 	{
-		$file_path = $this->upload_file_lampiran();
+		$file_path = $this->upload_file_lampiran("slo");
 
 		$input = $this->input->post();
 
@@ -261,7 +259,6 @@ class Data_crud extends CI_Controller {
 
 		$data = array(
 			'id_sertifikat'				=> $input['id_sertifikat'],
-			'id_dasar_hukum_sertifikat'	=> $input['referensi_slo'],
 			'id_lembaga_sertifikat'		=> $input['lembaga'],
 			'id_jenis_sertifikat'		=> $id_jenis_sertifikat,
 			'id_unit_sertifikat'		=> $input['unit_sertifikasi'],
@@ -371,7 +368,7 @@ class Data_crud extends CI_Controller {
 		$dasar_hukum = $this->dasar_hukum->get_dasar_hukum_by_menu($id_menu2);
 
 		$id_jenis_sertifikat = $this->jenis_sertifikat->get_id_jenis_sertifikat('perizinan');
-		$sub_jenis_sertifikat = $this->sub_jenis_sertifikat->get_sub_jenis_by_id_jenis_sertifikat($id_jenis_sertifikat);
+		//$sub_jenis_sertifikat = $this->sub_jenis_sertifikat->get_sub_jenis_by_id_jenis_sertifikat($id_jenis_sertifikat);
 
 		$remainder = $this->remainder->get_all_remainder();
 
@@ -380,7 +377,6 @@ class Data_crud extends CI_Controller {
 			'distrik' 				=> $jenis_distrik,
 			'lembaga'				=> $lembaga,
 			'dasar_hukum'			=> $dasar_hukum,
-			'sub_jenis_sertifikat'	=> $sub_jenis_sertifikat,
 			'remainder'				=> $remainder
 			);
 		return $this->template->load_view('form', 'edit_perizinan', $data);
@@ -388,7 +384,7 @@ class Data_crud extends CI_Controller {
 
 	public function perizinan_update()
 	{
-		$file_path = $this->upload_file_lampiran();
+		$file_path = $this->upload_file_lampiran("perizinan");
 
 		$input = $this->input->post();
 
@@ -400,10 +396,9 @@ class Data_crud extends CI_Controller {
 
 		$data = array(
 			'id_sertifikat'				=> $input['id_sertifikat'],
-			'id_dasar_hukum_sertifikat'	=> $input['referensi_perizinan'],
 			'id_lembaga_sertifikat'		=> $input['lembaga'],
 			'id_jenis_sertifikat'		=> $id_jenis_sertifikat,
-			'id_sub_jenis_sertifikat'	=> $input['jenis_perizinan'],
+			'id_dasar_hukum_sertifikat'	=> $input['jenis_perizinan'],
 			'id_distrik_sertifikat'		=> $input['distrik'],
 			'no_sertifikat'				=> $input['no_sertifikat'],
 			'judul_sertifikat'			=> $input['peralatan'],
@@ -502,7 +497,7 @@ class Data_crud extends CI_Controller {
 		$dasar_hukum = $this->dasar_hukum->get_dasar_hukum_by_menu($id_menu2);
 
 		$id_jenis_sertifikat = $this->jenis_sertifikat->get_id_jenis_sertifikat('pengujian alat k3');
-		$sub_jenis_sertifikat = $this->sub_jenis_sertifikat->get_sub_jenis_by_id_jenis_sertifikat($id_jenis_sertifikat);
+		//$sub_jenis_sertifikat = $this->sub_jenis_sertifikat->get_sub_jenis_by_id_jenis_sertifikat($id_jenis_sertifikat);
 
 		$remainder = $this->remainder->get_all_remainder();
 
@@ -511,7 +506,6 @@ class Data_crud extends CI_Controller {
 			'distrik' 				=> $jenis_distrik,
 			'lembaga'				=> $lembaga,
 			'dasar_hukum'			=> $dasar_hukum,
-			'sub_jenis_sertifikat'	=> $sub_jenis_sertifikat,
 			'remainder'				=> $remainder
 			);
 		return $this->template->load_view('form', 'edit_pengujian_alat_k3', $data);
@@ -519,7 +513,7 @@ class Data_crud extends CI_Controller {
 
 	public function pengujian_alat_k3_update()
 	{
-		$file_path = $this->upload_file_lampiran();
+		$file_path = $this->upload_file_lampiran("pengujian");
 
 		$input = $this->input->post();
 
@@ -531,10 +525,9 @@ class Data_crud extends CI_Controller {
 
 		$data = array(
 			'id_sertifikat'				=> $input['id_sertifikat'],
-			'id_dasar_hukum_sertifikat'	=> $input['referensi_pengujian'],
 			'id_lembaga_sertifikat'		=> $input['lembaga'],
 			'id_jenis_sertifikat'		=> $id_jenis_sertifikat,
-			'id_sub_jenis_sertifikat'	=> $input['jenis_pengujian'],
+			'id_dasar_hukum_sertifikat'	=> $input['jenis_pengujian'],
 			'id_distrik_sertifikat'		=> $input['distrik'],
 			'no_sertifikat'				=> $input['no_sertifikat'],
 			'judul_sertifikat'			=> $input['peralatan'],
@@ -638,7 +631,7 @@ class Data_crud extends CI_Controller {
 			'data_lisensi'		=> $data_lisensi,
 			'distrik' 			=> $jenis_distrik,
 			'lembaga'			=> $lembaga,
-			'dasar_hukum'		=> $dasar_hukum,
+			//'dasar_hukum'		=> $dasar_hukum,
 			'remainder'			=> $remainder
 			);
 		return $this->template->load_view('form', 'edit_lisensi', $data);
@@ -646,7 +639,7 @@ class Data_crud extends CI_Controller {
 
 	public function lisensi_update()
 	{
-		$file_path = $this->upload_file_lampiran();
+		$file_path = $this->upload_file_lampiran("lisensi");
 
 		$input = $this->input->post();
 
@@ -658,7 +651,6 @@ class Data_crud extends CI_Controller {
 
 		$data = array(
 			'id_sertifikat'				=> $input['id_sertifikat'],
-			'id_dasar_hukum_sertifikat'	=> $input['referensi_lisensi'],
 			'id_lembaga_sertifikat'		=> $input['lembaga'],
 			'id_jenis_sertifikat'		=> $id_jenis_sertifikat,
 			'id_distrik_sertifikat'		=> $input['distrik'],

@@ -16,6 +16,7 @@ class Dashboard extends CI_Controller {
 		$this->load->model('sertifikat');
 		$this->load->model('status');
 		$this->load->model('jenis_sertifikat');
+		$this->load->model('distrik');
 	}
 
 	public function index()
@@ -28,22 +29,26 @@ class Dashboard extends CI_Controller {
 			$data_anggaran = $this->anggaran->get_jumlah_anggaran_group_by_status();
 			$data_anggaran = $this->convert_to_readable_morris($data_anggaran);
 			$data['data_anggaran'] = $data_anggaran;
+
+			$data['distrik'] = $this->distrik->get_all_distrik();
 		}
 
 		$pertanahan = $this->sertifikat->get_jumlah_sertifikat_by_nama_jenis("pertanahan", $kode_distrik);
-		$pertanahan = $this->convert_to_readable_morris($pertanahan);
-
 		$slo = $this->sertifikat->get_jumlah_sertifikat_by_nama_jenis("slo", $kode_distrik);
-		$slo = $this->convert_to_readable_morris($slo);
-
 		$pengujian = $this->sertifikat->get_jumlah_sertifikat_by_nama_jenis("pengujian alat k3", $kode_distrik);
-		$pengujian = $this->convert_to_readable_morris($pengujian);
-
 		$perizinan = $this->sertifikat->get_jumlah_sertifikat_by_nama_jenis("perizinan", $kode_distrik);
-		$perizinan = $this->convert_to_readable_morris($perizinan);
-
 		$lisensi = $this->sertifikat->get_jumlah_sertifikat_by_nama_jenis("lisensi", $kode_distrik);
-		$lisensi = $this->convert_to_readable_morris($lisensi);
+
+		// $pertanahan = $this->convert_to_readable_morris($pertanahan);
+		// $slo = $this->convert_to_readable_morris($slo);
+		// $pengujian = $this->convert_to_readable_morris($pengujian);
+		// $perizinan = $this->convert_to_readable_morris($perizinan);
+		// $lisensi = $this->convert_to_readable_morris($lisensi);
+		$pertanahan = $this->convert_to_highchart_data($pertanahan);
+		$slo = $this->convert_to_highchart_data($slo);
+		$pengujian = $this->convert_to_highchart_data($pengujian);
+		$perizinan = $this->convert_to_highchart_data($perizinan);
+		$lisensi = $this->convert_to_highchart_data($lisensi);
 
 		$sertifikat = $this->jenis_sertifikat->get_all_jenis_sertifikat();
 
@@ -66,5 +71,16 @@ class Dashboard extends CI_Controller {
 		$result = substr($result, 0, -1);
 
 		return $result;
+	}
+
+	private function convert_to_highchart_data($data)
+	{
+		$newdata = array();
+
+		foreach ($data as $key => $one_data) {
+			$newdata[] = $one_data;
+		}
+
+		return $newdata;
 	}
 }

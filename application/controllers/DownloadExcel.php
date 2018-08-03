@@ -196,10 +196,21 @@ class DownloadExcel extends CI_Controller {
 	{
 		if (is_null($kode_distrik))
 		{
+			$kode_distrik_pegawai = $this->authentifier->get_user_detail()['kode_distrik_pegawai'];
 			if ($status)
-				$data = $this->sertifikat->get_data_sertifikat("pertanahan", $this->authentifier->get_user_detail()['kode_distrik_pegawai']);
+			{
+				if ($kode_distrik_pegawai == 'Z')
+					$data = $this->sertifikat->get_data_sertifikat("pertanahan", "ALL");
+				else
+					$data = $this->sertifikat->get_data_sertifikat("pertanahan", $kode_distrik_pegawai);
+			}
 			else
-				$data = $this->sertifikat->get_all_sertifikat_lama("pertanahan", $this->authentifier->get_user_detail()['kode_distrik_pegawai']);
+			{
+				if ($kode_distrik_pegawai == 'Z')
+					$data = $this->sertifikat->get_all_sertifikat_lama("pertanahan", "ALL");
+				else
+					$data = $this->sertifikat->get_all_sertifikat_lama("pertanahan", $kode_distrik_pegawai);
+			}
 		}
 		else
 		{
@@ -329,10 +340,21 @@ class DownloadExcel extends CI_Controller {
 	{
 		if (is_null($kode_distrik))
 		{
+			$kode_distrik_pegawai = $this->authentifier->get_user_detail()['kode_distrik_pegawai'];
 			if ($status)
-				$data = $this->sertifikat->get_data_sertifikat("slo", $this->authentifier->get_user_detail()['kode_distrik_pegawai']);
+			{
+				if ($kode_distrik_pegawai == 'Z')
+					$data = $this->sertifikat->get_data_sertifikat("slo", "ALL");
+				else
+					$data = $this->sertifikat->get_data_sertifikat("slo", $kode_distrik_pegawai);
+			}
 			else
-				$data = $this->sertifikat->get_all_sertifikat_lama("slo", $this->authentifier->get_user_detail()['kode_distrik_pegawai']);
+			{
+				if ($kode_distrik_pegawai == 'Z')
+					$data = $this->sertifikat->get_all_sertifikat_lama("slo", "ALL");
+				else
+					$data = $this->sertifikat->get_all_sertifikat_lama("slo", $kode_distrik_pegawai);
+			}
 		}
 		else
 		{
@@ -462,10 +484,21 @@ class DownloadExcel extends CI_Controller {
 	{
 		if (is_null($kode_distrik))
 		{
+			$kode_distrik_pegawai = $this->authentifier->get_user_detail()['kode_distrik_pegawai'];
 			if ($status)
-				$data = $this->sertifikat->get_data_sertifikat("perizinan", $this->authentifier->get_user_detail()['kode_distrik_pegawai']);
+			{
+				if ($kode_distrik_pegawai == 'Z')
+					$data = $this->sertifikat->get_data_sertifikat("perizinan", "ALL");
+				else
+					$data = $this->sertifikat->get_data_sertifikat("perizinan", $kode_distrik_pegawai);
+			}
 			else
-				$data = $this->sertifikat->get_all_sertifikat_lama("perizinan", $this->authentifier->get_user_detail()['kode_distrik_pegawai']);
+			{
+				if ($kode_distrik_pegawai == 'Z')
+					$data = $this->sertifikat->get_all_sertifikat_lama("perizinan", "ALL");
+				else
+					$data = $this->sertifikat->get_all_sertifikat_lama("perizinan", $kode_distrik_pegawai);
+			}
 		}
 		else
 		{
@@ -597,10 +630,21 @@ class DownloadExcel extends CI_Controller {
 	{
 		if (is_null($kode_distrik))
 		{
+			$kode_distrik_pegawai = $this->authentifier->get_user_detail()['kode_distrik_pegawai'];
 			if ($status)
-				$data = $this->sertifikat->get_data_sertifikat("pengujian alat k3", $this->authentifier->get_user_detail()['kode_distrik_pegawai']);
+			{
+				if ($kode_distrik_pegawai == 'Z')
+					$data = $this->sertifikat->get_data_sertifikat("pengujian alat k3", "ALL");
+				else
+					$data = $this->sertifikat->get_data_sertifikat("pengujian alat k3", $kode_distrik_pegawai);
+			}
 			else
-				$data = $this->sertifikat->get_all_sertifikat_lama("pengujian alat k3", $this->authentifier->get_user_detail()['kode_distrik_pegawai']);
+			{
+				if ($kode_distrik_pegawai == 'Z')
+					$data = $this->sertifikat->get_all_sertifikat_lama("pengujian alat k3", "ALL");
+				else
+					$data = $this->sertifikat->get_all_sertifikat_lama("pengujian alat k3", $kode_distrik_pegawai);
+			}
 		}
 		else
 		{
@@ -732,10 +776,21 @@ class DownloadExcel extends CI_Controller {
 	{
 		if (is_null($kode_distrik))
 		{
+			$kode_distrik_pegawai = $this->authentifier->get_user_detail()['kode_distrik_pegawai'];
 			if ($status)
-				$data = $this->sertifikat->get_data_sertifikat("lisensi", $this->authentifier->get_user_detail()['kode_distrik_pegawai']);
+			{
+				if ($kode_distrik_pegawai == 'Z')
+					$data = $this->sertifikat->get_data_sertifikat("lisensi", "ALL");
+				else
+					$data = $this->sertifikat->get_data_sertifikat("lisensi", $kode_distrik_pegawai);
+			}
 			else
-				$data = $this->sertifikat->get_all_sertifikat_lama("lisensi", $this->authentifier->get_user_detail()['kode_distrik_pegawai']);
+			{
+				if ($kode_distrik_pegawai == 'Z')
+					$data = $this->sertifikat->get_all_sertifikat_lama("lisensi", "ALL");
+				else
+					$data = $this->sertifikat->get_all_sertifikat_lama("lisensi", $kode_distrik_pegawai);
+			}
 		}
 		else
 		{
@@ -867,10 +922,21 @@ class DownloadExcel extends CI_Controller {
 	{
 		if (is_null($kode_distrik))
 		{
+			$kode_distrik_pegawai = $this->authentifier->get_user_detail()['kode_distrik_pegawai'];
 			if ($status)
-				$data = $this->sdm->get_all_data_sdm($this->authentifier->get_user_detail()['kode_distrik_pegawai'], "Aktif");
+			{
+				if ($kode_distrik_pegawai == 'Z')
+					$data = $this->sdm->get_all_data_sdm("ALL", "Aktif");
+				else
+					$data = $this->sdm->get_all_data_sdm($kode_distrik_pegawai, "Aktif");
+			}
 			else
-				$data = $this->sdm->get_all_data_sdm($this->authentifier->get_user_detail()['kode_distrik_pegawai'], "Kadaluarsa");
+			{
+				if ($kode_distrik_pegawai == 'Z')
+					$data = $this->sdm->get_all_data_sdm("ALL", "Kadaluarsa");
+				else
+					$data = $this->sdm->get_all_data_sdm($kode_distrik_pegawai, "Kadaluarsa");
+			}
 		}
 		else
 		{

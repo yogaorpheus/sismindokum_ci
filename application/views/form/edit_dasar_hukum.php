@@ -31,7 +31,7 @@
 
                   <div class="col-md-12">
                     <div class="form-group">
-                      <label>Jenis Sertifikat</label>
+                      <label>Sub Menu</label>
                       <select class="form-control select2" name="menu2_edit" id="menu2_edit" style="width: 100%;">
                         <?php
                         foreach ($data_menu2 as $key => $one_data) {
@@ -44,6 +44,11 @@
                         }
                         ?>
                       </select>
+                    </div>
+
+                    <div class="form-group">
+                      <label id="sub_jenis">Nama Jenis</label>
+                      <input class="form-control" name="nama_sub_jenis_sertifikat" type="text" value="<?php echo $dasar_hukum['nama_sub_jenis_sertifikat']; ?>">
                     </div>
 
                     <div class="form-group">

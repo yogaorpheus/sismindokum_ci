@@ -56,17 +56,16 @@
                     </div>
 
                     <div class="form-group">
-                      <label>Referensi Perizinan</label>
-                      <select class="form-control select2" style="width: 100%;" name="referensi_perizinan" id="referensi">
+                      <label>Jenis Perizinan</label>
+                      <select class="form-control select2" style="width: 100%;" name="jenis_perizinan">
                         <?php
                         foreach ($dasar_hukum as $key => $one_dasar_hukum) {
                           echo "<option value='".$one_dasar_hukum['id_dasar_hukum']."'>";
-                          echo $one_dasar_hukum['kode_dasar_hukum'];
+                          echo $one_dasar_hukum['nama_sub_jenis_sertifikat'];
                           echo "</option>";
                         }
                         ?>
                       </select>
-                      <p class="help-block" id="keterangan_referensi"></p>
                     </div>
 
                     <div class="form-group">
@@ -77,19 +76,6 @@
                     <div class="form-group">
                       <label>Peralatan</label>
                       <input type="text" class="form-control" id="peralatan" name="peralatan">
-                    </div>
-
-                    <div class="form-group">
-                      <label>Jenis Perizinan</label>
-                      <select class="form-control select2" style="width: 100%;" name="jenis_perizinan">
-                        <?php
-                        foreach ($sub_jenis_sertifikat as $key => $one_sub_jenis) {
-                          echo "<option value='".$one_sub_jenis['id_sub_jenis_sertifikat']."'>";
-                          echo $one_sub_jenis['nama_sub_jenis_sertifikat'];
-                          echo "</option>";
-                        }
-                        ?>
-                      </select>
                     </div>
 
                   </div>

@@ -20,7 +20,9 @@ class Welcome extends CI_Controller {
 	 */
 	public function index()
 	{
-		print_r(get_loaded_extensions());
+		// echo FCPATH;
+		// die();
+		$this->load->view('testing');
 	}
 
 	public function testtest()
@@ -29,6 +31,19 @@ class Welcome extends CI_Controller {
 
 		var_dump($this->ellipse->load_sdm());
 		//phpinfo();
+	}
+
+	public function swift_strike()
+	{
+		$this->load->model('sdm');
+		$this->load->library('template');
+
+		$sdm = $this->sdm->get_all_data_sdm('Z', "Aktif");
+		$data = array(
+			'sdm'	=> $sdm
+			);
+
+		$this->template->load_view('testing', NULL, $data);
 	}
 
 	public function update_lembaga_sertif_sdm()
