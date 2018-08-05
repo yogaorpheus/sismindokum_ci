@@ -31,6 +31,8 @@ class Dashboard extends CI_Controller {
 			$data['data_anggaran'] = $data_anggaran;
 
 			$data['distrik'] = $this->distrik->get_all_distrik();
+
+			$kode_distrik = "ALL";
 		}
 
 		$pertanahan = $this->sertifikat->get_jumlah_sertifikat_by_nama_jenis("pertanahan", $kode_distrik);
@@ -60,6 +62,44 @@ class Dashboard extends CI_Controller {
 		$data['sertifikat']	= $sertifikat;
 
 		$this->template->load_view('dashboard2', 'dashboard', $data);
+	}
+
+	public function ajax_get_dashboard_distrik_by_id($id_distrik)
+	{
+		$data = array();
+
+		if ($this->authentifier->get_user_detail()['kode_distrik_pegawai'] != 'Z')
+		{
+			header('Content-Type: application/json');
+			echo json_encode($data);
+		}
+
+		if ($id_distrik == "ALL")
+			$kode_distrik = "ALL";
+		else
+			$kode_distrik = $this->distrik->get_distrik_by_id_distrik($id_distrik)['kode_distrik'];
+
+		$pertanahan = $this->sertifikat->get_jumlah_sertifikat_by_nama_jenis("pertanahan", $kode_distrik);
+		$slo = $this->sertifikat->get_jumlah_sertifikat_by_nama_jenis("slo", $kode_distrik);
+		$pengujian = $this->sertifikat->get_jumlah_sertifikat_by_nama_jenis("pengujian alat k3", $kode_distrik);
+		$perizinan = $this->sertifikat->get_jumlah_sertifikat_by_nama_jenis("perizinan", $kode_distrik);
+		$lisensi = $this->sertifikat->get_jumlah_sertifikat_by_nama_jenis("lisensi", $kode_distrik);
+
+		$pertanahan = $this->convert_to_highchart_data($pertanahan);
+		$slo = $this->convert_to_highchart_data($slo);
+		$pengujian = $this->convert_to_highchart_data($pengujian);
+		$perizinan = $this->convert_to_highchart_data($perizinan);
+		$lisensi = $this->convert_to_highchart_data($lisensi);
+
+		$data['pertanahan'] = $pertanahan;
+		$data['slo']		= $slo;
+		$data['pengujian']	= $pengujian;
+		$data['perizinan']	= $perizinan;
+		$data['lisensi']	= $lisensi;
+		//$data['sertifikat']	= $sertifikat;
+
+		header('Content-Type: application/json');
+		echo json_encode($data, JSON_NUMERIC_CHECK);
 	}
 
 	private function convert_to_readable_morris($data)

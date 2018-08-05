@@ -50,10 +50,10 @@
 
             <div class="box-body">
               <div class="row">
-                <div class="col-md-12">
                 <?php
                 if ($this->session->userdata('staff_pjb')['kode_distrik_pegawai'] == 'Z')
                 {
+                  echo "<div class='col-md-12'>";
                   echo "<div class='form-group'>";
                   echo "<label>Pilih Distrik</label>";
                   echo "<select class='form-control select2' id='distrik' style='width: 100%;'>";
@@ -63,10 +63,9 @@
                     echo $one_distrik['nama_distrik'];
                     echo "</option>";
                   }
-                  echo "</select></div>";
+                  echo "</select></div></div>";
                 }
                 ?>
-                </div>
                 <div class="col-md-6">
                   <div class="box box-primary">
                     
@@ -247,7 +246,8 @@
 
     function updateChart (data)
     {
-      if (<?php echo $this->session->userdata('staff_pjb')['kode_distrik_pegawai']; ?> != 'Z')
+
+      if ("<?php echo $this->session->userdata('staff_pjb')['kode_distrik_pegawai']; ?>" != 'Z')
         return alert('Tidak memiliki izin untuk melakukan update');
 
       $('#highchartsPertanahan').empty()
@@ -257,7 +257,11 @@
       $('#highchartsSLO').empty()
       $('#highchartsSDM').empty()
 
-      
+      highchartsPertanahan = createChartSertifikat('highchartsPertanahan', 'Data Pertanahan', data.pertanahan);
+      highchartsSLO = createChartSertifikat('highchartsSLO', 'Data SLO', data.slo);
+      highchartsPerizinan = createChartSertifikat('highchartsPerizinan', 'Data Perizinan', data.perizinan);
+      highchartsPengujian = createChartSertifikat('highchartsPengujian', 'Data Pengujian Alat K3', data.pengujian);
+      highchartsLisensi = createChartSertifikat('highchartsLisensi', 'Data Lisensi', data.lisensi);
     }
 
     $(document).ready(function() {
@@ -274,6 +278,27 @@
       highchartsPerizinan = createChartSertifikat('highchartsPerizinan', 'Data Perizinan', dataPerizinan);
       highchartsPengujian = createChartSertifikat('highchartsPengujian', 'Data Pengujian Alat K3', dataPengujian);
       highchartsLisensi = createChartSertifikat('highchartsLisensi', 'Data Lisensi', dataLisensi);
+
+    })
+
+    $('#distrik').change(function() {
+      var id_distrik = $('#distrik').val();
+      console.log("<?php echo site_url('dashboard/ajax_get_dashboard_distrik_by_id'); ?>/" + id_distrik);
+
+      $.ajax(
+      {
+        url: "<?php echo site_url('dashboard/ajax_get_dashboard_distrik_by_id'); ?>/"+id_distrik,
+        method: "GET"
+      })
+      .done(function(chart_data)
+      {
+        console.log("BERHASIL MASUK");
+        updateChart(chart_data);
+      })
+      .fail(function( jqXHR, textStatus, errorThrown) {
+        console.log("GAGAL MASUK");
+        alert("Request failed : " + textStatus + "\n" + errorThrown);
+      });
 
     })
     

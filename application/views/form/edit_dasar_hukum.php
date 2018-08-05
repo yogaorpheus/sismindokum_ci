@@ -32,7 +32,7 @@
                   <div class="col-md-12">
                     <div class="form-group">
                       <label>Sub Menu</label>
-                      <select class="form-control select2" name="menu2_edit" id="menu2_edit" style="width: 100%;">
+                      <select class="form-control select2" name="menu2_edit" id="menu2_edit" style="width: 100%;" required>
                         <?php
                         foreach ($data_menu2 as $key => $one_data) {
                           if ($one_data['id_menu2'] == $dasar_hukum['id_menu2'])
@@ -48,17 +48,17 @@
 
                     <div class="form-group">
                       <label id="sub_jenis">Nama Jenis</label>
-                      <input class="form-control" name="nama_sub_jenis_sertifikat" type="text" value="<?php echo $dasar_hukum['nama_sub_jenis_sertifikat']; ?>">
+                      <input class="form-control" name="nama_sub_jenis_sertifikat" type="text" value="<?php echo $dasar_hukum['nama_sub_jenis_sertifikat']; ?>" required>
                     </div>
 
                     <div class="form-group">
                       <label>Kode Dasar Hukum</label>
-                      <input type="text" class="form-control" name="kode_dasar_hukum_edit" value="<?php echo $dasar_hukum['kode_dasar_hukum']; ?>">
+                      <input type="text" class="form-control" name="kode_dasar_hukum_edit" value="<?php echo $dasar_hukum['kode_dasar_hukum']; ?>" required>
                     </div>
 
                     <div class="form-group">
                       <label>Keterangan Dasar Hukum</label>
-                      <textarea class="form-control" name="keterangan_edit" id="keterangan_edit" rows="3"><?php echo $dasar_hukum['keterangan_dasar_hukum']; ?></textarea>
+                      <textarea class="form-control" name="keterangan_edit" id="keterangan_edit" rows="3" required><?php echo $dasar_hukum['keterangan_dasar_hukum']; ?></textarea>
                     </div>
                   </div>
                   

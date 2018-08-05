@@ -34,13 +34,13 @@
                         <div class="input-group-addon">
                           <i class="fa fa-calendar"></i>
                         </div>
-                        <input type="text" class="form-control pull-right" id="datepicker1" name="tanggal_rups_sirkuler">
+                        <input type="text" class="form-control pull-right" id="datepicker1" name="tanggal_rups_sirkuler" required>
                       </div>
                     </div>
 
                     <div class="form-group">
                       <label>Tahun</label><br>
-                      <select class="form-control select2" style="width: 25%;" name="tahun_anggaran">
+                      <select class="form-control select2" style="width: 25%;" name="tahun_anggaran" required>
                         <?php
                         $year_now = date("Y");
                         for ($i = 2000; $i < 2100; $i++)
@@ -59,17 +59,17 @@
 
                     <div class="form-group">
                       <label>No. Akta</label>
-                      <input type="text" class="form-control" id="no_akta" name="no_akta">
+                      <input type="text" class="form-control" id="no_akta" name="no_akta" required>
                     </div>
 
                     <div class="form-group">
                       <label>Nomor Penerimaan Kemenkumham</label>
-                      <input type="text" class="form-control" id="nomor_penerimaan" name="nomor_penerimaan">
+                      <input type="text" class="form-control" id="nomor_penerimaan" name="nomor_penerimaan" required>
                     </div>
 
                     <div class="form-group">
                       <label>Status</label><br>
-                      <select class="form-control select2" style="width: 50%;" name="status">
+                      <select class="form-control select2" style="width: 50%;" name="status" required>
                       <?php
                         foreach ($status as $key => $one_status) {
                           if ($one_status['nama_status'] == "Aktif")
@@ -93,7 +93,7 @@
                         <div class="input-group-addon">
                           <i class="fa fa-calendar"></i>
                         </div>
-                        <input type="text" class="form-control pull-right" id="datepicker2" name="tanggal_akta">
+                        <input type="text" class="form-control pull-right" id="datepicker2" name="tanggal_akta" required>
                       </div>
                     </div>
 

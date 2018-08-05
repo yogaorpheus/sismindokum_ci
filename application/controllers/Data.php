@@ -44,7 +44,11 @@ class Data extends CI_Controller {
 	//-------------------------------------- SEMUA DATA PERTANAHAN -----------------------------------------------
 	public function pertanahan()
 	{
-		$data_pertanahan = $this->sertifikat->get_data_sertifikat("pertanahan", $this->authentifier->get_user_detail()['kode_distrik_pegawai']);
+		$kode_distrik_pegawai = $this->authentifier->get_user_detail()['kode_distrik_pegawai'];
+		if ($kode_distrik_pegawai == 'Z')
+			$kode_distrik_pegawai = "ALL";
+
+		$data_pertanahan = $this->sertifikat->get_data_sertifikat("pertanahan", $kode_distrik_pegawai);
 		$jenis_distrik = $this->distrik->get_all_distrik();
 
 		$data = array(
@@ -59,7 +63,11 @@ class Data extends CI_Controller {
 	//--------------------------------- SEMUA DATA SERTIFIKAT LAIK OPERASI -----------------------------------------------
 	public function slo()
 	{
-		$data_slo = $this->sertifikat->get_data_sertifikat("slo", $this->authentifier->get_user_detail()['kode_distrik_pegawai']);
+		$kode_distrik_pegawai = $this->authentifier->get_user_detail()['kode_distrik_pegawai'];
+		if ($kode_distrik_pegawai == 'Z')
+			$kode_distrik_pegawai = "ALL";
+
+		$data_slo = $this->sertifikat->get_data_sertifikat("slo", $kode_distrik_pegawai);
 		$jenis_distrik = $this->distrik->get_all_distrik();
 
 		$data = array(
@@ -74,7 +82,11 @@ class Data extends CI_Controller {
 	//-------------------------------------- SEMUA DATA SERTIFIKAT SDM -----------------------------------------------
 	public function sertifikat_sdm()
 	{
-		$data_sdm = $this->sdm->get_all_data_sdm($this->authentifier->get_user_detail()['kode_distrik_pegawai'], "Aktif");
+		$kode_distrik_pegawai = $this->authentifier->get_user_detail()['kode_distrik_pegawai'];
+		if ($kode_distrik_pegawai == 'Z')
+			$kode_distrik_pegawai = "ALL";
+
+		$data_sdm = $this->sdm->get_all_data_sdm($kode_distrik_pegawai, "Aktif");
 		$jenis_distrik = $this->distrik->get_all_distrik();
 
 		$data = array(
@@ -88,7 +100,11 @@ class Data extends CI_Controller {
 	//------------------------------------------ SEMUA DATA PERIZINAN -----------------------------------------------
 	public function perizinan()
 	{
-		$data_perizinan = $this->sertifikat->get_data_sertifikat("perizinan", $this->authentifier->get_user_detail()['kode_distrik_pegawai']);
+		$kode_distrik_pegawai = $this->authentifier->get_user_detail()['kode_distrik_pegawai'];
+		if ($kode_distrik_pegawai == 'Z')
+			$kode_distrik_pegawai = "ALL";
+
+		$data_perizinan = $this->sertifikat->get_data_sertifikat("perizinan", $kode_distrik_pegawai);
 		$jenis_distrik = $this->distrik->get_all_distrik();
 
 		$data = array(
@@ -103,7 +119,11 @@ class Data extends CI_Controller {
 	//-------------------------------------- SEMUA DATA PENGUJIAN ALAT K3 -----------------------------------------------
 	public function pengujian_alat_k3()
 	{
-		$data_pengujian = $this->sertifikat->get_data_sertifikat("pengujian alat k3", $this->authentifier->get_user_detail()['kode_distrik_pegawai']);
+		$kode_distrik_pegawai = $this->authentifier->get_user_detail()['kode_distrik_pegawai'];
+		if ($kode_distrik_pegawai == 'Z')
+			$kode_distrik_pegawai = "ALL";
+
+		$data_pengujian = $this->sertifikat->get_data_sertifikat("pengujian alat k3", $kode_distrik_pegawai);
 		$jenis_distrik = $this->distrik->get_all_distrik();
 
 		$data = array(
@@ -118,7 +138,11 @@ class Data extends CI_Controller {
 	//-------------------------------------------- SEMUA DATA LISENSI -----------------------------------------------
 	public function lisensi()
 	{
-		$data_lisensi = $this->sertifikat->get_data_sertifikat("lisensi", $this->authentifier->get_user_detail()['kode_distrik_pegawai']);
+		$kode_distrik_pegawai = $this->authentifier->get_user_detail()['kode_distrik_pegawai'];
+		if ($kode_distrik_pegawai == 'Z')
+			$kode_distrik_pegawai = "ALL";
+
+		$data_lisensi = $this->sertifikat->get_data_sertifikat("lisensi", $kode_distrik_pegawai);
 		$jenis_distrik = $this->distrik->get_all_distrik();
 
 		$data = array(

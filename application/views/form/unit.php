@@ -30,13 +30,13 @@
                   <div class="col-md-6">
                     <div class="form-group">
                       <label>Nama Unit</label>
-                      <input class="form-control" name="nama" type="text">
+                      <input class="form-control" name="nama" type="text" required>
                     </div>
                   </div>
                   <div class="col-md-6">
                     <div class="form-group">
                       <label>Distrik</label>
-                      <select class="form-control select2" style="width: 100%" name="distrik">
+                      <select class="form-control select2" style="width: 100%" name="distrik" required>
                         <?php
                         foreach ($data_distrik as $key => $one_distrik) {
                           if ($one_distrik['kode_distrik'] == $user['kode_distrik_pegawai'])

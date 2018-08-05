@@ -31,7 +31,7 @@
                     <div class="form-group">
                       <label>Distrik</label><br>
                       <?php
-                      echo "<select class='form-control select2' style='width: 75%;' name='distrik'>";
+                      echo "<select class='form-control select2' style='width: 75%;' name='distrik' required>";
                       
                       foreach ($distrik as $key => $one_distrik) {
                         if ($one_distrik['kode_distrik'] == $user['kode_distrik_pegawai'])
@@ -67,7 +67,7 @@
 
                     <div class="form-group">
                       <label>Spesifikasi</label>
-                      <input type="text" class="form-control" id="spesifikasi" name="spesifikasi">
+                      <input type="text" class="form-control" id="spesifikasi" name="spesifikasi" required>
                     </div>
 
                   </div>
@@ -75,7 +75,7 @@
 
                     <div class="form-group">
                       <label>Lembaga</label>
-                      <select class="form-control select2" style="width: 100%;" name="lembaga">
+                      <select class="form-control select2" style="width: 100%;" name="lembaga" required>
                       <?php
                       foreach ($lembaga as $key => $one_lembaga) {
                         echo "<option value='".$one_lembaga['id_lembaga']."'>";
@@ -97,7 +97,7 @@
                         <div class="input-group-addon">
                           <i class="fa fa-calendar"></i>
                         </div>
-                        <input type="text" class="form-control pull-right" id="datepicker1" name="tanggal_terbit">
+                        <input type="text" class="form-control pull-right" id="datepicker1" name="tanggal_terbit" required>
                       </div>
                     </div>
 
@@ -107,7 +107,7 @@
                         <div class="input-group-addon">
                           <i class="fa fa-calendar"></i>
                         </div>
-                        <input type="text" class="form-control pull-right" id="datepicker2" name="tanggal_berakhir">
+                        <input type="text" class="form-control pull-right" id="datepicker2" name="tanggal_berakhir" required>
                       </div>
                     </div>
 
@@ -118,7 +118,7 @@
 
                     <div class="form-group">
                       <label>Waktu Pengingat</label>
-                      <select class="form-control select2" style="width: 100%;" name="remainder">
+                      <select class="form-control select2" style="width: 100%;" name="remainder" required>
                       <?php
                       foreach ($remainder as $key => $one_remainder) {
                         echo "<option value='".$one_remainder['id_remainder']."'>";

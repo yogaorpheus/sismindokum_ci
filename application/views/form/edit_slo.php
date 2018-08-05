@@ -33,7 +33,7 @@
                     <div class="form-group">
                       <label>Distrik</label><br>
                       <?php
-                      echo "<select class='form-control select2' style='width: 75%;' name='distrik' id='distrik'>";
+                      echo "<select class='form-control select2' style='width: 75%;' name='distrik' id='distrik' required>";
                       
                       foreach ($distrik as $key => $one_distrik) {
                         if ($one_distrik['id_distrik'] == $data_slo['id_distrik_sertifikat'])
@@ -59,12 +59,12 @@
                   
                     <div class="form-group">
                       <label>No. Sertifikat</label>
-                      <input type="text" class="form-control" id="no_sertifikat" name="no_sertifikat" value="<?php echo $data_slo['no_sertifikat']; ?>">
+                      <input type="text" class="form-control" id="no_sertifikat" name="no_sertifikat" value="<?php echo $data_slo['no_sertifikat']; ?>" required>
                     </div>
 
                     <div class="form-group">
                       <label>Unit Sertifikasi</label>
-                      <select class="form-control select2" style="width: 100%;" name="unit_sertifikasi" id="unit_sertifikasi">
+                      <select class="form-control select2" style="width: 100%;" name="unit_sertifikasi" id="unit_sertifikasi" required>
                         <?php
                         foreach ($unit as $key => $one_unit) {
                           if ($one_unit['id_unit'] == $data_slo['id_unit_sertifikat'])
@@ -89,7 +89,7 @@
 
                     <div class="form-group">
                       <label>Lembaga</label>
-                      <select class="form-control select2" style="width: 100%;" name="lembaga">
+                      <select class="form-control select2" style="width: 100%;" name="lembaga" required>
                       <?php
                       foreach ($lembaga as $key => $one_lembaga) {
                         if ($one_lembaga['id_lembaga'] == $data_slo['id_lembaga_sertifikat'])
@@ -114,7 +114,7 @@
                         <div class="input-group-addon">
                           <i class="fa fa-calendar"></i>
                         </div>
-                        <input type="text" class="form-control pull-right" id="datepicker1" name="tanggal_terbit" value="<?php echo $data_slo['tanggal_terbit']; ?>">
+                        <input type="text" class="form-control pull-right" id="datepicker1" name="tanggal_terbit" value="<?php echo $data_slo['tanggal_terbit']; ?>" required>
                       </div>
                     </div>
 
@@ -124,13 +124,13 @@
                         <div class="input-group-addon">
                           <i class="fa fa-calendar"></i>
                         </div>
-                        <input type="text" class="form-control pull-right" id="datepicker2" name="tanggal_berakhir" value="<?php echo $data_slo['tanggal_berakhir']; ?>">
+                        <input type="text" class="form-control pull-right" id="datepicker2" name="tanggal_berakhir" value="<?php echo $data_slo['tanggal_berakhir']; ?>" required>
                       </div>
                     </div>
 
                     <div class="form-group">
                       <label>Waktu Pengingat</label>
-                      <select class="form-control select2" style="width: 100%;" name="remainder">
+                      <select class="form-control select2" style="width: 100%;" name="remainder" required>
                       <?php
                       foreach ($remainder as $key => $one_remainder) {
                         if ($one_remainder['id_remainder'] == $data_slo['id_remainder_sertifikat'])

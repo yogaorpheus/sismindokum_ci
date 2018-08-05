@@ -30,7 +30,7 @@
                   <div class="col-md-12">
                     <div class="form-group">
                       <label>Nama Lembaga</label>
-                      <input class="form-control" name="nama" type="text">
+                      <input class="form-control" name="nama" type="text" required>
                     </div>
 
                     <div class="form-group">

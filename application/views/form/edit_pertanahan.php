@@ -33,7 +33,7 @@
                     <div class="form-group">
                       <label>Distrik</label><br>
                       <?php
-                      echo "<select class='form-control select2' style='width: 75%;' name='distrik'>";
+                      echo "<select class='form-control select2' style='width: 75%;' name='distrik' required>";
                       
                       foreach ($distrik as $key => $one_distrik) {
                         if ($one_distrik['id_distrik'] == $data_pertanahan['id_distrik_sertifikat'])
@@ -59,7 +59,7 @@
                     
                     <div class="form-group">
                       <label>Jenis Pertanahan</label>
-                      <select class="form-control select2" style="width: 100%;" name="jenis_pertanahan">
+                      <select class="form-control select2" style="width: 100%;" name="jenis_pertanahan" required>
                         <?php
                         foreach ($dasar_hukum as $key => $one_dasarhukum) {
                           if ($one_dasarhukum['id_dasar_hukum'] == $data_pertanahan['id_dasar_hukum_sertifikat'])
@@ -75,12 +75,12 @@
                     
                     <div class="form-group">
                       <label>No. Sertifikat</label>
-                      <input type="text" class="form-control" id="no_sertifikat" name="no_sertifikat" value="<?php echo $data_pertanahan['no_sertifikat']; ?>">
+                      <input type="text" class="form-control" id="no_sertifikat" name="no_sertifikat" value="<?php echo $data_pertanahan['no_sertifikat']; ?>" required>
                     </div>
 
                     <div class="form-group">
                       <label>Lokasi Sertifikat</label>
-                      <input type="text" class="form-control" id="lokasi_sertifikat" name="lokasi_sertifikat" value="<?php echo $data_pertanahan['judul_sertifikat']; ?>">
+                      <input type="text" class="form-control" id="lokasi_sertifikat" name="lokasi_sertifikat" value="<?php echo $data_pertanahan['judul_sertifikat']; ?>" required>
                     </div>
 
                   </div>
@@ -88,7 +88,7 @@
 
                     <div class="form-group">
                       <label>Lembaga</label>
-                      <select class="form-control select2" style="width: 100%;" name="lembaga">
+                      <select class="form-control select2" style="width: 100%;" name="lembaga" required>
                       <?php
                       foreach ($lembaga as $key => $one_lembaga) {
                         if ($one_lembaga['id_lembaga'] == $data_pertanahan['id_lembaga_sertifikat'])
@@ -113,7 +113,7 @@
                         <div class="input-group-addon">
                           <i class="fa fa-calendar"></i>
                         </div>
-                        <input type="text" class="form-control pull-right" id="datepicker1" name="tanggal_terbit" value="<?php echo $data_pertanahan['tanggal_terbit']; ?>">
+                        <input type="text" class="form-control pull-right" id="datepicker1" name="tanggal_terbit" value="<?php echo $data_pertanahan['tanggal_terbit']; ?>" required>
                       </div>
                     </div>
 
@@ -123,7 +123,7 @@
                         <div class="input-group-addon">
                           <i class="fa fa-calendar"></i>
                         </div>
-                        <input type="text" class="form-control pull-right" id="datepicker2" name="tanggal_berakhir" value="<?php echo $data_pertanahan['tanggal_berakhir']; ?>">
+                        <input type="text" class="form-control pull-right" id="datepicker2" name="tanggal_berakhir" value="<?php echo $data_pertanahan['tanggal_berakhir']; ?>" required>
                       </div>
                     </div>
 
@@ -135,7 +135,7 @@
 
                     <div class="form-group">
                       <label>Waktu Pengingat</label>
-                      <select class="form-control select2" style="width: 100%;" name="remainder">
+                      <select class="form-control select2" style="width: 100%;" name="remainder" required>
                       <?php
                       foreach ($remainder as $key => $one_remainder) {
                         if ($one_remainder['id_remainder'] == $data_pertanahan['id_remainder_sertifikat'])
