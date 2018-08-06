@@ -188,9 +188,6 @@
           
       </div>
       <!-- /.row -->
-      <?php
-      echo json_encode($pertanahan);
-      ?>
     </section>
     <!-- /.content -->
 <script>
@@ -338,8 +335,7 @@
 
     $('#distrik').change(function() {
       var id_distrik = $('#distrik').val();
-      console.log("<?php echo site_url('dashboard/ajax_get_dashboard_distrik_by_id'); ?>/" + id_distrik);
-
+      
       $.ajax(
       {
         url: "<?php echo site_url('dashboard/ajax_get_dashboard_distrik_by_id'); ?>/"+id_distrik,
@@ -347,11 +343,9 @@
       })
       .done(function(chart_data)
       {
-        console.log("BERHASIL MASUK");
         updateChart(chart_data);
       })
       .fail(function( jqXHR, textStatus, errorThrown) {
-        console.log("GAGAL MASUK");
         alert("Request failed : " + textStatus + "\n" + errorThrown);
       });
 
