@@ -81,7 +81,7 @@ class Sertifikat extends CI_Model {
 
 	public function get_one_sertifikat_lengkap_by_id($id)
 	{
-		$this->db->select('sertifikat.*, status.nama_status, pegawai.nama_lengkap_pegawai, dasar_hukum.kode_dasar_hukum, dasar_hukum.keterangan_dasar_hukum, lembaga.nama_lembaga, jenis_sertifikat.nama_jenis_sertifikat, sub_jenis_sertifikat.nama_sub_jenis_sertifikat, unit.nama_unit, distrik.nama_distrik');
+		$this->db->select('sertifikat.*, status.nama_status, pegawai.nama_lengkap_pegawai, dasar_hukum.kode_dasar_hukum, dasar_hukum.keterangan_dasar_hukum, lembaga.nama_lembaga, jenis_sertifikat.nama_jenis_sertifikat, dasar_hukum.nama_sub_jenis_sertifikat, unit.nama_unit, distrik.nama_distrik');
 		$this->db->where('id_sertifikat', $id);
 		$this->db->join('status', 'status.id_status = sertifikat.status_sertifikat', 'inner');
 		$this->db->join('distrik', 'distrik.id_distrik = sertifikat.id_distrik_sertifikat', 'inner');
