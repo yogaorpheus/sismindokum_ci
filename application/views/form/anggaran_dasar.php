@@ -168,5 +168,12 @@
     $('#datepicker2').datepicker({
       autoclose: true
     })
+
+    <?php
+    if (!is_null($this->session->flashdata('error_msg')))
+    {
+      ?>alert("<?php echo $this->session->flashdata('error_msg'); ?>");<?php
+    }
+    ?>
   })
 </script>

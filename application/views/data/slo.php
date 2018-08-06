@@ -183,6 +183,13 @@
     <script>
       var delete_href = "";
       var delete_id = "";
+
+      <?php
+      if (!is_null($this->session->flashdata('error_msg')))
+      {
+        ?>alert("<?php echo $this->session->flashdata('error_msg'); ?>");<?php
+      }
+      ?>
       
       $(function () {
         

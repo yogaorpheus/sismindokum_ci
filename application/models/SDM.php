@@ -74,4 +74,45 @@ class SDM extends CI_Model {
 
 		return $query->result_array();
 	}
+
+	public function get_jumlah_sdm_group_by_status($kode_distrik_pegawai)
+	{
+		$this->db->where('kode_distrik', $kode_distrik_pegawai);
+		$id_distrik = $this->db->get('distrik')->row_array()['id_distrik'];
+
+		$main_query = "";
+		$main_query .= "SELECT COUNT(s.id_sdm) AS y, status.nama_status AS name\n";
+		
+		$inner_query = "SELECT id_sdm, status_sdm\n";
+		$inner_query .= "FROM sdm";
+		if ($kode_distrik_pegawai != 'ALL')
+			$inner_query .= " WHERE id_distrik = ".$id_distrik;
+
+		$main_query .= "FROM (".$inner_query.")s\n";
+		$main_query .= "RIGHT JOIN status ON s.status_sdm = status.id_status\n";
+		$main_query .= "WHERE status.penggunaan_tabel_status = 'sdm'";
+		$main_query .= "GROUP BY status.nama_status\n";
+		$main_query .= "ORDER BY status.id_status";
+
+		$query = $this->db->query($main_query);
+
+		return $query->result_array();
+	}
+
+	public function get_jumlah_data_sdm($kode_distrik_pegawai)
+	{
+		$this->db->where('kode_distrik', $kode_distrik_pegawai);
+		$id_distrik = $this->db->get('distrik')->row_array()['id_distrik'];
+
+		$main_query = "";
+		$main_query .= "SELECT COUNT(1) as jumlah\n";
+		$main_query .= "FROM sdm";
+		
+		if ($kode_distrik_pegawai != "ALL")
+			$main_query .= " WHERE id_distrik = ".$id_distrik;
+
+		$query = $this->db->query($main_query);
+
+		return $query->row_array()['jumlah'];
+	}
 }

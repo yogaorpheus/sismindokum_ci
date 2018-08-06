@@ -166,15 +166,17 @@ class Data_crud extends CI_Controller {
 				);
 			$id_log = $this->log_database->write_log($log_data);
 
-			if (!is_null($file_path) && !empty($file_path))
-				unlink("assets/lampiran/".$data_sertifikat['nama_file']);
+			// if (!is_null($file_path) && !empty($file_path))
+			// 	unlink("assets/lampiran/".$data_sertifikat['nama_file']);
 			// Insert data sukses
-			$this->authentifier->set_flashdata('error', 1);
+			$this->authentifier->set_flashdata('error_code', 1);
+			$this->authentifier->set_flashdata('error_msg', "Data Pertanahan berhasil di-update");
 		}
 		else
 		{
 			// Insert data gagal
-			$this->authentifier->set_flashdata('error', 2);
+			$this->authentifier->set_flashdata('error_code', 2);
+			$this->authentifier->set_flashdata('error_msg', "Data Pertanahan gagal di-update");
 		}
 
 		return redirect('data/pertanahan');
@@ -198,12 +200,14 @@ class Data_crud extends CI_Controller {
 
 		if ($result) 
 		{
-			$this->authentifier->set_flashdata('error', 1);	// Delete berhasil
+			$this->authentifier->set_flashdata('error_code', 1);	// Delete berhasil
+			$this->authentifier->set_flashdata('error_msg', "Data Pertanahan berhasil dihapus");
 		}
 		else
 		{
 			$this->log_database->delete_log_by_id($id_log);
-			$this->authentifier->set_flashdata('error', 2);	// Delete gagal
+			$this->authentifier->set_flashdata('error_code', 2);	// Delete gagal
+			$this->authentifier->set_flashdata('error_msg', "Data Pertanahan gagal dihapus");
 		}
 
 		return redirect ('data/pertanahan');
@@ -293,15 +297,17 @@ class Data_crud extends CI_Controller {
 				);
 			$id_log = $this->log_database->write_log($log_data);
 
-			if (!is_null($file_path) && !empty($file_path))
-				unlink("assets/lampiran/".$data_sertifikat['nama_file']);
+			// if (!is_null($file_path) && !empty($file_path))
+			// 	unlink("assets/lampiran/".$data_sertifikat['nama_file']);
 			// Insert data sukses
-			$this->authentifier->set_flashdata('error', 1);
+			$this->authentifier->set_flashdata('error_code', 1);
+			$this->authentifier->set_flashdata('error_msg', "Data SLO berhasil di-update");
 		}
 		else
 		{
 			// Insert data gagal
-			$this->authentifier->set_flashdata('error', 2);
+			$this->authentifier->set_flashdata('error_code', 2);
+			$this->authentifier->set_flashdata('error_msg', "Data SLO gagal di-update");
 		}
 
 		return redirect('data/slo');
@@ -325,12 +331,14 @@ class Data_crud extends CI_Controller {
 
 		if ($result) 
 		{
-			$this->authentifier->set_flashdata('error', 1);	// Delete berhasil
+			$this->authentifier->set_flashdata('error_code', 1);	// Delete berhasil
+			$this->authentifier->set_flashdata('error_msg', "Data SLO berhasil dihapus");
 		}
 		else
 		{
 			$this->log_database->delete_log_by_id($id_log);
-			$this->authentifier->set_flashdata('error', 2);	// Delete gagal
+			$this->authentifier->set_flashdata('error_code', 2);	// Delete gagal
+			$this->authentifier->set_flashdata('error_msg', "Data SLO gagal dihapus");
 		}
 
 		return redirect ('data/slo');
@@ -431,15 +439,17 @@ class Data_crud extends CI_Controller {
 				);
 			$id_log = $this->log_database->write_log($log_data);
 
-			if (!is_null($file_path) && !empty($file_path))
-				unlink("assets/lampiran/".$data_sertifikat['nama_file']);
+			// if (!is_null($file_path) && !empty($file_path))
+			// 	unlink("assets/lampiran/".$data_sertifikat['nama_file']);
 			// Insert data sukses
-			$this->authentifier->set_flashdata('error', 1);
+			$this->authentifier->set_flashdata('error_code', 1);
+			$this->authentifier->set_flashdata('error_msg', "Data Perizinan berhasil di-update");
 		}
 		else
 		{
 			// Insert data gagal
-			$this->authentifier->set_flashdata('error', 2);
+			$this->authentifier->set_flashdata('error_code', 2);
+			$this->authentifier->set_flashdata('error_msg', "Data Perizinan gagal di-update");
 		}
 
 		return redirect('data/perizinan');
@@ -463,12 +473,14 @@ class Data_crud extends CI_Controller {
 
 		if ($result) 
 		{
-			$this->authentifier->set_flashdata('error', 1);	// Delete berhasil
+			$this->authentifier->set_flashdata('error_code', 1);	// Delete berhasil
+			$this->authentifier->set_flashdata('error_msg', "Data Perizinan berhasil dihapus");
 		}
 		else
 		{
 			$this->log_database->delete_log_by_id($id_log);
-			$this->authentifier->set_flashdata('error', 2);	// Delete gagal
+			$this->authentifier->set_flashdata('error_code', 2);	// Delete gagal
+			$this->authentifier->set_flashdata('error_msg', "Data Perizinan gagal dihapus");
 		}
 
 		return redirect ('data/perizinan');
@@ -560,15 +572,17 @@ class Data_crud extends CI_Controller {
 				);
 			$id_log = $this->log_database->write_log($log_data);
 
-			if (!is_null($file_path) && !empty($file_path))
-				unlink("assets/lampiran/".$data_sertifikat['nama_file']);
+			// if (!is_null($file_path) && !empty($file_path))
+			// 	unlink("assets/lampiran/".$data_sertifikat['nama_file']);
 			// Insert data sukses
-			$this->authentifier->set_flashdata('error', 1);
+			$this->authentifier->set_flashdata('error_code', 1);
+			$this->authentifier->set_flashdata('error_msg', "Data Pengujian Alat berhasil di-update");
 		}
 		else
 		{
 			// Insert data gagal
-			$this->authentifier->set_flashdata('error', 2);
+			$this->authentifier->set_flashdata('error_code', 2);
+			$this->authentifier->set_flashdata('error_msg', "Data Pengujian Alat gagal di-update");
 		}
 
 		return redirect('data/pengujian_alat_k3');
@@ -592,12 +606,14 @@ class Data_crud extends CI_Controller {
 
 		if ($result) 
 		{
-			$this->authentifier->set_flashdata('error', 1);	// Delete berhasil
+			$this->authentifier->set_flashdata('error_code', 1);	// Delete berhasil
+			$this->authentifier->set_flashdata('error_msg', "Data Pengujian Alat berhasil dihapus");
 		}
 		else
 		{
 			$this->log_database->delete_log_by_id($id_log);
-			$this->authentifier->set_flashdata('error', 2);	// Delete gagal
+			$this->authentifier->set_flashdata('error_code', 2);	// Delete gagal
+			$this->authentifier->set_flashdata('error_msg', "Data Pengujian Alat gagal dihapus");
 		}
 
 		return redirect ('data/pengujian_alat_k3');
@@ -686,15 +702,17 @@ class Data_crud extends CI_Controller {
 				);
 			$id_log = $this->log_database->write_log($log_data);
 			
-			if (!is_null($file_path) && !empty($file_path))
-				unlink("assets/lampiran/".$data_sertifikat['nama_file']);
+			// if (!is_null($file_path) && !empty($file_path))
+			// 	unlink("assets/lampiran/".$data_sertifikat['nama_file']);
 			// Insert data sukses
-			$this->authentifier->set_flashdata('error', 1);
+			$this->authentifier->set_flashdata('error_code', 1);
+			$this->authentifier->set_flashdata('error_msg', "Data Lisensi berhasil di-update");
 		}
 		else
 		{
 			// Insert data gagal
-			$this->authentifier->set_flashdata('error', 2);
+			$this->authentifier->set_flashdata('error_code', 2);
+			$this->authentifier->set_flashdata('error_msg', "Data Lisensi gagal di-update");
 		}
 
 		return redirect('data/lisensi');
@@ -718,12 +736,14 @@ class Data_crud extends CI_Controller {
 
 		if ($result) 
 		{
-			$this->authentifier->set_flashdata('error', 1);	// Delete berhasil
+			$this->authentifier->set_flashdata('error_code', 1);	// Delete berhasil
+			$this->authentifier->set_flashdata('error_msg', "Data Lisensi berhasil dihapus");
 		}
 		else
 		{
 			$this->log_database->delete_log_by_id($id_log);
-			$this->authentifier->set_flashdata('error', 2);	// Delete gagal
+			$this->authentifier->set_flashdata('error_code', 2);	// Delete gagal
+			$this->authentifier->set_flashdata('error_msg', "Data Lisensi gagal dihapus");
 		}
 
 		return redirect ('data/lisensi');

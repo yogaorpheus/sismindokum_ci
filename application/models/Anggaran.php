@@ -58,12 +58,20 @@ class Anggaran extends CI_Model {
 
 	public function get_jumlah_anggaran_group_by_status()
 	{
-		$this->db->select('status.nama_status AS label, count(1) AS value');
+		$this->db->select('status.nama_status AS name, count(1) AS y');
 		$this->db->join('status', 'status.id_status = anggaran.status_anggaran', 'inner');
 		$this->db->group_by('status.nama_status');
 		$query = $this->db->get('anggaran');
 
 		return $query->result_array();
+	}
+
+	public function get_jumlah_data_anggaran()
+	{
+		$this->db->select('count(1) as jumlah');
+		$query = $this->db->get('anggaran');
+
+		return $query->row_array()['jumlah'];
 	}
 
 	public function insert_anggaran_dasar($data)

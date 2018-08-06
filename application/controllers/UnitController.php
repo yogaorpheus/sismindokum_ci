@@ -67,11 +67,14 @@ class UnitController extends CI_Controller {
 				);
 			$id_log = $this->log_database->write_log($log_data);
 
-			$this->authentifier->set_flashdata('error', 1);
+			$this->authentifier->set_flashdata('error_code', 1);
+			$this->authentifier->set_flashdata('error_msg', "Unit baru berhasil ditambahkan");
 		}
 		else
 		{
-			$this->authentifier->set_flashdata('error', 2);
+			// Insert data gagal
+			$this->authentifier->set_flashdata('error_code', 2);
+			$this->authentifier->set_flashdata('error_msg', "Unit baru gagal ditambahkan");
 		}
 
 		return redirect ('unit');
@@ -113,11 +116,14 @@ class UnitController extends CI_Controller {
 				);
 			$id_log = $this->log_database->write_log($log_data);
 
-			$this->authentifier->set_flashdata('error', 1);
+			$this->authentifier->set_flashdata('error_code', 1);
+			$this->authentifier->set_flashdata('error_msg', "Unit baru berhasil di-update");
 		}
 		else
 		{
-			$this->authentifier->set_flashdata('error', 2);
+			// Insert data gagal
+			$this->authentifier->set_flashdata('error_code', 2);
+			$this->authentifier->set_flashdata('error_msg', "Unit baru gagal di-update");
 		}
 
 		return redirect ('unit');
@@ -143,14 +149,16 @@ class UnitController extends CI_Controller {
 		
 		$result = $this->unit->delete_unit($id_unit);
 
-		if ($result)
+		if ($result) 
 		{
-			$this->authentifier->set_flashdata('error', 1);
+			$this->authentifier->set_flashdata('error_code', 1);	// Delete berhasil
+			$this->authentifier->set_flashdata('error_msg', "Data Unit berhasil dihapus");
 		}
 		else
 		{
 			$this->log_database->delete_log_by_id($id_log);
-			$this->authentifier->set_flashdata('error', 2);
+			$this->authentifier->set_flashdata('error_code', 2);	// Delete gagal
+			$this->authentifier->set_flashdata('error_msg', "Data Unit gagal dihapus");
 		}
 
 		return redirect ('unit');

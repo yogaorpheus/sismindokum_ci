@@ -192,46 +192,11 @@
     })
 
     <?php
-    if ($this->session->flashdata('error') == 1)
+    if (!is_null($this->session->flashdata('error_msg')))
     {
-      ?>alert('Data Lisensi berhasil dimasukkan'); <?php
-    }
-    else if ($this->session->flashdata('error') == 2)
-    {
-      ?>alert('Data Lisensi gagal dimasukkan'); <?php
+      ?>alert("<?php echo $this->session->flashdata('error_msg'); ?>");<?php
     }
     ?>
-
-    var id_dasar_hukum = $("#referensi").val();
-    var keterangan = "";
-
-    <?php
-    foreach ($dasar_hukum as $key => $value) {
-      ?>
-      if (id_dasar_hukum == <?php echo $key; ?>)
-      {
-        keterangan = "<?php echo $value['keterangan_dasar_hukum']; ?>";
-        console.log(keterangan);
-        $("#keterangan_referensi").html(keterangan);
-      }
-      <?php
-    }
-    ?>
-
-    $("#referensi").change(function() {
-      id_dasar_hukum = $("#referensi").val();
-      <?php
-      foreach ($dasar_hukum as $key => $value) {
-        ?>
-        if (id_dasar_hukum == <?php echo $key; ?>)
-        {
-          keterangan = "<?php echo $value['keterangan_dasar_hukum']; ?>";
-          $("#keterangan_referensi").html(keterangan);
-        }
-        <?php
-      }
-      ?>
-    })
 
   })
 </script>

@@ -179,6 +179,26 @@ class Sertifikat extends CI_Model {
 		return $query->result_array();
 	}
 
+	public function get_jumlah_data_sertifikat_by_distrik($nama_sertifikat, $kode_distrik_pegawai)
+	{
+		$this->db->where('nama_jenis_sertifikat', $nama_sertifikat);
+		$id_jenis_sertifikat = $this->db->get('jenis_sertifikat')->row_array()['id_jenis_sertifikat'];
+
+		$this->db->where('kode_distrik', $kode_distrik_pegawai);
+		$id_distrik = $this->db->get('distrik')->row_array()['id_distrik'];
+
+		$main_query = "";
+		$main_query .= "SELECT COUNT(1) AS jumlah\n";
+		$main_query .= "FROM sertifikat WHERE id_jenis_sertifikat = ".$id_jenis_sertifikat;
+		
+		if ($kode_distrik_pegawai != 'ALL')
+			$main_query .= " AND id_distrik_sertifikat = ".$id_distrik;
+
+		$query = $this->db->query($main_query);
+
+		return $query->row_array()['jumlah'];
+	}
+
 	public function get_alarmed_dan_expired_sertifikat_dan_pic()
 	{
 		$this->db->where('nama_status', "Alarm");

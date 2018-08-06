@@ -58,11 +58,14 @@ class LembagaController extends CI_Controller {
 				);
 			$id_log = $this->log_database->write_log($log_data);
 
-			$this->authentifier->set_flashdata('error', 1);
+			$this->authentifier->set_flashdata('error_code', 1);
+			$this->authentifier->set_flashdata('error_msg', "Lembaga baru berhasil ditambahkan");
 		}
 		else
 		{
-			$this->authentifier->set_flashdata('error', 2);
+			// Insert data gagal
+			$this->authentifier->set_flashdata('error_code', 2);
+			$this->authentifier->set_flashdata('error_msg', "Lembaga baru gagal ditambahkan");
 		}
 
 		return redirect ('lembaga');
@@ -103,11 +106,14 @@ class LembagaController extends CI_Controller {
 				);
 			$id_log = $this->log_database->write_log($log_data);
 
-			$this->authentifier->set_flashdata('error', 1);
+			$this->authentifier->set_flashdata('error_code', 1);
+			$this->authentifier->set_flashdata('error_msg', "Lembaga baru berhasil di-update");
 		}
 		else
 		{
-			$this->authentifier->set_flashdata('error', 2);
+			// Insert data gagal
+			$this->authentifier->set_flashdata('error_code', 2);
+			$this->authentifier->set_flashdata('error_msg', "Lembaga baru gagal di-update");
 		}
 
 		return redirect ('lembaga');
@@ -133,14 +139,16 @@ class LembagaController extends CI_Controller {
 		
 		$result = $this->lembaga->delete_lembaga($input['id']);
 
-		if ($result)
+		if ($result) 
 		{
-			$this->authentifier->set_flashdata('error', 1);
+			$this->authentifier->set_flashdata('error_code', 1);	// Delete berhasil
+			$this->authentifier->set_flashdata('error_msg', "Data Lembaga berhasil dihapus");
 		}
 		else
 		{
 			$this->log_database->delete_log_by_id($id_log);
-			$this->authentifier->set_flashdata('error', 2);
+			$this->authentifier->set_flashdata('error_code', 2);	// Delete gagal
+			$this->authentifier->set_flashdata('error_msg', "Data Lembaga gagal dihapus");
 		}
 
 		return redirect ('lembaga');

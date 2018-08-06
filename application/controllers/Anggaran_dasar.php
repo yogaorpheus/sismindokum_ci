@@ -84,10 +84,14 @@ class Anggaran_dasar extends CI_Controller {
 				);
 			$id_log = $this->log_database->write_log($log_data);
 
-			$this->authentifier->set_flashdata('error', 1);
+			$this->authentifier->set_flashdata('error_code', 1);
+			$this->authentifier->set_flashdata('error_msg', "Data Anggaran berhasil ditambahkan");
 		}
-		else {
-			$this->authentifier->set_flashdata('error', 2);
+		else
+		{
+			// Insert data gagal
+			$this->authentifier->set_flashdata('error_code', 2);
+			$this->authentifier->set_flashdata('error_msg', "Data Anggaran gagal ditambahkan");
 		}
 
 		return redirect ('form/anggaran_dasar');
@@ -157,17 +161,20 @@ class Anggaran_dasar extends CI_Controller {
 				);
 			$id_log = $this->log_database->write_log($log_data);
 
-			if (!is_null($file_path1) && !empty($file_path1))
-				unlink("assets/lampiran/".$data_anggaran['nama_file1']);
+			// if (!is_null($file_path1) && !empty($file_path1))
+			// 	unlink("assets/lampiran/".$data_anggaran['nama_file1']);
 
-			if (!is_null($file_path2) && !empty($file_path2))
-				unlink("assets/lampiran/".$data_anggaran['nama_file2']);
+			// if (!is_null($file_path2) && !empty($file_path2))
+			// 	unlink("assets/lampiran/".$data_anggaran['nama_file2']);
 
-			$this->authentifier->set_flashdata('error', 1);	// Delete berhasil
+			$this->authentifier->set_flashdata('error_code', 1);
+			$this->authentifier->set_flashdata('error_msg', "Data Anggaran berhasil di-update");
 		}
 		else
 		{
-			$this->authentifier->set_flashdata('error', 2);	// Delete gagal
+			// Insert data gagal
+			$this->authentifier->set_flashdata('error_code', 2);
+			$this->authentifier->set_flashdata('error_msg', "Data Anggaran gagal di-update");
 		}
 
 		return redirect ('data/anggaran_dasar');
@@ -191,16 +198,14 @@ class Anggaran_dasar extends CI_Controller {
 
 		if ($result) 
 		{
-			// if (!is_null($data_anggaran['nama_file1']))
-			// 	unlink("assets/lampiran/".$data_anggaran['nama_file1']);
-			// if (!is_null($data_anggaran['nama_file2']))
-			// 	unlink("assets/lampiran/".$data_anggaran['nama_file2']);
-			$this->authentifier->set_flashdata('error', 1);	// Delete berhasil
+			$this->authentifier->set_flashdata('error_code', 1);	// Delete berhasil
+			$this->authentifier->set_flashdata('error_msg', "Data Anggaran berhasil dihapus");
 		}
 		else
 		{
 			$this->log_database->delete_log_by_id($id_log);
-			$this->authentifier->set_flashdata('error', 2);	// Delete gagal
+			$this->authentifier->set_flashdata('error_code', 2);	// Delete gagal
+			$this->authentifier->set_flashdata('error_msg', "Data Anggaran gagal dihapus");
 		}
 
 		return redirect ('data/anggaran_dasar');

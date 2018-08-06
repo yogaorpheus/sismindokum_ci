@@ -194,6 +194,7 @@
     </section>
     <!-- /.content -->
 <script>
+  var kode_distrik_pegawai = "<?php echo $this->session->userdata('staff_pjb')['kode_distrik_pegawai']; ?>";
   var highchartsPertanahan = new Object();
   var highchartsLisensi = new Object();
   var highchartsPengujian = new Object();
@@ -206,7 +207,7 @@
 
     $(".select2").select2()
 
-    function createChartSertifikat(id, title, data)
+    function createChartSertifikat(id, title, data, total_data)
     {
       return new Highcharts.Chart(id, {
           colors: ['#27e002', '#ff9d00', '#e51e00', '#af9d9a', '#000000'],
@@ -217,7 +218,7 @@
               type: 'pie'
           },
           title: {
-              text: title
+              text: title + " (Total data : " + total_data + ")"
           },
           tooltip: {
               pointFormat: '{series.name}: <b>{point.percentage:.1f}%</b>'
@@ -237,7 +238,45 @@
               }
           },
           series: [{
-              name: 'Brands',
+              name: 'Jumlah',
+              colorByPoint: true,
+              data: data
+          }]
+      });
+    }
+
+    function createChartTwoColors(id, title, data, total_data)
+    {
+      return new Highcharts.Chart(id, {
+          colors: ['#27e002', '#e51e00'],
+          chart: {
+              plotBackgroundColor: null,
+              plotBorderWidth: null,
+              plotShadow: false,
+              type: 'pie'
+          },
+          title: {
+              text: title + " (Total data : " + total_data + ")"
+          },
+          tooltip: {
+              pointFormat: '{series.name}: <b>{point.percentage:.1f}%</b>'
+          },
+          plotOptions: {
+              pie: {
+                  allowPointSelect: true,
+                  cursor: 'pointer',
+                  dataLabels: {
+                      enabled: true,
+                      format: '{point.name}: {point.y}<br>({point.percentage:.1f} %)',
+                      style: {
+                          color: (Highcharts.theme && Highcharts.theme.contrastTextColor) || 'black'
+                      }
+                  },
+                  showInLegend: true
+              }
+          },
+          series: [{
+              name: 'Jumlah',
               colorByPoint: true,
               data: data
           }]
@@ -257,27 +296,43 @@
       $('#highchartsSLO').empty()
       $('#highchartsSDM').empty()
 
-      highchartsPertanahan = createChartSertifikat('highchartsPertanahan', 'Data Pertanahan', data.pertanahan);
-      highchartsSLO = createChartSertifikat('highchartsSLO', 'Data SLO', data.slo);
-      highchartsPerizinan = createChartSertifikat('highchartsPerizinan', 'Data Perizinan', data.perizinan);
-      highchartsPengujian = createChartSertifikat('highchartsPengujian', 'Data Pengujian Alat K3', data.pengujian);
-      highchartsLisensi = createChartSertifikat('highchartsLisensi', 'Data Lisensi', data.lisensi);
+      highchartsPertanahan = createChartSertifikat('highchartsPertanahan', 'Data Pertanahan', data.pertanahan, data.total_pertanahan);
+      highchartsSLO = createChartSertifikat('highchartsSLO', 'Data SLO', data.slo, data.total_slo);
+      highchartsPerizinan = createChartSertifikat('highchartsPerizinan', 'Data Perizinan', data.perizinan, data.total_perizinan);
+      highchartsPengujian = createChartSertifikat('highchartsPengujian', 'Data Pengujian Alat K3', data.pengujian, data.total_pengujian);
+      highchartsLisensi = createChartSertifikat('highchartsLisensi', 'Data Lisensi', data.lisensi, data.total_lisensi);
+      highchartsSDM = createChartTwoColors('highchartsSDM', 'Data Sertifikat SDM', data.sdm, data.total_sdm);
     }
 
     $(document).ready(function() {
+
+      if (kode_distrik_pegawai == 'Z')
+      {
+        dataAnggaran = <?php echo json_encode($data_anggaran, JSON_NUMERIC_CHECK); ?>;
+        totalAnggaran = <?php echo $total_anggaran; ?>;
+        highchartsAnggaran = createChartTwoColors('highchartsAnggaran', 'Data Anggaran', dataAnggaran, totalAnggaran);
+      }
 
       dataPertanahan = <?php echo json_encode($pertanahan, JSON_NUMERIC_CHECK); ?>;
       dataSLO = <?php echo json_encode($slo, JSON_NUMERIC_CHECK); ?>;
       dataPerizinan = <?php echo json_encode($perizinan, JSON_NUMERIC_CHECK); ?>;
       dataPengujian = <?php echo json_encode($pengujian, JSON_NUMERIC_CHECK); ?>;
       dataLisensi = <?php echo json_encode($lisensi, JSON_NUMERIC_CHECK); ?>;
-      //dataSDM = <?php //echo json_encode($sertifikat_sdm, JSON_NUMERIC_CHECK); ?>;
+      dataSDM = <?php echo json_encode($sdm, JSON_NUMERIC_CHECK); ?>;
 
-      highchartsPertanahan = createChartSertifikat('highchartsPertanahan', 'Data Pertanahan', dataPertanahan);
-      highchartsSLO = createChartSertifikat('highchartsSLO', 'Data SLO', dataSLO);
-      highchartsPerizinan = createChartSertifikat('highchartsPerizinan', 'Data Perizinan', dataPerizinan);
-      highchartsPengujian = createChartSertifikat('highchartsPengujian', 'Data Pengujian Alat K3', dataPengujian);
-      highchartsLisensi = createChartSertifikat('highchartsLisensi', 'Data Lisensi', dataLisensi);
+      totalSDM = <?php echo $total_sdm; ?>;
+      totalPertanahan = <?php echo $total_pertanahan; ?>;
+      totalSLO = <?php echo $total_slo; ?>;
+      totalPerizinan = <?php echo $total_perizinan; ?>;
+      totalPengujian = <?php echo $total_pengujian; ?>;
+      totalLisensi = <?php echo $total_lisensi; ?>;
+
+      highchartsPertanahan = createChartSertifikat('highchartsPertanahan', 'Data Pertanahan', dataPertanahan, totalPertanahan);
+      highchartsSLO = createChartSertifikat('highchartsSLO', 'Data SLO', dataSLO, totalSLO);
+      highchartsPerizinan = createChartSertifikat('highchartsPerizinan', 'Data Perizinan', dataPerizinan, totalPerizinan);
+      highchartsPengujian = createChartSertifikat('highchartsPengujian', 'Data Pengujian Alat K3', dataPengujian, totalPengujian);
+      highchartsLisensi = createChartSertifikat('highchartsLisensi', 'Data Lisensi', dataLisensi, totalLisensi);
+      highchartsSDM = createChartTwoColors('highchartsSDM', 'Data Sertifikat SDM', dataSDM, totalSDM);
 
     })
 

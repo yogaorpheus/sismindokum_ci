@@ -133,12 +133,14 @@ class Sertifikat_data extends CI_Controller {
 				);
 			$id_log = $this->log_database->write_log($log_data);
 			// Insert data sukses
-			$this->authentifier->set_flashdata('error', 1);
+			$this->authentifier->set_flashdata('error_code', 1);
+			$this->authentifier->set_flashdata('error_msg', "Data Pertanahan berhasil ditambahkan");
 		}
 		else
 		{
 			// Insert data gagal
-			$this->authentifier->set_flashdata('error', 2);
+			$this->authentifier->set_flashdata('error_code', 2);
+			$this->authentifier->set_flashdata('error_msg', "Data Pertanahan gagal ditambahkan");
 		}
 
 		return redirect('form/pertanahan');
@@ -192,12 +194,14 @@ class Sertifikat_data extends CI_Controller {
 				);
 			$id_log = $this->log_database->write_log($log_data);
 			// Insert data sukses
-			$this->authentifier->set_flashdata('error', 1);
+			$this->authentifier->set_flashdata('error_code', 1);
+			$this->authentifier->set_flashdata('error_msg', "Data Lisensi berhasil ditambahkan");
 		}
 		else
 		{
 			// Insert data gagal
-			$this->authentifier->set_flashdata('error', 2);
+			$this->authentifier->set_flashdata('error_code', 2);
+			$this->authentifier->set_flashdata('error_msg', "Data Lisensi gagal ditambahkan");
 		}
 
 		return redirect('form/lisensi');
@@ -251,12 +255,14 @@ class Sertifikat_data extends CI_Controller {
 				);
 			$id_log = $this->log_database->write_log($log_data);
 			// Insert data sukses
-			$this->authentifier->set_flashdata('error', 1);
+			$this->authentifier->set_flashdata('error_code', 1);
+			$this->authentifier->set_flashdata('error_msg', "Data Pengujian Alat berhasil ditambahkan");
 		}
 		else
 		{
 			// Insert data gagal
-			$this->authentifier->set_flashdata('error', 2);
+			$this->authentifier->set_flashdata('error_code', 2);
+			$this->authentifier->set_flashdata('error_msg', "Data Pengujian Alat gagal ditambahkan");
 		}
 
 		return redirect('form/pengujian_alat_k3');
@@ -310,12 +316,14 @@ class Sertifikat_data extends CI_Controller {
 				);
 			$id_log = $this->log_database->write_log($log_data);
 			// Insert data sukses
-			$this->authentifier->set_flashdata('error', 1);
+			$this->authentifier->set_flashdata('error_code', 1);
+			$this->authentifier->set_flashdata('error_msg', "Data Perizinan berhasil ditambahkan");
 		}
 		else
 		{
 			// Insert data gagal
-			$this->authentifier->set_flashdata('error', 2);
+			$this->authentifier->set_flashdata('error_code', 2);
+			$this->authentifier->set_flashdata('error_msg', "Data Perizinan gagal ditambahkan");
 		}
 
 		return redirect('form/perizinan');
@@ -368,12 +376,14 @@ class Sertifikat_data extends CI_Controller {
 				);
 			$id_log = $this->log_database->write_log($log_data);
 			// Insert data sukses
-			$this->authentifier->set_flashdata('error', 1);
+			$this->authentifier->set_flashdata('error_code', 1);
+			$this->authentifier->set_flashdata('error_msg', "Data SLO berhasil ditambahkan");
 		}
 		else
 		{
 			// Insert data gagal
-			$this->authentifier->set_flashdata('error', 2);
+			$this->authentifier->set_flashdata('error_code', 2);
+			$this->authentifier->set_flashdata('error_msg', "Data SLO gagal ditambahkan");
 		}
 
 		return redirect('form/slo');

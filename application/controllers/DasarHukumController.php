@@ -63,11 +63,14 @@ class DasarHukumController extends CI_Controller {
 				);
 			$id_log = $this->log_database->write_log($log_data);
 
-			$this->authentifier->set_flashdata('error', 1);
+			$this->authentifier->set_flashdata('error_code', 1);
+			$this->authentifier->set_flashdata('error_msg', "Dasar Hukum baru berhasil ditambahkan");
 		}
 		else
 		{
-			$this->authentifier->set_flashdata('error', 2);
+			// Insert data gagal
+			$this->authentifier->set_flashdata('error_code', 2);
+			$this->authentifier->set_flashdata('error_msg', "Dasar Hukum baru gagal ditambahkan");
 		}
 
 		return redirect ('dasar_hukum');
@@ -111,11 +114,14 @@ class DasarHukumController extends CI_Controller {
 				);
 			$id_log = $this->log_database->write_log($log_data);
 
-			$this->authentifier->set_flashdata('error', 1);
+			$this->authentifier->set_flashdata('error_code', 1);
+			$this->authentifier->set_flashdata('error_msg', "Dasar Hukum baru berhasil di-update");
 		}
 		else
 		{
-			$this->authentifier->set_flashdata('error', 2);
+			// Insert data gagal
+			$this->authentifier->set_flashdata('error_code', 2);
+			$this->authentifier->set_flashdata('error_msg', "Dasar Hukum baru gagal di-update");
 		}
 
 		return redirect ('dasar_hukum');
@@ -141,14 +147,16 @@ class DasarHukumController extends CI_Controller {
 		
 		$result = $this->dasar_hukum->delete_dasar_hukum($id_dasar_hukum);
 
-		if ($result)
+		if ($result) 
 		{
-			$this->authentifier->set_flashdata('error', 1);
+			$this->authentifier->set_flashdata('error_code', 1);	// Delete berhasil
+			$this->authentifier->set_flashdata('error_msg', "Data Dasar Hukum berhasil dihapus");
 		}
 		else
 		{
 			$this->log_database->delete_log_by_id($id_log);
-			$this->authentifier->set_flashdata('error', 2);
+			$this->authentifier->set_flashdata('error_code', 2);	// Delete gagal
+			$this->authentifier->set_flashdata('error_msg', "Data Dasar Hukum gagal dihapus");
 		}
 
 		return redirect ('dasar_hukum');
