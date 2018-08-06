@@ -305,9 +305,16 @@
 
       if (kode_distrik_pegawai == 'Z')
       {
-        dataAnggaran = <?php echo json_encode($data_anggaran, JSON_NUMERIC_CHECK); ?>;
-        totalAnggaran = <?php echo $total_anggaran; ?>;
-        highchartsAnggaran = createChartTwoColors('highchartsAnggaran', 'Data Anggaran', dataAnggaran, totalAnggaran);
+        <?php
+        if (isset($data_anggaran) && isset($total_anggaran))
+        {
+          ?>
+          dataAnggaran = <?php echo json_encode($data_anggaran, JSON_NUMERIC_CHECK); ?>;
+          totalAnggaran = <?php echo $total_anggaran; ?>;
+          highchartsAnggaran = createChartTwoColors('highchartsAnggaran', 'Data Anggaran', dataAnggaran, totalAnggaran);
+          <?php
+        }
+        ?>
       }
 
       dataPertanahan = <?php echo json_encode($pertanahan, JSON_NUMERIC_CHECK); ?>;
