@@ -14,7 +14,7 @@ class SDM extends CI_Model {
 		if (!is_null($nama_status))
 		{
 			$this->db->where('nama_status', $nama_status);
-			$this->db->where('penggunaan_tabel_status', "sertifikat");
+			$this->db->where('penggunaan_tabel_status', "sdm");
 			$id_status = $this->db->get('status')->row_array()['id_status'];	
 		}
 

@@ -84,9 +84,11 @@ class Data extends CI_Controller {
 	{
 		$kode_distrik_pegawai = $this->authentifier->get_user_detail()['kode_distrik_pegawai'];
 		if ($kode_distrik_pegawai == 'Z')
+		{
 			$kode_distrik_pegawai = "ALL";
-
+		}
 		$data_sdm = $this->sdm->get_all_data_sdm($kode_distrik_pegawai, "Aktif");
+
 		$jenis_distrik = $this->distrik->get_all_distrik();
 
 		$data = array(
