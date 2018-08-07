@@ -207,7 +207,7 @@
     function createChartSertifikat(id, title, data, total_data)
     {
       return new Highcharts.Chart(id, {
-          colors: ['#27e002', '#ff9d00', '#e51e00', '#af9d9a', '#000000'],
+          colors: ['#52DEE5', '#faf2a1', '#a63a50', '#b0bbbf', '#1e1014'],
           chart: {
               plotBackgroundColor: null,
               plotBorderWidth: null,
@@ -245,7 +245,7 @@
     function createChartTwoColors(id, title, data, total_data)
     {
       return new Highcharts.Chart(id, {
-          colors: ['#27e002', '#e51e00'],
+          colors: ['#52DEE5', '#a63a50'],
           chart: {
               plotBackgroundColor: null,
               plotBorderWidth: null,
