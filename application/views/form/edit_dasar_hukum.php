@@ -12,7 +12,7 @@
     <section class="content">
       <div class="row">
         
-        <div class="col-md-6">
+        <div class="col-md-12">
           <form id="form_dasar_hukum" action="<?php echo base_url('dasarhukumcontroller/update_dasar_hukum'); ?>" method="POST">
             <div class="box box-primary">
               <input type="hidden" id="id_edit" name="id_edit" value="<?php echo $dasar_hukum['id_dasar_hukum']; ?>">
@@ -29,7 +29,7 @@
                 
                 <div class="row">
 
-                  <div class="col-md-12">
+                  <div class="col-md-6">
                     <div class="form-group">
                       <label>Sub Menu</label>
                       <select class="form-control select2" name="menu2_edit" id="menu2_edit" style="width: 100%;" required>
@@ -47,13 +47,15 @@
                     </div>
 
                     <div class="form-group">
-                      <label id="sub_jenis">Nama Jenis</label>
-                      <input class="form-control" name="nama_sub_jenis_sertifikat" type="text" value="<?php echo $dasar_hukum['nama_sub_jenis_sertifikat']; ?>" required>
-                    </div>
-
-                    <div class="form-group">
                       <label>Kode Dasar Hukum</label>
                       <input type="text" class="form-control" name="kode_dasar_hukum_edit" value="<?php echo $dasar_hukum['kode_dasar_hukum']; ?>" required>
+                    </div>
+                  </div>
+
+                  <div class="col-md-6">
+                    <div class="form-group">
+                      <label id="sub_jenis">Nama Jenis</label>
+                      <input class="form-control" name="nama_sub_jenis_sertifikat" type="text" value="<?php echo $dasar_hukum['nama_sub_jenis_sertifikat']; ?>" required>
                     </div>
 
                     <div class="form-group">

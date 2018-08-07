@@ -11,7 +11,7 @@
     <!-- Main content -->
     <section class="content">
       <div class="row">
-        <div class="col-md-6">
+        <div class="col-md-12">
           <form id="form_dasar_hukum" action="<?php echo base_url('dasarhukumcontroller/insert_dasar_hukum'); ?>" method="POST">
             <div class="box box-primary">
               <div class="box-header with-border">
@@ -27,7 +27,7 @@
                 
                 <div class="row">
 
-                  <div class="col-md-12">
+                  <div class="col-md-6">
                     <div class="form-group">
                       <label>Sub Menu</label>
                       <select class="form-control select2" name="menu2_add" style="width: 100%;" required>
@@ -42,13 +42,15 @@
                     </div>
 
                     <div class="form-group">
-                      <label id="sub_jenis">Nama Jenis</label>
-                      <input class="form-control" name="nama_sub_jenis_sertifikat" type="text" required>
-                    </div>
-
-                    <div class="form-group">
                       <label>Kode Dasar Hukum</label>
                       <input class="form-control" name="kode_dasar_hukum_add" type="text" required>
+                    </div>
+                  </div>
+
+                  <div class="col-md-6">
+                    <div class="form-group">
+                      <label id="sub_jenis">Nama Jenis</label>
+                      <input class="form-control" name="nama_sub_jenis_sertifikat" type="text" required>
                     </div>
 
                     <div class="form-group">
