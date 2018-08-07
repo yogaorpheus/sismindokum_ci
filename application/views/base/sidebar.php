@@ -6,7 +6,7 @@
       <div class="user-panel">
         <div align="middle">
           <a href="<?php echo base_url('home'); ?>">
-            <img src="<?php echo base_url('assets/adminlte'); ?>/dist/img/LOGO_PJB_White.png" style="height: 50%; width: 50%;">
+            <img src="<?php echo base_url('assets/adminlte'); ?>/dist/img/LOGO_PJB_White.png" style="height: 30px; width: 80px;">
           </a>
         </div>
         <!-- <div class="pull-left info">

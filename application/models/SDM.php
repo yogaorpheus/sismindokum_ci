@@ -34,6 +34,7 @@ class Sdm extends CI_Model {
 		{
 			$this->db->where('sdm.id_distrik', $id_distrik);
 		}
+		$this->db->where_in('LEFT(kode_sertifikasi, 2)', array('C1', 'C2', 'C3'));
 
 		$this->db->join('distrik', 'distrik.id_distrik = sdm.id_distrik', 'left');
 		$this->db->join('pegawai', 'pegawai.id_pegawai = sdm.id_pegawai', 'left');

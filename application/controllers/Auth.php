@@ -15,9 +15,7 @@ class Auth extends CI_Controller {
 	public function login()
 	{
 		$errors = array_filter($_POST);
-		// print_r($errors);
-		// die();
-
+		
 		if (!empty($errors))
 		{
 			$this->form_validation->set_rules('nid', 'NID', 'trim|required|xss_clean');
@@ -37,19 +35,16 @@ class Auth extends CI_Controller {
 					'password' => $this->input->post('pass')
 					);
 
-				// $usercheck = file_get_contents('http://login.ptpjb.com/ldap_api/auth_opendj/'.$userdata['nid'].'/'.$userdata['password']);
-				// $usercheck = json_decode($usercheck);
+				$usercheck = file_get_contents('http://login.ptpjb.com/ldap_api/auth_opendj/'.$userdata['nid'].'/'.$userdata['password']);
+				$usercheck = json_decode($usercheck);
 				
-				// if ($usercheck->valid)
-				if ($userdata['password'] == "123")
+				if ($usercheck->valid)
 				{
 					$login_validation = $this->authentifier->login($userdata['nid']);
 					// Lolos login sebagai pegawai PJB dengan ellipse
 					// Cek di database apakah punya izin mengakses aplikasi
 					if ($login_validation)
 					{
-						// var_dump($this->authentifier->get_user_detail());
-						// die();
 						redirect ('dashboard');
 					}
 					else
