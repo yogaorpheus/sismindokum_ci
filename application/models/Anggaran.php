@@ -60,7 +60,8 @@ class Anggaran extends CI_Model {
 	{
 		$this->db->select('status.nama_status AS name, count(1) AS y');
 		$this->db->join('status', 'status.id_status = anggaran.status_anggaran', 'inner');
-		$this->db->group_by('status.nama_status');
+		$this->db->group_by('status.id_status');
+		$this->db->order_by('status.id_status');
 		$query = $this->db->get('anggaran');
 
 		return $query->result_array();

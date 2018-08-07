@@ -170,8 +170,8 @@ class Sertifikat extends CI_Model {
 
 		$main_query .= "FROM (".$inner_query.")s\n";
 		$main_query .= "RIGHT JOIN status ON s.status_sertifikat = status.id_status\n";
-		$main_query .= "WHERE status.penggunaan_tabel_status = 'sertifikat'";
-		$main_query .= "GROUP BY status.nama_status\n";
+		$main_query .= "WHERE status.penggunaan_tabel_status = 'sertifikat'\n";
+		$main_query .= "GROUP BY status.id_status\n";
 		$main_query .= "ORDER BY status.id_status";
 
 		$query = $this->db->query($main_query);

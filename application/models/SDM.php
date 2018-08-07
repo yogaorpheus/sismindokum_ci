@@ -1,7 +1,7 @@
 <?php
 defined('BASEPATH') OR exit('No direct script access allowed');
 
-class SDM extends CI_Model {
+class Sdm extends CI_Model {
 
 	public function __construct() 
 	{
@@ -90,8 +90,8 @@ class SDM extends CI_Model {
 
 		$main_query .= "FROM (".$inner_query.")s\n";
 		$main_query .= "RIGHT JOIN status ON s.status_sdm = status.id_status\n";
-		$main_query .= "WHERE status.penggunaan_tabel_status = 'sdm'";
-		$main_query .= "GROUP BY status.nama_status\n";
+		$main_query .= "WHERE status.penggunaan_tabel_status = 'sdm'\n";
+		$main_query .= "GROUP BY status.id_status\n";
 		$main_query .= "ORDER BY status.id_status";
 
 		$query = $this->db->query($main_query);
