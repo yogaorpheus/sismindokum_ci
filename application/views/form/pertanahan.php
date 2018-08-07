@@ -78,9 +78,6 @@
                       <input type="text" class="form-control" id="lokasi_sertifikat" name="lokasi_sertifikat" required>
                     </div>
 
-                  </div>
-                  <div class="col-md-6">
-
                     <div class="form-group">
                       <label>Lembaga</label>
                       <select class="form-control select2" style="width: 100%;" name="lembaga" required>
@@ -93,6 +90,9 @@
                       ?>
                       </select>
                     </div>
+
+                  </div>
+                  <div class="col-md-6">
 
                     <div class="form-group">
                       <label>Keterangan</label>
@@ -119,6 +119,11 @@
                       </div>
                     </div>
 
+                    <div class="checkbox" style="margin-top: -10px; margin-left: 20px;">
+                      <input type="checkbox" id="check_forever" value="">
+                      <span class="text">Berlaku Selamanya</span>
+                    </div>
+
                     <div class="form-group">
                       <label for="file_sertifikat">Lampiran</label>
                       <input type="file" id="lampiran" name="lampiran">
@@ -129,7 +134,14 @@
                       <select class="form-control select2" style="width: 100%;" name="remainder" required>
                       <?php
                       foreach ($remainder as $key => $one_remainder) {
-                        echo "<option value='".$one_remainder['id_remainder']."'>";
+                        if ($one_remainder['durasi_remainder'] == 365)
+                        {
+                          echo "<option value='".$one_remainder['id_remainder']."' selected='selected'>";
+                        }
+                        else
+                        {
+                          echo "<option value='".$one_remainder['id_remainder']."' disabled='disabled'>";
+                        }
                         echo $one_remainder['nama_remainder'];
                         echo "</option>";
                       }
@@ -197,6 +209,17 @@
     //Date picker
     $('#datepicker2').datepicker({
       autoclose: true
+    })
+
+    $("#check_forever").change(function() {
+      if ($('#check_forever').is(':checked'))
+      {
+        $('#datepicker2').datepicker().datepicker('setDate', "12/31/4999");
+      }
+      else
+      {
+        $('#datepicker2').datepicker().datepicker('setDate', "");
+      }
     })
 
     <?php

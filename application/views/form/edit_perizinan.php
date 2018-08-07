@@ -83,9 +83,6 @@
                       <input type="text" class="form-control" id="peralatan" name="peralatan" value="<?php echo $data_perizinan['judul_sertifikat']; ?>" required>
                     </div>
 
-                  </div>
-                  <div class="col-md-6">
-
                     <div class="form-group">
                       <label>Lembaga</label>
                       <select class="form-control select2" style="width: 100%;" name="lembaga" required>
@@ -101,6 +98,9 @@
                       ?>
                       </select>
                     </div>
+
+                  </div>
+                  <div class="col-md-6">
 
                     <div class="form-group">
                       <label>Keterangan</label>
@@ -127,6 +127,11 @@
                       </div>
                     </div>
 
+                    <div class="checkbox" style="margin-top: -10px; margin-left: 20px;">
+                      <input type="checkbox" id="check_forever" value="">
+                      <span class="text">Berlaku Selamanya</span>
+                    </div>
+
                     <div class="form-group">
                       <label for="file_sertifikat">Lampiran</label>
                       <input type="file" id="lampiran" name="lampiran">
@@ -141,7 +146,7 @@
                         if ($one_remainder['id_remainder'] == $data_perizinan['id_remainder_sertifikat'])
                           echo "<option selected='selected' value='".$one_remainder['id_remainder']."'>";
                         else
-                          echo "<option value='".$one_remainder['id_remainder']."'>";
+                          echo "<option value='".$one_remainder['id_remainder']."' disabled='disabled'>";
                         echo $one_remainder['nama_remainder'];
                         echo "</option>";
                       }
@@ -211,36 +216,23 @@
       autoclose: true
     })
 
-    var id_dasar_hukum = $("#referensi").val();
-    var keterangan = "";
+    $("#check_forever").change(function() {
+      if ($('#check_forever').is(':checked'))
+      {
+        $('#datepicker2').datepicker().datepicker('setDate', "12/31/4999");
+      }
+      else
+      {
+        $('#datepicker2').datepicker().datepicker('setDate', "");
+      }
+    })
 
     <?php
-    foreach ($dasar_hukum as $key => $value) {
-      ?>
-      if (id_dasar_hukum == <?php echo $key; ?>)
-      {
-        keterangan = "<?php echo $value['keterangan_dasar_hukum']; ?>";
-        console.log(keterangan);
-        $("#keterangan_referensi").html(keterangan);
-      }
-      <?php
+    if (!is_null($this->session->flashdata('error_msg')))
+    {
+      ?>alert("<?php echo $this->session->flashdata('error_msg'); ?>");<?php
     }
     ?>
-
-    $("#referensi").change(function() {
-      id_dasar_hukum = $("#referensi").val();
-      <?php
-      foreach ($dasar_hukum as $key => $value) {
-        ?>
-        if (id_dasar_hukum == <?php echo $key; ?>)
-        {
-          keterangan = "<?php echo $value['keterangan_dasar_hukum']; ?>";
-          $("#keterangan_referensi").html(keterangan);
-        }
-        <?php
-      }
-      ?>
-    })
 
   })
 </script>

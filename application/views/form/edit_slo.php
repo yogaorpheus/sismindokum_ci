@@ -84,9 +84,6 @@
                       <p class="help-block"><?php echo $data_slo['nama_file']; ?></p>
                     </div>
 
-                  </div>
-                  <div class="col-md-6">
-
                     <div class="form-group">
                       <label>Lembaga</label>
                       <select class="form-control select2" style="width: 100%;" name="lembaga" required>
@@ -102,6 +99,9 @@
                       ?>
                       </select>
                     </div>
+
+                  </div>
+                  <div class="col-md-6">
 
                     <div class="form-group">
                       <label>Keterangan</label>
@@ -128,6 +128,11 @@
                       </div>
                     </div>
 
+                    <div class="checkbox" style="margin-top: -10px; margin-left: 20px;">
+                      <input type="checkbox" id="check_forever" value="">
+                      <span class="text">Berlaku Selamanya</span>
+                    </div>
+
                     <div class="form-group">
                       <label>Waktu Pengingat</label>
                       <select class="form-control select2" style="width: 100%;" name="remainder" required>
@@ -136,7 +141,7 @@
                         if ($one_remainder['id_remainder'] == $data_slo['id_remainder_sertifikat'])
                           echo "<option selected='selected' value='".$one_remainder['id_remainder']."'>";
                         else
-                          echo "<option value='".$one_remainder['id_remainder']."'>";
+                          echo "<option value='".$one_remainder['id_remainder']."' disabled='disabled'>";
                         echo $one_remainder['nama_remainder'];
                         echo "</option>";
                       }
@@ -207,47 +212,23 @@
       autoclose: true
     })
 
-    <?php
-    if ($this->session->flashdata('error') == 1)
-    {
-      ?>alert('Data sertifikat SLO berhasil dimasukkan'); <?php
-    }
-    else if ($this->session->flashdata('error') == 2)
-    {
-      ?>alert('Data sertifikat SLO gagal dimasukkan'); <?php
-    }
-    ?>
-
-    var id_dasar_hukum = $("#referensi").val();
-    var keterangan = "";
-
-    <?php
-    foreach ($dasar_hukum as $key => $value) {
-      ?>
-      if (id_dasar_hukum == <?php echo $key; ?>)
+    $("#check_forever").change(function() {
+      if ($('#check_forever').is(':checked'))
       {
-        keterangan = "<?php echo $value['keterangan_dasar_hukum']; ?>";
-        console.log(keterangan);
-        $("#keterangan_referensi").html(keterangan);
+        $('#datepicker2').datepicker().datepicker('setDate', "12/31/4999");
       }
-      <?php
+      else
+      {
+        $('#datepicker2').datepicker().datepicker('setDate', "");
+      }
+    })
+
+    <?php
+    if (!is_null($this->session->flashdata('error_msg')))
+    {
+      ?>alert("<?php echo $this->session->flashdata('error_msg'); ?>");<?php
     }
     ?>
-
-    $("#referensi").change(function() {
-      id_dasar_hukum = $("#referensi").val();
-      <?php
-      foreach ($dasar_hukum as $key => $value) {
-        ?>
-        if (id_dasar_hukum == <?php echo $key; ?>)
-        {
-          keterangan = "<?php echo $value['keterangan_dasar_hukum']; ?>";
-          $("#keterangan_referensi").html(keterangan);
-        }
-        <?php
-      }
-      ?>
-    })
 
     $('#distrik').change(function() {
       var id_distrik = $('#distrik').val();
