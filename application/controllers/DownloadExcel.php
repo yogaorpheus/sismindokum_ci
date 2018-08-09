@@ -1269,8 +1269,6 @@ class Downloadexcel extends CI_Controller {
 		$objSpreadsheet->setActiveSheetIndex(0);
 
 		$filename = "Data Unit";
-		if (!is_null($id_distrik) || $this->authentifier->get_user_detail()['kode_distrik_pegawai'] != 'Z')
-			$filename .= " ".$nama_distrik;
 		$filename .= ".xlsx";
 
 		header('Content-Type: application/vnd.ms-excel');

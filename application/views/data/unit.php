@@ -128,7 +128,7 @@
                     <option value="0" selected="selected">Semua Distrik</option>
                     <?php
                     foreach ($distrik as $key => $one_distrik) {
-                      echo "<option value='".$one_distrik['kode_distrik']."'>";
+                      echo "<option value='".$one_distrik['id_distrik']."'>";
                       echo $one_distrik['nama_distrik'];
                       echo "</option>";
                     }

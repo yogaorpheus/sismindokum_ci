@@ -19,17 +19,22 @@ class Unitcontroller extends CI_Controller {
 
 	public function index()
 	{
+		$data = array();
+
 		$kode_distrik_pegawai = $this->authentifier->get_user_detail()['kode_distrik_pegawai'];
 		$id_distrik = $this->distrik->get_id_distrik_by_kode ($kode_distrik_pegawai);
 
 		if ($kode_distrik_pegawai == 'Z')
+		{
+			$jenis_distrik = $this->distrik->get_all_distrik();
 			$data_unit = $this->unit->get_all_detailed_unit();
+			$data['distrik'] = $jenis_distrik;
+		}
 		else
 			$data_unit = $this->unit->get_all_detailed_unit($id_distrik);
 		
-		$data = array(
-			'data_unit'	=> $data_unit
-			);
+		$data['data_unit'] = $data_unit;
+		
 		return $this->template->load_view('data', 'unit', $data);
 	}
 

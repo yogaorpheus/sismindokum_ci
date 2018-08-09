@@ -69,6 +69,17 @@ class Welcome extends CI_Controller {
 		$this->template->load_view('testing', NULL, $data);
 	}
 
+	public function test_download_unit($id_distrik = null)
+	{
+		$this->load->model('unit');
+
+		$data_unit = $this->unit->get_all_detailed_unit($id_distrik);
+
+		var_dump($data_unit);
+
+		die();
+	}
+
 	public function update_lembaga_sertif_sdm()
 	{
 		$this->load->model('sdm');
