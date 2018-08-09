@@ -58,11 +58,21 @@ class Anggaran extends CI_Model {
 
 	public function get_jumlah_anggaran_group_by_status()
 	{
-		$this->db->select('status.nama_status AS name, count(1) AS y');
-		$this->db->join('status', 'status.id_status = anggaran.status_anggaran', 'inner');
-		$this->db->group_by('status.id_status');
-		$this->db->order_by('status.id_status');
-		$query = $this->db->get('anggaran');
+		$inner_query = "SELECT anggaran.id_anggaran, anggaran.status_anggaran AS nama_status\n";
+		$inner_query .= "FROM anggaran";
+
+		$main_query = "SELECT COUNT(s.id_anggaran) AS y, status.nama_status AS name\n";
+		$main_query .= "FROM (".$inner_query.")s\n";
+		$main_query .= "RIGHT JOIN status ON status.id_status = s.nama_status\n";
+		$main_query .= "WHERE penggunaan_tabel_status = 'anggaran'\n";
+		$main_query .= "GROUP BY status.id_status\n";
+		$main_query .= "ORDER BY status.id_status";
+
+		// $this->db->select('status.nama_status AS name, count(1) AS y');
+		// $this->db->join('status', 'status.id_status = anggaran.status_anggaran', 'inner');
+		// $this->db->group_by('status.id_status');
+		// $this->db->order_by('status.id_status');
+		$query = $this->db->query($main_query);
 
 		return $query->result_array();
 	}
