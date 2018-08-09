@@ -307,7 +307,7 @@
       {
         dataAnggaran = <?php echo json_encode($data_anggaran, JSON_NUMERIC_CHECK); ?>;
         totalAnggaran = <?php echo $total_anggaran; ?>;
-        highchartsAnggaran = createChartTwoColors('highchartsAnggaran', 'Data Anggaran', dataAnggaran, totalAnggaran);
+        highchartsAnggaran = createChartSertifikat('highchartsAnggaran', 'Data Anggaran', dataAnggaran, totalAnggaran);
       }
 
       dataPertanahan = <?php echo json_encode($pertanahan, JSON_NUMERIC_CHECK); ?>;
