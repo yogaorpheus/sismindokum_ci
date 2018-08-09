@@ -105,7 +105,7 @@
                         <div class="input-group-addon">
                           <i class="fa fa-calendar"></i>
                         </div>
-                        <input type="text" class="form-control pull-right" id="datepicker1" name="tanggal_terbit" required>
+                        <input type="text" class="form-control pull-right" autocomplete="off" id="datepicker1" name="tanggal_terbit" required>
                       </div>
                     </div>
 
@@ -115,7 +115,7 @@
                         <div class="input-group-addon">
                           <i class="fa fa-calendar"></i>
                         </div>
-                        <input type="text" class="form-control pull-right" id="datepicker2" name="tanggal_berakhir" required>
+                        <input type="text" class="form-control pull-right" autocomplete="off" id="datepicker2" name="tanggal_berakhir" required>
                       </div>
                     </div>
 
@@ -220,6 +220,17 @@
       {
         $('#datepicker2').datepicker().datepicker('setDate', "");
       }
+    })
+
+    $("#datepicker2").datepicker({
+      onSelect: function(dateText) {
+        $(this).change();
+      }
+    }).on('change', function(dateText) {
+      if (dateText.currentTarget.value == "12/31/4999")
+        $('#check_forever').prop('checked', true);
+      else
+        $('#check_forever').prop('checked', false);
     })
 
     <?php

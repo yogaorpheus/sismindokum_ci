@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-	<title>Sismindokum PJB - Login</title>
+	<title>SISMINDOKUM - Login</title>
 	<meta charset="UTF-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 <!--===============================================================================================-->	
@@ -72,8 +72,9 @@
 						</div>
 					</div>
 				</form>
+				
+				<center style="margin-top: 15px; color: #bbb; font-size: 11px;">&copy; 2018 oleh BTIF<br/>PT Pembangkitan Jawa-Bali</center>
 			</div>
-			
 		</div>
 	</div>
 	

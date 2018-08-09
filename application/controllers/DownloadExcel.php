@@ -9,7 +9,7 @@ use PhpOffice\PhpSpreadsheet\Style\Border;
 use PhpOffice\PhpSpreadsheet\Style\Fill;
 use PhpOffice\PhpSpreadsheet\Style\Alignment;
 
-class DownloadExcel extends CI_Controller {
+class Downloadexcel extends CI_Controller {
 
 	public function __construct() 
 	{
@@ -81,11 +81,20 @@ class DownloadExcel extends CI_Controller {
 		$nama_status = str_replace("_", " ", $nama_status);
 		$data = $this->anggaran->get_all_anggaran_by_status($nama_status);
 
+		if ($nama_status == "aktif")
+		{
+			$data_alarm = $this->anggaran->get_all_anggaran_by_status("alarm");
+			$data_expired = $this->anggaran->get_all_anggaran_by_status("kadaluarsa");
+
+			$data = array_merge($data, $data_alarm);
+			$data = array_merge($data, $data_expired);
+		}
+
 		$objSpreadsheet = new Spreadsheet();
 
-		$objSpreadsheet->getProperties()->setCreator('YogaOcean - Administrator')
-		->setLastModifiedBy('YogaOcean - Administrator')
-		->setTitle('Test Excel Ocean');
+		$objSpreadsheet->getProperties()->setCreator('Administrator Sismindokum')
+		->setLastModifiedBy('Administrator Sismindokum')
+		->setTitle('Data Sismindokum PJB');
 
 		$objSpreadsheet->setActiveSheetIndex(0)
 		->getStyle('A1:M1')->getFont()->setBold(true);
@@ -227,12 +236,12 @@ class DownloadExcel extends CI_Controller {
 
 		$objSpreadsheet = new Spreadsheet();
 
-		$objSpreadsheet->getProperties()->setCreator('YogaOcean - Administrator')
-		->setLastModifiedBy('YogaOcean - Administrator')
-		->setTitle('Test Excel Ocean');
+		$objSpreadsheet->getProperties()->setCreator('Administrator Sismindokum')
+		->setLastModifiedBy('Administrator Sismindokum')
+		->setTitle('Data Sismindokum PJB');
 
 		$objSpreadsheet->setActiveSheetIndex(0)
-		->getStyle('A1:N1')->getFont()->setBold(true);
+		->getStyle('A1:P1')->getFont()->setBold(true);
 
 		$styleArray = [
 		    'borders' => [
@@ -247,39 +256,47 @@ class DownloadExcel extends CI_Controller {
 		    ],
 		];
 
-		$objSpreadsheet->getActiveSheet()->getStyle('A1:N1')->getFill()->setFillType(Fill::FILL_SOLID);
-		$objSpreadsheet->getActiveSheet()->getStyle('A1:N1')->getFill()->getStartColor()->setARGB('FF40BCD8');
+		$objSpreadsheet->getActiveSheet()->getStyle('A1:P1')->getFill()->setFillType(Fill::FILL_SOLID);
+		$objSpreadsheet->getActiveSheet()->getStyle('A1:P1')->getFill()->getStartColor()->setARGB('FF40BCD8');
+
+		$lt = 'A';
 
 		$objSpreadsheet->setActiveSheetIndex(0)
-		->setCellValue('A1', 'No.')
-		->setCellValue('B1', 'Distrik')
-		->setCellValue('C1', 'Jenis Sertifikat')
-		->setCellValue('D1', 'No. Sertifikat')
-		->setCellValue('E1', 'Lokasi Sertifikat')
-		->setCellValue('F1', 'PIC')
-		->setCellValue('G1', 'Tanggal Terbit')
-		->setCellValue('H1', 'Tanggal Berakhir')
-		->setCellValue('I1', 'Status Sertifikat')
-		->setCellValue('J1', 'Nama PIC')
-		->setCellValue('K1', 'Status Remark')
-		->setCellValue('L1', 'Keterangan Remark')
-		->setCellValue('M1', 'Pembuat Remark')
-		->setCellValue('N1', 'Waktu Remark');
+		->setCellValue($lt++.'1', 'No.')
+		->setCellValue($lt++.'1', 'Distrik')
+		->setCellValue($lt++.'1', 'Jenis Sertifikat')
+		->setCellValue($lt++.'1', 'No. Sertifikat')
+		->setCellValue($lt++.'1', 'Lokasi Sertifikat')
+		->setCellValue($lt++.'1', 'Kode Dasar Hukum')
+		->setCellValue($lt++.'1', 'Keterangan Dasar Hukum')
+		->setCellValue($lt++.'1', 'PIC')
+		->setCellValue($lt++.'1', 'Tanggal Terbit')
+		->setCellValue($lt++.'1', 'Tanggal Berakhir')
+		->setCellValue($lt++.'1', 'Status Sertifikat')
+		->setCellValue($lt++.'1', 'Nama PIC')
+		->setCellValue($lt++.'1', 'Status Remark')
+		->setCellValue($lt++.'1', 'Keterangan Remark')
+		->setCellValue($lt++.'1', 'Pembuat Remark')
+		->setCellValue($lt++.'1', 'Waktu Remark');
 
 		$no_cell = 2;
 		$no_data = 1;
 		foreach ($data as $key => $one_data) {
+			$lt = 'A';
+
 			$objSpreadsheet->setActiveSheetIndex(0)
-			->setCellValue('A'.$no_cell, $no_data++)
-			->setCellValue('B'.$no_cell, $one_data['nama_distrik'])
-			->setCellValue('C'.$no_cell, $one_data['nama_sub_jenis_sertifikat'])
-			->setCellValue('D'.$no_cell, $one_data['no_sertifikat'])
-			->setCellValue('E'.$no_cell, $one_data['judul_sertifikat'])
-			->setCellValue('F'.$no_cell, $one_data['jabatan_pic'])
-			->setCellValue('G'.$no_cell, $one_data['tanggal_sertifikasi'])
-			->setCellValue('H'.$no_cell, $one_data['tanggal_kadaluarsa'])
-			->setCellValue('I'.$no_cell, $one_data['nama_status'])
-			->setCellValue('J'.$no_cell, $one_data['nama_lengkap_pegawai']);
+			->setCellValue($lt++.$no_cell, $no_data++)
+			->setCellValue($lt++.$no_cell, $one_data['nama_distrik'])
+			->setCellValue($lt++.$no_cell, $one_data['nama_sub_jenis_sertifikat'])
+			->setCellValue($lt++.$no_cell, $one_data['no_sertifikat'])
+			->setCellValue($lt++.$no_cell, $one_data['judul_sertifikat'])
+			->setCellValue($lt++.$no_cell, $one_data['kode_dasar_hukum'])
+			->setCellValue($lt++.$no_cell, $one_data['keterangan_dasar_hukum'])
+			->setCellValue($lt++.$no_cell, $one_data['jabatan_pic'])
+			->setCellValue($lt++.$no_cell, $one_data['tanggal_sertifikasi'])
+			->setCellValue($lt++.$no_cell, $one_data['tanggal_kadaluarsa'])
+			->setCellValue($lt++.$no_cell, $one_data['nama_status'])
+			->setCellValue($lt++.$no_cell, $one_data['nama_lengkap_pegawai']);
 
 			$data_remark = $this->remark->get_remark_by_id_sertifikat($one_data['id_sertifikat']);
 			$count_remark = count($data_remark)-1;
@@ -287,16 +304,18 @@ class DownloadExcel extends CI_Controller {
 
 			if($count_remark > 0)
 			{
-				for ($count = 'A'; $count <= 'J'; $count++)
+				for ($count = 'A'; $count <= 'L'; $count++)
 					$objSpreadsheet->getActiveSheet()->mergeCells($count.$no_cell.':'.$count.$merge);
 			}
 
 			foreach ($data_remark as $key => $one_remark) {
+				$lt_inner = $lt;
+
 				$objSpreadsheet->setActiveSheetIndex(0)
-				->setCellValue('K'.$no_cell, $one_remark['nama_status'])
-				->setCellValue('L'.$no_cell, $one_remark['keterangan'])
-				->setCellValue('M'.$no_cell, $one_remark['nama_lengkap_pegawai'])
-				->setCellValue('N'.$no_cell, $one_remark['tanggal_remark']);
+				->setCellValue($lt_inner++.$no_cell, $one_remark['nama_status'])
+				->setCellValue($lt_inner++.$no_cell, $one_remark['keterangan'])
+				->setCellValue($lt_inner++.$no_cell, $one_remark['nama_lengkap_pegawai'])
+				->setCellValue($lt_inner++.$no_cell, $one_remark['tanggal_remark']);
 
 				$no_cell++;
 			}
@@ -307,18 +326,22 @@ class DownloadExcel extends CI_Controller {
 			$no_cell++;
 		}
 
-		$objSpreadsheet->getActiveSheet()->getStyle('A1:N'.--$no_cell)->applyFromArray($styleArray);
+		$objSpreadsheet->getActiveSheet()->getStyle('A1:P'.--$no_cell)->applyFromArray($styleArray);
 		$objSpreadsheet->setActiveSheetIndex(0)
-		->getStyle('A1:N1')->getAlignment()
+		->getStyle('A1:P1')->getAlignment()
 		->setHorizontal(Alignment::HORIZONTAL_CENTER);
 
-		for ($count = 'A'; $count <= 'N'; $count++)
+		for ($count = 'A'; $count <= 'P'; $count++)
 		{
 			$objSpreadsheet->getActiveSheet()
 			->getColumnDimension($count)->setAutoSize(true);
 		}
-		$objSpreadsheet->getActiveSheet()->getColumnDimension('L')->setWidth(40);
-		$objSpreadsheet->getActiveSheet()->getStyle('L2:L'.$no_cell)->getAlignment()->setWrapText(true);
+		$objSpreadsheet->getActiveSheet()->getColumnDimension('G')->setAutoSize(false);
+		$objSpreadsheet->getActiveSheet()->getColumnDimension('G')->setWidth(40);
+		$objSpreadsheet->getActiveSheet()->getStyle('G2:G'.$no_cell)->getAlignment()->setWrapText(true);
+		$objSpreadsheet->getActiveSheet()->getColumnDimension('N')->setAutoSize(false);
+		$objSpreadsheet->getActiveSheet()->getColumnDimension('N')->setWidth(40);
+		$objSpreadsheet->getActiveSheet()->getStyle('N2:N'.$no_cell)->getAlignment()->setWrapText(true);
 
 		$objSpreadsheet->getActiveSheet()->setTitle('Report Excel');
 		$objSpreadsheet->setActiveSheetIndex(0);
@@ -371,12 +394,12 @@ class DownloadExcel extends CI_Controller {
 
 		$objSpreadsheet = new Spreadsheet();
 
-		$objSpreadsheet->getProperties()->setCreator('YogaOcean - Administrator')
-		->setLastModifiedBy('YogaOcean - Administrator')
-		->setTitle('Test Excel Ocean');
+		$objSpreadsheet->getProperties()->setCreator('Administrator Sismindokum')
+		->setLastModifiedBy('Administrator Sismindokum')
+		->setTitle('Data Sismindokum PJB');
 
 		$objSpreadsheet->setActiveSheetIndex(0)
-		->getStyle('A1:N1')->getFont()->setBold(true);
+		->getStyle('A1:P1')->getFont()->setBold(true);
 
 		$styleArray = [
 		    'borders' => [
@@ -391,39 +414,46 @@ class DownloadExcel extends CI_Controller {
 		    ],
 		];
 
-		$objSpreadsheet->getActiveSheet()->getStyle('A1:N1')->getFill()->setFillType(Fill::FILL_SOLID);
-		$objSpreadsheet->getActiveSheet()->getStyle('A1:N1')->getFill()->getStartColor()->setARGB('FF40BCD8');
+		$objSpreadsheet->getActiveSheet()->getStyle('A1:P1')->getFill()->setFillType(Fill::FILL_SOLID);
+		$objSpreadsheet->getActiveSheet()->getStyle('A1:P1')->getFill()->getStartColor()->setARGB('FF40BCD8');
+
+		$lt = 'A';
 
 		$objSpreadsheet->setActiveSheetIndex(0)
-		->setCellValue('A1', 'No.')
-		->setCellValue('B1', 'Distrik')
-		->setCellValue('C1', 'Unit Sertifikasi')
-		->setCellValue('D1', 'No. Sertifikat')
-		->setCellValue('E1', 'Lembaga')
-		->setCellValue('F1', 'PIC')
-		->setCellValue('G1', 'Tanggal Terbit')
-		->setCellValue('H1', 'Tanggal Berakhir')
-		->setCellValue('I1', 'Status Sertifikat')
-		->setCellValue('J1', 'Nama PIC')
-		->setCellValue('K1', 'Status Remark')
-		->setCellValue('L1', 'Keterangan Remark')
-		->setCellValue('M1', 'Pembuat Remark')
-		->setCellValue('N1', 'Waktu Remark');
+		->setCellValue($lt++.'1', 'No.')
+		->setCellValue($lt++.'1', 'Distrik')
+		->setCellValue($lt++.'1', 'Unit Sertifikasi')
+		->setCellValue($lt++.'1', 'No. Sertifikat')
+		->setCellValue($lt++.'1', 'Kode Dasar Hukum')
+		->setCellValue($lt++.'1', 'Keterangan Dasar Hukum')
+		->setCellValue($lt++.'1', 'Lembaga')
+		->setCellValue($lt++.'1', 'PIC')
+		->setCellValue($lt++.'1', 'Tanggal Terbit')
+		->setCellValue($lt++.'1', 'Tanggal Berakhir')
+		->setCellValue($lt++.'1', 'Status Sertifikat')
+		->setCellValue($lt++.'1', 'Nama PIC')
+		->setCellValue($lt++.'1', 'Status Remark')
+		->setCellValue($lt++.'1', 'Keterangan Remark')
+		->setCellValue($lt++.'1', 'Pembuat Remark')
+		->setCellValue($lt++.'1', 'Waktu Remark');
 
 		$no_cell = 2;
 		$no_data = 1;
 		foreach ($data as $key => $one_data) {
+			$lt = 'A';
 			$objSpreadsheet->setActiveSheetIndex(0)
-			->setCellValue('A'.$no_cell, $no_data++)
-			->setCellValue('B'.$no_cell, $one_data['nama_distrik'])
-			->setCellValue('C'.$no_cell, $one_data['nama_unit'])
-			->setCellValue('D'.$no_cell, $one_data['no_sertifikat'])
-			->setCellValue('E'.$no_cell, $one_data['nama_lembaga'])
-			->setCellValue('F'.$no_cell, $one_data['jabatan_pic'])
-			->setCellValue('G'.$no_cell, $one_data['tanggal_sertifikasi'])
-			->setCellValue('H'.$no_cell, $one_data['tanggal_kadaluarsa'])
-			->setCellValue('I'.$no_cell, $one_data['nama_status'])
-			->setCellValue('J'.$no_cell, $one_data['nama_lengkap_pegawai']);
+			->setCellValue($lt++.$no_cell, $no_data++)
+			->setCellValue($lt++.$no_cell, $one_data['nama_distrik'])
+			->setCellValue($lt++.$no_cell, $one_data['nama_unit'])
+			->setCellValue($lt++.$no_cell, $one_data['no_sertifikat'])
+			->setCellValue($lt++.$no_cell, $one_data['kode_dasar_hukum'])
+			->setCellValue($lt++.$no_cell, $one_data['keterangan_dasar_hukum'])
+			->setCellValue($lt++.$no_cell, $one_data['nama_lembaga'])
+			->setCellValue($lt++.$no_cell, $one_data['jabatan_pic'])
+			->setCellValue($lt++.$no_cell, $one_data['tanggal_sertifikasi'])
+			->setCellValue($lt++.$no_cell, $one_data['tanggal_kadaluarsa'])
+			->setCellValue($lt++.$no_cell, $one_data['nama_status'])
+			->setCellValue($lt++.$no_cell, $one_data['nama_lengkap_pegawai']);
 
 			$data_remark = $this->remark->get_remark_by_id_sertifikat($one_data['id_sertifikat']);
 			$count_remark = count($data_remark)-1;
@@ -431,16 +461,18 @@ class DownloadExcel extends CI_Controller {
 
 			if($count_remark > 0)
 			{
-				for ($count = 'A'; $count <= 'J'; $count++)
+				for ($count = 'A'; $count <= 'L'; $count++)
 					$objSpreadsheet->getActiveSheet()->mergeCells($count.$no_cell.':'.$count.$merge);
 			}
 
 			foreach ($data_remark as $key => $one_remark) {
+				$lt_inner = $lt;
+
 				$objSpreadsheet->setActiveSheetIndex(0)
-				->setCellValue('K'.$no_cell, $one_remark['nama_status'])
-				->setCellValue('L'.$no_cell, $one_remark['keterangan'])
-				->setCellValue('M'.$no_cell, $one_remark['nama_lengkap_pegawai'])
-				->setCellValue('N'.$no_cell, $one_remark['tanggal_remark']);
+				->setCellValue($lt_inner++.$no_cell, $one_remark['nama_status'])
+				->setCellValue($lt_inner++.$no_cell, $one_remark['keterangan'])
+				->setCellValue($lt_inner++.$no_cell, $one_remark['nama_lengkap_pegawai'])
+				->setCellValue($lt_inner++.$no_cell, $one_remark['tanggal_remark']);
 
 				$no_cell++;
 			}
@@ -451,18 +483,22 @@ class DownloadExcel extends CI_Controller {
 			$no_cell++;
 		}
 
-		$objSpreadsheet->getActiveSheet()->getStyle('A1:N'.--$no_cell)->applyFromArray($styleArray);
+		$objSpreadsheet->getActiveSheet()->getStyle('A1:P'.--$no_cell)->applyFromArray($styleArray);
 		$objSpreadsheet->setActiveSheetIndex(0)
-		->getStyle('A1:N1')->getAlignment()
+		->getStyle('A1:P1')->getAlignment()
 		->setHorizontal(Alignment::HORIZONTAL_CENTER);
 
-		for ($count = 'A'; $count <= 'N'; $count++)
+		for ($count = 'A'; $count <= 'P'; $count++)
 		{
 			$objSpreadsheet->getActiveSheet()
 			->getColumnDimension($count)->setAutoSize(true);
 		}
-		$objSpreadsheet->getActiveSheet()->getColumnDimension('L')->setWidth(40);
-		$objSpreadsheet->getActiveSheet()->getStyle('L2:L'.$no_cell)->getAlignment()->setWrapText(true);
+		$objSpreadsheet->getActiveSheet()->getColumnDimension('F')->setAutoSize(false);
+		$objSpreadsheet->getActiveSheet()->getColumnDimension('F')->setWidth(40);
+		$objSpreadsheet->getActiveSheet()->getStyle('F2:F'.$no_cell)->getAlignment()->setWrapText(true);
+		$objSpreadsheet->getActiveSheet()->getColumnDimension('N')->setAutoSize(false);
+		$objSpreadsheet->getActiveSheet()->getColumnDimension('N')->setWidth(40);
+		$objSpreadsheet->getActiveSheet()->getStyle('N2:N'.$no_cell)->getAlignment()->setWrapText(true);
 
 		$objSpreadsheet->getActiveSheet()->setTitle('Report Excel');
 		$objSpreadsheet->setActiveSheetIndex(0);
@@ -515,12 +551,12 @@ class DownloadExcel extends CI_Controller {
 		
 		$objSpreadsheet = new Spreadsheet();
 
-		$objSpreadsheet->getProperties()->setCreator('YogaOcean - Administrator')
-		->setLastModifiedBy('YogaOcean - Administrator')
-		->setTitle('Test Excel Ocean');
+		$objSpreadsheet->getProperties()->setCreator('Administrator Sismindokum')
+		->setLastModifiedBy('Administrator Sismindokum')
+		->setTitle('Data Sismindokum PJB');
 
 		$objSpreadsheet->setActiveSheetIndex(0)
-		->getStyle('A1:O1')->getFont()->setBold(true);
+		->getStyle('A1:Q1')->getFont()->setBold(true);
 
 		$styleArray = [
 		    'borders' => [
@@ -535,41 +571,49 @@ class DownloadExcel extends CI_Controller {
 		    ],
 		];
 
-		$objSpreadsheet->getActiveSheet()->getStyle('A1:O1')->getFill()->setFillType(Fill::FILL_SOLID);
-		$objSpreadsheet->getActiveSheet()->getStyle('A1:O1')->getFill()->getStartColor()->setARGB('FF40BCD8');
+		$objSpreadsheet->getActiveSheet()->getStyle('A1:Q1')->getFill()->setFillType(Fill::FILL_SOLID);
+		$objSpreadsheet->getActiveSheet()->getStyle('A1:Q1')->getFill()->getStartColor()->setARGB('FF40BCD8');
+
+		$lt = 'A';
 
 		$objSpreadsheet->setActiveSheetIndex(0)
-		->setCellValue('A1', 'No.')
-		->setCellValue('B1', 'Distrik')
-		->setCellValue('C1', 'Jenis Perizinan')
-		->setCellValue('D1', 'Peralatan')
-		->setCellValue('E1', 'No. Sertifikat')
-		->setCellValue('F1', 'Lembaga')
-		->setCellValue('G1', 'PIC')
-		->setCellValue('H1', 'Tanggal Terbit')
-		->setCellValue('I1', 'Tanggal Berakhir')
-		->setCellValue('J1', 'Status Sertifikat')
-		->setCellValue('K1', 'Nama PIC')
-		->setCellValue('L1', 'Status Remark')
-		->setCellValue('M1', 'Keterangan Remark')
-		->setCellValue('N1', 'Pembuat Remark')
-		->setCellValue('O1', 'Waktu Remark');
+		->setCellValue($lt++.'1', 'No.')
+		->setCellValue($lt++.'1', 'Distrik')
+		->setCellValue($lt++.'1', 'Jenis Perizinan')
+		->setCellValue($lt++.'1', 'Peralatan')
+		->setCellValue($lt++.'1', 'No. Sertifikat')
+		->setCellValue($lt++.'1', 'Kode Dasar Hukum')
+		->setCellValue($lt++.'1', 'Keterangan Dasar Hukum')
+		->setCellValue($lt++.'1', 'Lembaga')
+		->setCellValue($lt++.'1', 'PIC')
+		->setCellValue($lt++.'1', 'Tanggal Terbit')
+		->setCellValue($lt++.'1', 'Tanggal Berakhir')
+		->setCellValue($lt++.'1', 'Status Sertifikat')
+		->setCellValue($lt++.'1', 'Nama PIC')
+		->setCellValue($lt++.'1', 'Status Remark')
+		->setCellValue($lt++.'1', 'Keterangan Remark')
+		->setCellValue($lt++.'1', 'Pembuat Remark')
+		->setCellValue($lt++.'1', 'Waktu Remark');
 
 		$no_cell = 2;
 		$no_data = 1;
 		foreach ($data as $key => $one_data) {
+			$lt = 'A';
+
 			$objSpreadsheet->setActiveSheetIndex(0)
-			->setCellValue('A'.$no_cell, $no_data++)
-			->setCellValue('B'.$no_cell, $one_data['nama_distrik'])
-			->setCellValue('C'.$no_cell, $one_data['nama_sub_jenis_sertifikat'])
-			->setCellValue('D'.$no_cell, $one_data['judul_sertifikat'])
-			->setCellValue('E'.$no_cell, $one_data['no_sertifikat'])
-			->setCellValue('F'.$no_cell, $one_data['nama_lembaga'])
-			->setCellValue('G'.$no_cell, $one_data['jabatan_pic'])
-			->setCellValue('H'.$no_cell, $one_data['tanggal_sertifikasi'])
-			->setCellValue('I'.$no_cell, $one_data['tanggal_kadaluarsa'])
-			->setCellValue('J'.$no_cell, $one_data['nama_status'])
-			->setCellValue('K'.$no_cell, $one_data['nama_lengkap_pegawai']);
+			->setCellValue($lt++.$no_cell, $no_data++)
+			->setCellValue($lt++.$no_cell, $one_data['nama_distrik'])
+			->setCellValue($lt++.$no_cell, $one_data['nama_sub_jenis_sertifikat'])
+			->setCellValue($lt++.$no_cell, $one_data['judul_sertifikat'])
+			->setCellValue($lt++.$no_cell, $one_data['no_sertifikat'])
+			->setCellValue($lt++.$no_cell, $one_data['kode_dasar_hukum'])
+			->setCellValue($lt++.$no_cell, $one_data['keterangan_dasar_hukum'])
+			->setCellValue($lt++.$no_cell, $one_data['nama_lembaga'])
+			->setCellValue($lt++.$no_cell, $one_data['jabatan_pic'])
+			->setCellValue($lt++.$no_cell, $one_data['tanggal_sertifikasi'])
+			->setCellValue($lt++.$no_cell, $one_data['tanggal_kadaluarsa'])
+			->setCellValue($lt++.$no_cell, $one_data['nama_status'])
+			->setCellValue($lt++.$no_cell, $one_data['nama_lengkap_pegawai']);
 
 			$data_remark = $this->remark->get_remark_by_id_sertifikat($one_data['id_sertifikat']);
 			$count_remark = count($data_remark)-1;
@@ -577,16 +621,18 @@ class DownloadExcel extends CI_Controller {
 
 			if($count_remark > 0)
 			{
-				for ($count = 'A'; $count <= 'K'; $count++)
+				for ($count = 'A'; $count <= 'M'; $count++)
 					$objSpreadsheet->getActiveSheet()->mergeCells($count.$no_cell.':'.$count.$merge);
 			}
 
 			foreach ($data_remark as $key => $one_remark) {
+				$lt_inner = $lt;
+
 				$objSpreadsheet->setActiveSheetIndex(0)
-				->setCellValue('L'.$no_cell, $one_remark['nama_status'])
-				->setCellValue('M'.$no_cell, $one_remark['keterangan'])
-				->setCellValue('N'.$no_cell, $one_remark['nama_lengkap_pegawai'])
-				->setCellValue('O'.$no_cell, $one_remark['tanggal_remark']);
+				->setCellValue($lt_inner++.$no_cell, $one_remark['nama_status'])
+				->setCellValue($lt_inner++.$no_cell, $one_remark['keterangan'])
+				->setCellValue($lt_inner++.$no_cell, $one_remark['nama_lengkap_pegawai'])
+				->setCellValue($lt_inner++.$no_cell, $one_remark['tanggal_remark']);
 
 				$no_cell++;
 			}
@@ -597,18 +643,22 @@ class DownloadExcel extends CI_Controller {
 			$no_cell++;
 		}
 
-		$objSpreadsheet->getActiveSheet()->getStyle('A1:O'.--$no_cell)->applyFromArray($styleArray);
+		$objSpreadsheet->getActiveSheet()->getStyle('A1:Q'.--$no_cell)->applyFromArray($styleArray);
 		$objSpreadsheet->setActiveSheetIndex(0)
-		->getStyle('A1:O1')->getAlignment()
+		->getStyle('A1:Q1')->getAlignment()
 		->setHorizontal(Alignment::HORIZONTAL_CENTER);
 
-		for ($count = 'A'; $count <= 'O'; $count++)
+		for ($count = 'A'; $count <= 'Q'; $count++)
 		{
 			$objSpreadsheet->getActiveSheet()
 			->getColumnDimension($count)->setAutoSize(true);
 		}
-		$objSpreadsheet->getActiveSheet()->getColumnDimension('M')->setWidth(40);
-		$objSpreadsheet->getActiveSheet()->getStyle('M2:M'.$no_cell)->getAlignment()->setWrapText(true);
+		$objSpreadsheet->getActiveSheet()->getColumnDimension('G')->setAutoSize(false);
+		$objSpreadsheet->getActiveSheet()->getColumnDimension('G')->setWidth(40);
+		$objSpreadsheet->getActiveSheet()->getStyle('G2:G'.$no_cell)->getAlignment()->setWrapText(true);
+		$objSpreadsheet->getActiveSheet()->getColumnDimension('O')->setAutoSize(false);
+		$objSpreadsheet->getActiveSheet()->getColumnDimension('O')->setWidth(40);
+		$objSpreadsheet->getActiveSheet()->getStyle('O2:O'.$no_cell)->getAlignment()->setWrapText(true);
 
 		$objSpreadsheet->getActiveSheet()->setTitle('Report Excel');
 		$objSpreadsheet->setActiveSheetIndex(0);
@@ -661,12 +711,12 @@ class DownloadExcel extends CI_Controller {
 
 		$objSpreadsheet = new Spreadsheet();
 
-		$objSpreadsheet->getProperties()->setCreator('YogaOcean - Administrator')
-		->setLastModifiedBy('YogaOcean - Administrator')
-		->setTitle('Test Excel Ocean');
+		$objSpreadsheet->getProperties()->setCreator('Administrator Sismindokum')
+		->setLastModifiedBy('Administrator Sismindokum')
+		->setTitle('Data Sismindokum PJB');
 
 		$objSpreadsheet->setActiveSheetIndex(0)
-		->getStyle('A1:O1')->getFont()->setBold(true);
+		->getStyle('A1:Q1')->getFont()->setBold(true);
 
 		$styleArray = [
 		    'borders' => [
@@ -681,41 +731,49 @@ class DownloadExcel extends CI_Controller {
 		    ],
 		];
 
-		$objSpreadsheet->getActiveSheet()->getStyle('A1:O1')->getFill()->setFillType(Fill::FILL_SOLID);
-		$objSpreadsheet->getActiveSheet()->getStyle('A1:O1')->getFill()->getStartColor()->setARGB('FF40BCD8');
+		$objSpreadsheet->getActiveSheet()->getStyle('A1:Q1')->getFill()->setFillType(Fill::FILL_SOLID);
+		$objSpreadsheet->getActiveSheet()->getStyle('A1:Q1')->getFill()->getStartColor()->setARGB('FF40BCD8');
+
+		$lt = 'A';
 
 		$objSpreadsheet->setActiveSheetIndex(0)
-		->setCellValue('A1', 'No.')
-		->setCellValue('B1', 'Distrik')
-		->setCellValue('C1', 'Jenis Pengujian')
-		->setCellValue('D1', 'Peralatan')
-		->setCellValue('E1', 'No. Pengujian')
-		->setCellValue('F1', 'Lembaga')
-		->setCellValue('G1', 'PIC')
-		->setCellValue('H1', 'Tanggal Terbit')
-		->setCellValue('I1', 'Tanggal Berakhir')
-		->setCellValue('J1', 'Status Sertifikat')
-		->setCellValue('K1', 'Nama PIC')
-		->setCellValue('L1', 'Status Remark')
-		->setCellValue('M1', 'Keterangan Remark')
-		->setCellValue('N1', 'Pembuat Remark')
-		->setCellValue('O1', 'Waktu Remark');
+		->setCellValue($lt++.'1', 'No.')
+		->setCellValue($lt++.'1', 'Distrik')
+		->setCellValue($lt++.'1', 'Jenis Pengujian')
+		->setCellValue($lt++.'1', 'Peralatan')
+		->setCellValue($lt++.'1', 'No. Pengujian')
+		->setCellValue($lt++.'1', 'Kode Dasar Hukum')
+		->setCellValue($lt++.'1', 'Keterangan Dasar Hukum')
+		->setCellValue($lt++.'1', 'Lembaga')
+		->setCellValue($lt++.'1', 'PIC')
+		->setCellValue($lt++.'1', 'Tanggal Terbit')
+		->setCellValue($lt++.'1', 'Tanggal Berakhir')
+		->setCellValue($lt++.'1', 'Status Sertifikat')
+		->setCellValue($lt++.'1', 'Nama PIC')
+		->setCellValue($lt++.'1', 'Status Remark')
+		->setCellValue($lt++.'1', 'Keterangan Remark')
+		->setCellValue($lt++.'1', 'Pembuat Remark')
+		->setCellValue($lt++.'1', 'Waktu Remark');
 
 		$no_cell = 2;
 		$no_data = 1;
 		foreach ($data as $key => $one_data) {
+			$lt = 'A';
+
 			$objSpreadsheet->setActiveSheetIndex(0)
-			->setCellValue('A'.$no_cell, $no_data++)
-			->setCellValue('B'.$no_cell, $one_data['nama_distrik'])
-			->setCellValue('C'.$no_cell, $one_data['nama_sub_jenis_sertifikat'])
-			->setCellValue('D'.$no_cell, $one_data['judul_sertifikat'])
-			->setCellValue('E'.$no_cell, $one_data['no_sertifikat'])
-			->setCellValue('F'.$no_cell, $one_data['nama_lembaga'])
-			->setCellValue('G'.$no_cell, $one_data['jabatan_pic'])
-			->setCellValue('H'.$no_cell, $one_data['tanggal_sertifikasi'])
-			->setCellValue('I'.$no_cell, $one_data['tanggal_kadaluarsa'])
-			->setCellValue('J'.$no_cell, $one_data['nama_status'])
-			->setCellValue('K'.$no_cell, $one_data['nama_lengkap_pegawai']);
+			->setCellValue($lt++.$no_cell, $no_data++)
+			->setCellValue($lt++.$no_cell, $one_data['nama_distrik'])
+			->setCellValue($lt++.$no_cell, $one_data['nama_sub_jenis_sertifikat'])
+			->setCellValue($lt++.$no_cell, $one_data['judul_sertifikat'])
+			->setCellValue($lt++.$no_cell, $one_data['no_sertifikat'])
+			->setCellValue($lt++.$no_cell, $one_data['kode_dasar_hukum'])
+			->setCellValue($lt++.$no_cell, $one_data['keterangan_dasar_hukum'])
+			->setCellValue($lt++.$no_cell, $one_data['nama_lembaga'])
+			->setCellValue($lt++.$no_cell, $one_data['jabatan_pic'])
+			->setCellValue($lt++.$no_cell, $one_data['tanggal_sertifikasi'])
+			->setCellValue($lt++.$no_cell, $one_data['tanggal_kadaluarsa'])
+			->setCellValue($lt++.$no_cell, $one_data['nama_status'])
+			->setCellValue($lt++.$no_cell, $one_data['nama_lengkap_pegawai']);
 
 			$data_remark = $this->remark->get_remark_by_id_sertifikat($one_data['id_sertifikat']);
 			$count_remark = count($data_remark)-1;
@@ -723,16 +781,18 @@ class DownloadExcel extends CI_Controller {
 
 			if($count_remark > 0)
 			{
-				for ($count = 'A'; $count <= 'K'; $count++)
+				for ($count = 'A'; $count <= 'M'; $count++)
 					$objSpreadsheet->getActiveSheet()->mergeCells($count.$no_cell.':'.$count.$merge);
 			}
 
 			foreach ($data_remark as $key => $one_remark) {
+				$lt_inner = $lt;
+
 				$objSpreadsheet->setActiveSheetIndex(0)
-				->setCellValue('L'.$no_cell, $one_remark['nama_status'])
-				->setCellValue('M'.$no_cell, $one_remark['keterangan'])
-				->setCellValue('N'.$no_cell, $one_remark['nama_lengkap_pegawai'])
-				->setCellValue('O'.$no_cell, $one_remark['tanggal_remark']);
+				->setCellValue($lt_inner++.$no_cell, $one_remark['nama_status'])
+				->setCellValue($lt_inner++.$no_cell, $one_remark['keterangan'])
+				->setCellValue($lt_inner++.$no_cell, $one_remark['nama_lengkap_pegawai'])
+				->setCellValue($lt_inner++.$no_cell, $one_remark['tanggal_remark']);
 
 				$no_cell++;
 			}
@@ -743,18 +803,22 @@ class DownloadExcel extends CI_Controller {
 			$no_cell++;
 		}
 
-		$objSpreadsheet->getActiveSheet()->getStyle('A1:O'.--$no_cell)->applyFromArray($styleArray);
+		$objSpreadsheet->getActiveSheet()->getStyle('A1:Q'.--$no_cell)->applyFromArray($styleArray);
 		$objSpreadsheet->setActiveSheetIndex(0)
-		->getStyle('A1:O1')->getAlignment()
+		->getStyle('A1:Q1')->getAlignment()
 		->setHorizontal(Alignment::HORIZONTAL_CENTER);
 
-		for ($count = 'A'; $count <= 'O'; $count++)
+		for ($count = 'A'; $count <= 'Q'; $count++)
 		{
 			$objSpreadsheet->getActiveSheet()
 			->getColumnDimension($count)->setAutoSize(true);
 		}
-		$objSpreadsheet->getActiveSheet()->getColumnDimension('M')->setWidth(40);
-		$objSpreadsheet->getActiveSheet()->getStyle('M2:M'.$no_cell)->getAlignment()->setWrapText(true);
+		$objSpreadsheet->getActiveSheet()->getColumnDimension('G')->setAutoSize(false);
+		$objSpreadsheet->getActiveSheet()->getColumnDimension('G')->setWidth(40);
+		$objSpreadsheet->getActiveSheet()->getStyle('G2:G'.$no_cell)->getAlignment()->setWrapText(true);
+		$objSpreadsheet->getActiveSheet()->getColumnDimension('O')->setAutoSize(false);
+		$objSpreadsheet->getActiveSheet()->getColumnDimension('O')->setWidth(40);
+		$objSpreadsheet->getActiveSheet()->getStyle('O2:O'.$no_cell)->getAlignment()->setWrapText(true);
 
 		$objSpreadsheet->getActiveSheet()->setTitle('Report Excel');
 		$objSpreadsheet->setActiveSheetIndex(0);
@@ -807,12 +871,12 @@ class DownloadExcel extends CI_Controller {
 
 		$objSpreadsheet = new Spreadsheet();
 
-		$objSpreadsheet->getProperties()->setCreator('YogaOcean - Administrator')
-		->setLastModifiedBy('YogaOcean - Administrator')
-		->setTitle('Test Excel Ocean');
+		$objSpreadsheet->getProperties()->setCreator('Administrator Sismindokum')
+		->setLastModifiedBy('Administrator Sismindokum')
+		->setTitle('Data Sismindokum PJB');
 
 		$objSpreadsheet->setActiveSheetIndex(0)
-		->getStyle('A1:O1')->getFont()->setBold(true);
+		->getStyle('A1:Q1')->getFont()->setBold(true);
 
 		$styleArray = [
 		    'borders' => [
@@ -827,41 +891,49 @@ class DownloadExcel extends CI_Controller {
 		    ],
 		];
 
-		$objSpreadsheet->getActiveSheet()->getStyle('A1:O1')->getFill()->setFillType(Fill::FILL_SOLID);
-		$objSpreadsheet->getActiveSheet()->getStyle('A1:O1')->getFill()->getStartColor()->setARGB('FF40BCD8');
+		$objSpreadsheet->getActiveSheet()->getStyle('A1:Q1')->getFill()->setFillType(Fill::FILL_SOLID);
+		$objSpreadsheet->getActiveSheet()->getStyle('A1:Q1')->getFill()->getStartColor()->setARGB('FF40BCD8');
+
+		$lt = 'A';
 
 		$objSpreadsheet->setActiveSheetIndex(0)
-		->setCellValue('A1', 'No.')
-		->setCellValue('B1', 'Distrik')
-		->setCellValue('C1', 'Nama Lisensi')
-		->setCellValue('D1', 'Spesifikasi')
-		->setCellValue('E1', 'No. Lisensi')
-		->setCellValue('F1', 'Lembaga')
-		->setCellValue('G1', 'PIC')
-		->setCellValue('H1', 'Tanggal Terbit')
-		->setCellValue('I1', 'Tanggal Berakhir')
-		->setCellValue('J1', 'Status Sertifikat')
-		->setCellValue('K1', 'Nama PIC')
-		->setCellValue('L1', 'Status Remark')
-		->setCellValue('M1', 'Keterangan Remark')
-		->setCellValue('N1', 'Pembuat Remark')
-		->setCellValue('O1', 'Waktu Remark');
+		->setCellValue($lt++.'1', 'No.')
+		->setCellValue($lt++.'1', 'Distrik')
+		->setCellValue($lt++.'1', 'Nama Lisensi')
+		->setCellValue($lt++.'1', 'Spesifikasi')
+		->setCellValue($lt++.'1', 'No. Lisensi')
+		->setCellValue($lt++.'1', 'Kode Dasar Hukum')
+		->setCellValue($lt++.'1', 'Keterangan Dasar Hukum')
+		->setCellValue($lt++.'1', 'Lembaga')
+		->setCellValue($lt++.'1', 'PIC')
+		->setCellValue($lt++.'1', 'Tanggal Terbit')
+		->setCellValue($lt++.'1', 'Tanggal Berakhir')
+		->setCellValue($lt++.'1', 'Status Sertifikat')
+		->setCellValue($lt++.'1', 'Nama PIC')
+		->setCellValue($lt++.'1', 'Status Remark')
+		->setCellValue($lt++.'1', 'Keterangan Remark')
+		->setCellValue($lt++.'1', 'Pembuat Remark')
+		->setCellValue($lt++.'1', 'Waktu Remark');
 
 		$no_cell = 2;
 		$no_data = 1;
 		foreach ($data as $key => $one_data) {
+			$lt = 'A';
+
 			$objSpreadsheet->setActiveSheetIndex(0)
-			->setCellValue('A'.$no_cell, $no_data++)
-			->setCellValue('B'.$no_cell, $one_data['nama_distrik'])
-			->setCellValue('C'.$no_cell, $one_data['judul_sertifikat'])
-			->setCellValue('D'.$no_cell, $one_data['spesifikasi_lisensi'])
-			->setCellValue('E'.$no_cell, $one_data['no_sertifikat'])
-			->setCellValue('F'.$no_cell, $one_data['nama_lembaga'])
-			->setCellValue('G'.$no_cell, $one_data['jabatan_pic'])
-			->setCellValue('H'.$no_cell, $one_data['tanggal_sertifikasi'])
-			->setCellValue('I'.$no_cell, $one_data['tanggal_kadaluarsa'])
-			->setCellValue('J'.$no_cell, $one_data['nama_status'])
-			->setCellValue('K'.$no_cell, $one_data['nama_lengkap_pegawai']);
+			->setCellValue($lt++.$no_cell, $no_data++)
+			->setCellValue($lt++.$no_cell, $one_data['nama_distrik'])
+			->setCellValue($lt++.$no_cell, $one_data['judul_sertifikat'])
+			->setCellValue($lt++.$no_cell, $one_data['spesifikasi_lisensi'])
+			->setCellValue($lt++.$no_cell, $one_data['no_sertifikat'])
+			->setCellValue($lt++.$no_cell, $one_data['kode_dasar_hukum'])
+			->setCellValue($lt++.$no_cell, $one_data['keterangan_dasar_hukum'])
+			->setCellValue($lt++.$no_cell, $one_data['nama_lembaga'])
+			->setCellValue($lt++.$no_cell, $one_data['jabatan_pic'])
+			->setCellValue($lt++.$no_cell, $one_data['tanggal_sertifikasi'])
+			->setCellValue($lt++.$no_cell, $one_data['tanggal_kadaluarsa'])
+			->setCellValue($lt++.$no_cell, $one_data['nama_status'])
+			->setCellValue($lt++.$no_cell, $one_data['nama_lengkap_pegawai']);
 
 			$data_remark = $this->remark->get_remark_by_id_sertifikat($one_data['id_sertifikat']);
 			$count_remark = count($data_remark)-1;
@@ -869,16 +941,18 @@ class DownloadExcel extends CI_Controller {
 
 			if($count_remark > 0)
 			{
-				for ($count = 'A'; $count <= 'K'; $count++)
+				for ($count = 'A'; $count <= 'M'; $count++)
 					$objSpreadsheet->getActiveSheet()->mergeCells($count.$no_cell.':'.$count.$merge);
 			}
 
 			foreach ($data_remark as $key => $one_remark) {
+				$lt_inner = $lt;
+
 				$objSpreadsheet->setActiveSheetIndex(0)
-				->setCellValue('L'.$no_cell, $one_remark['nama_status'])
-				->setCellValue('M'.$no_cell, $one_remark['keterangan'])
-				->setCellValue('N'.$no_cell, $one_remark['nama_lengkap_pegawai'])
-				->setCellValue('O'.$no_cell, $one_remark['tanggal_remark']);
+				->setCellValue($lt_inner++.$no_cell, $one_remark['nama_status'])
+				->setCellValue($lt_inner++.$no_cell, $one_remark['keterangan'])
+				->setCellValue($lt_inner++.$no_cell, $one_remark['nama_lengkap_pegawai'])
+				->setCellValue($lt_inner++.$no_cell, $one_remark['tanggal_remark']);
 
 				$no_cell++;
 			}
@@ -889,18 +963,22 @@ class DownloadExcel extends CI_Controller {
 			$no_cell++;
 		}
 
-		$objSpreadsheet->getActiveSheet()->getStyle('A1:O'.--$no_cell)->applyFromArray($styleArray);
+		$objSpreadsheet->getActiveSheet()->getStyle('A1:Q'.--$no_cell)->applyFromArray($styleArray);
 		$objSpreadsheet->setActiveSheetIndex(0)
-		->getStyle('A1:O1')->getAlignment()
+		->getStyle('A1:Q1')->getAlignment()
 		->setHorizontal(Alignment::HORIZONTAL_CENTER);
 
-		for ($count = 'A'; $count <= 'O'; $count++)
+		for ($count = 'A'; $count <= 'Q'; $count++)
 		{
 			$objSpreadsheet->getActiveSheet()
 			->getColumnDimension($count)->setAutoSize(true);
 		}
-		$objSpreadsheet->getActiveSheet()->getColumnDimension('M')->setWidth(40);
-		$objSpreadsheet->getActiveSheet()->getStyle('M2:M'.$no_cell)->getAlignment()->setWrapText(true);
+		$objSpreadsheet->getActiveSheet()->getColumnDimension('G')->setAutoSize(false);
+		$objSpreadsheet->getActiveSheet()->getColumnDimension('G')->setWidth(40);
+		$objSpreadsheet->getActiveSheet()->getStyle('G2:G'.$no_cell)->getAlignment()->setWrapText(true);
+		$objSpreadsheet->getActiveSheet()->getColumnDimension('O')->setAutoSize(false);
+		$objSpreadsheet->getActiveSheet()->getColumnDimension('O')->setWidth(40);
+		$objSpreadsheet->getActiveSheet()->getStyle('O2:O'.$no_cell)->getAlignment()->setWrapText(true);
 
 		$objSpreadsheet->getActiveSheet()->setTitle('Report Excel');
 		$objSpreadsheet->setActiveSheetIndex(0);
@@ -953,9 +1031,9 @@ class DownloadExcel extends CI_Controller {
 
 		$objSpreadsheet = new Spreadsheet();
 
-		$objSpreadsheet->getProperties()->setCreator('YogaOcean - Administrator')
-		->setLastModifiedBy('YogaOcean - Administrator')
-		->setTitle('Test Excel Ocean');
+		$objSpreadsheet->getProperties()->setCreator('Administrator Sismindokum')
+		->setLastModifiedBy('Administrator Sismindokum')
+		->setTitle('Data Sismindokum PJB');
 
 		$objSpreadsheet->setActiveSheetIndex(0)
 		->getStyle('A1:I1')->getFont()->setBold(true);
@@ -1046,9 +1124,9 @@ class DownloadExcel extends CI_Controller {
 
 		$objSpreadsheet = new Spreadsheet();
 
-		$objSpreadsheet->getProperties()->setCreator('YogaOcean - Administrator')
-		->setLastModifiedBy('YogaOcean - Administrator')
-		->setTitle('Test Excel Ocean');
+		$objSpreadsheet->getProperties()->setCreator('Administrator Sismindokum')
+		->setLastModifiedBy('Administrator Sismindokum')
+		->setTitle('Data Sismindokum PJB');
 
 		$objSpreadsheet->setActiveSheetIndex(0)
 		->getStyle('A1:E1')->getFont()->setBold(true);
@@ -1135,9 +1213,9 @@ class DownloadExcel extends CI_Controller {
 
 		$objSpreadsheet = new Spreadsheet();
 
-		$objSpreadsheet->getProperties()->setCreator('YogaOcean - Administrator')
-		->setLastModifiedBy('YogaOcean - Administrator')
-		->setTitle('Test Excel Ocean');
+		$objSpreadsheet->getProperties()->setCreator('Administrator Sismindokum')
+		->setLastModifiedBy('Administrator Sismindokum')
+		->setTitle('Data Sismindokum PJB');
 
 		$objSpreadsheet->setActiveSheetIndex(0)
 		->getStyle('A1:D1')->getFont()->setBold(true);
@@ -1209,9 +1287,9 @@ class DownloadExcel extends CI_Controller {
 
 		$objSpreadsheet = new Spreadsheet();
 
-		$objSpreadsheet->getProperties()->setCreator('YogaOcean - Administrator')
-		->setLastModifiedBy('YogaOcean - Administrator')
-		->setTitle('Test Excel Ocean');
+		$objSpreadsheet->getProperties()->setCreator('Administrator Sismindokum')
+		->setLastModifiedBy('Administrator Sismindokum')
+		->setTitle('Data Sismindokum PJB');
 
 		$objSpreadsheet->setActiveSheetIndex(0)
 		->getStyle('A1:E1')->getFont()->setBold(true);

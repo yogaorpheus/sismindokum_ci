@@ -93,7 +93,7 @@ class Anggaran extends CI_Model {
 
 	public function delete_anggaran_by_id($id)
 	{
-		$this->db->where('nama_status', "Tidak Aktif");
+		$this->db->where('nama_status', "Dihapus");
 		$this->db->where('penggunaan_tabel_status', "anggaran");
 		$id_status_dihapus = $this->db->get('status')->row_array()['id_status'];
 
@@ -105,5 +105,17 @@ class Anggaran extends CI_Model {
 		$query = $this->db->update('anggaran');
 
 		return $query;
+	}
+
+	public function get_selisih_tanggal($id_anggaran)
+	{
+		$query = $this->db->query(
+			"SELECT DATEDIFF(tanggal_kadaluarsa, now()) AS selisih_tanggal
+			FROM anggaran
+			WHERE anggaran.id_anggaran = ".$id_anggaran
+			);
+
+		$selisih_tanggal = $query->row_array()['selisih_tanggal'];
+		return $selisih_tanggal;
 	}
 }

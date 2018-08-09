@@ -20,9 +20,14 @@ class Welcome extends CI_Controller {
 	 */
 	public function index()
 	{
-		// echo FCPATH;
-		// die();
-		$this->load->view('testing');
+		$lt = 'A';
+
+		for ($i = 1; $i <= 10; $i++)
+			echo $lt++;
+
+		$lt += 2;
+		echo "<br>";
+		echo $lt;
 	}
 
 	public function testtest()
@@ -31,6 +36,24 @@ class Welcome extends CI_Controller {
 
 		var_dump($this->ellipse->load_sdm());
 		//phpinfo();
+	}
+
+	public function double_test()
+	{
+		$this->load->model('sertifikat');
+
+		$data_aktif = $this->sertifikat->get_data_sertifikat('Pertanahan', "ALL");
+		$data_tidak = $this->sertifikat->get_all_sertifikat_lama('Pertanahan', "ALL");
+
+		var_dump($data_aktif);
+		echo "<br><br>";
+		var_dump($data_tidak);
+		echo "<br><br>";
+
+		$data_combine = array_merge($data_aktif, $data_tidak);
+		var_dump($data_combine);
+		echo "<hr>";
+		echo "<br>DONE";
 	}
 
 	public function swift_strike()
@@ -78,6 +101,12 @@ class Welcome extends CI_Controller {
 
 		$string = substr($string, 0, -4);
 		echo $string;
+	}
+	
+	public function test_query_sdm() {
+		$this->load->model("ellipse");
+		$data = $this->ellipse->load_sdm();
+		json_encode($data);
 	}
 
 	public function kirim_email()

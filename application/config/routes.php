@@ -75,7 +75,7 @@ $route['pegawai_pjb']	= 'pegawaicontroller/index';
 // DOWNLOAD ROUTE //
 	// WITHOUT DISTRICT CODE //
 $route['data/anggaran_dasar/download'] 			= 'downloadexcel/anggaran_dasar/aktif';
-$route['data_lama/anggaran_dasar/download']		= 'downloadexcel/anggaran_dasar/tidak_aktif';
+$route['data_lama/anggaran_dasar/download']		= 'downloadexcel/anggaran_dasar/selesai';
 $route['data/pertanahan/download']				= 'downloadexcel/pertanahan/1';
 $route['data_lama/pertanahan/download']			= 'downloadexcel/pertanahan/0';
 $route['data/slo/download']						= 'downloadexcel/slo/1';

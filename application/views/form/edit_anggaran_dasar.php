@@ -36,7 +36,7 @@
                         <div class="input-group-addon">
                           <i class="fa fa-calendar"></i>
                         </div>
-                        <input type="text" class="form-control pull-right" id="datepicker1" name="tanggal_rups_sirkuler" value="<?php echo $data_anggaran['tanggal_rups_sirkuler']; ?>" required>
+                        <input type="text" class="form-control pull-right" id="datepicker1" autocomplete="off" name="tanggal_rups_sirkuler" value="<?php echo $data_anggaran['tanggal_rups_sirkuler']; ?>" required>
                       </div>
                     </div>
 
@@ -45,7 +45,7 @@
                       <select class="form-control select2" style="width: 25%;" name="tahun_anggaran" required>
                         <?php
                         $year_now = date("Y");
-                        for ($i = 2000; $i < 2100; $i++)
+                        for ($i = 1990; $i < 2100; $i++)
                         {
                           if ($data_anggaran['tahun_anggaran'] == $i)
                             echo "<option selected='selected'>";
@@ -69,22 +69,6 @@
                       <input type="text" class="form-control" id="nomor_penerimaan" name="nomor_penerimaan" value="<?php echo $data_anggaran['no_penerimaan_anggaran']; ?>" required>
                     </div>
 
-                    <div class="form-group">
-                      <label>Status</label><br>
-                      <select class="form-control select2" style="width: 50%;" name="status" required>
-                      <?php
-                        foreach ($status as $key => $one_status) {
-                          if ($one_status['id_status'] == $data_anggaran['status_anggaran'])
-                            echo "<option selected='selected' value='".$one_status['id_status']."'>";
-                          else
-                            echo "<option value='".$one_status['id_status']."'>";
-                          echo $one_status['nama_status'];
-                          echo "</option>";
-                        }
-                      ?>
-                      </select>
-                    </div>
-
                     <!-- ADA TAMBAHAN PIC, DIAMBIL MELALUI SESSION AJA -->                  
                   </div>
 
@@ -95,7 +79,7 @@
                         <div class="input-group-addon">
                           <i class="fa fa-calendar"></i>
                         </div>
-                        <input type="text" class="form-control pull-right" id="datepicker2" name="tanggal_akta" value="<?php echo $data_anggaran['tanggal_akta']; ?>" required>
+                        <input type="text" class="form-control pull-right" autocomplete="off" id="datepicker2" name="tanggal_akta" value="<?php echo $data_anggaran['tanggal_akta']; ?>" required>
                       </div>
                     </div>
 
@@ -109,6 +93,36 @@
                       <label>Lampiran 2</label>
                       <input type="file" id="lampiran2" name="lampiran2">
                       <p class="help-block"><?php echo $data_anggaran['nama_file2']; ?></p>
+                    </div>
+
+                    <div class="form-group">
+                      <label>Tanggal Berakhir</label>
+                      <div class="input-group">
+                        <div class="input-group-addon">
+                          <i class="fa fa-calendar"></i>
+                        </div>
+                        <input type="text" class="form-control pull-right" id="datepicker3" autocomplete="off" name="tanggal_berakhir" value="<?php echo $data_anggaran['tanggal_berakhir']; ?>" required>
+                      </div>
+                    </div>
+
+                    <div class="form-group">
+                      <label>Waktu Pengingat</label>
+                      <select class="form-control select2" style="width: 100%;" name="remainder" required>
+                      <?php
+                      foreach ($remainder as $key => $one_remainder) {
+                        if ($one_remainder['id_remainder'] == $data_anggaran['id_remainder_anggaran'])
+                        {
+                          echo "<option value='".$one_remainder['id_remainder']."' selected='selected'>";
+                        }
+                        else
+                        {
+                          echo "<option value='".$one_remainder['id_remainder']."' disabled='disabled'>";
+                        }
+                        echo $one_remainder['nama_remainder'];
+                        echo "</option>";
+                      }
+                      ?>
+                      </select>
                     </div>
                   </div>
 

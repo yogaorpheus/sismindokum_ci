@@ -13,14 +13,15 @@ class Anggaran_dasar extends CI_Controller {
 		
 		$this->load->model('anggaran');
 		$this->load->model('status');
+		$this->load->model('remainder');
 		$this->load->model('log_database');
 	}
 
-	public function upload_file_lampiran($nama_lampiran)
+	private function upload_file_lampiran($nama_lampiran)
 	{
 		$file_path = "";
 
-		$config['upload_path']          = './assets/lampiran/';
+		$config['upload_path']          = './assets/lampiran/anggaran/';
         $config['allowed_types']        = 'gif|jpg|jpeg|png|pdf|docx|doc|rar|zip';
        	$config['remove_spaces']		= true;
        	$config['max_size']				= '10000';
@@ -36,13 +37,41 @@ class Anggaran_dasar extends CI_Controller {
 		else
 		{
 			$file = $this->upload->data();
-			$file_path = base_url('assets/lampiran')."/".$file['file_name'];
+			$file_path = base_url('assets/lampiran/anggaran')."/".$file['file_name'];
 
 			$file_data['file_path'] = $file_path;
 			$file_data['file_name'] = $file['file_name'];
 		}
 
 		return $file_data;
+	}
+
+	private function set_status_anggaran($id_anggaran)
+	{
+		$data_anggaran = $this->anggaran->get_anggaran_by_id($id_anggaran);
+		
+		$id_remainder = $data_anggaran['id_remainder_anggaran'];
+		$durasi_remainder = $this->remainder->get_durasi_remainder_by_id($id_remainder);
+
+		$selisih_tanggal = $this->anggaran->get_selisih_tanggal($id_anggaran);
+		$data = array(
+			'id_anggaran'	=> $id_anggaran
+			);
+
+		if ($selisih_tanggal > $durasi_remainder)
+		{
+			$data['status_anggaran'] = $this->status->get_id_status_by_nama_status_dan_nama_tabel("Aktif", "anggaran");
+		}
+		else if (($selisih_tanggal <= $durasi_remainder) && ($selisih_tanggal > 0))
+		{
+			$data['status_anggaran'] = $this->status->get_id_status_by_nama_status_dan_nama_tabel("Alarm", "anggaran");
+		}
+		else if ($selisih_tanggal <= 0)
+		{
+			$data['status_anggaran'] = $this->status->get_id_status_by_nama_status_dan_nama_tabel("Kadaluarsa", "anggaran");
+		}
+
+		$result = $this->anggaran->update_anggaran_dasar($data);
 	}
 
 	public function tambah_anggaran_dasar()
@@ -54,6 +83,7 @@ class Anggaran_dasar extends CI_Controller {
 
 		$tanggal_rups_sirkuler = DateTime::createFromFormat('m/d/Y', $input['tanggal_rups_sirkuler'])->format('Y-m-d');
 		$tanggal_akta = DateTime::createFromFormat('m/d/Y', $input['tanggal_akta'])->format('Y-m-d');
+		$tanggal_berakhir = DateTime::createFromFormat('m/d/Y', $input['tanggal_berakhir'])->format('Y-m-d');
 
 		$insert_data = array(
 			'tanggal_rups_sirkuler'		=> $tanggal_rups_sirkuler,
@@ -65,9 +95,11 @@ class Anggaran_dasar extends CI_Controller {
 			'file_anggaran_2'			=> $file_path2['file_path'],
 			'nama_file1'				=> $file_path1['file_name'],
 			'nama_file2'				=> $file_path2['file_name'],
-			'status_anggaran'			=> $input['status'],
+			'status_anggaran'			=> 7,
 			'jabatan_pic'				=> $this->authentifier->get_user_detail()['posisi_pegawai'],
-			'dibuat_oleh'				=> $this->authentifier->get_user_detail()['id_pegawai']
+			'dibuat_oleh'				=> $this->authentifier->get_user_detail()['id_pegawai'],
+			'tanggal_kadaluarsa'		=> $tanggal_berakhir,
+			'id_remainder_anggaran'		=> $input['remainder']
 			);
 
 		$result = $this->anggaran->insert_anggaran_dasar($insert_data);
@@ -75,6 +107,9 @@ class Anggaran_dasar extends CI_Controller {
 		if ($result)
 		{
 			$id_pegawai = $this->authentifier->get_user_detail()['id_pegawai'];
+			$id_anggaran = $this->anggaran->get_id_anggaran_latest_by_user($id_pegawai);
+
+			$this->set_status_anggaran($id_anggaran);
 			
 			$log_data = array(
 				'nama_tabel'		=> 'anggaran',
@@ -104,10 +139,14 @@ class Anggaran_dasar extends CI_Controller {
 
 		$data_anggaran['tanggal_rups_sirkuler'] = DateTime::createFromFormat('Y-m-d', $data_anggaran['tanggal_rups_sirkuler'])->format('m/d/Y');
 		$data_anggaran['tanggal_akta'] = DateTime::createFromFormat('Y-m-d', $data_anggaran['tanggal_akta_anggaran'])->format('m/d/Y');
+		$data_anggaran['tanggal_berakhir'] = DateTime::createFromFormat('Y-m-d', $data_anggaran['tanggal_kadaluarsa'])->format('m/d/Y');
+
+		$remainder = $this->remainder->get_all_remainder();
 
 		$data = array(
 			'status' 		=> $status_anggaran,
-			'data_anggaran'	=> $data_anggaran
+			'data_anggaran'	=> $data_anggaran,
+			'remainder'		=> $remainder
 			);
 
 		$this->template->load_view('form', 'edit_anggaran_dasar', $data);
@@ -122,6 +161,7 @@ class Anggaran_dasar extends CI_Controller {
 		
 		$tanggal_rups_sirkuler = DateTime::createFromFormat('m/d/Y', $input['tanggal_rups_sirkuler'])->format('Y-m-d');
 		$tanggal_akta = DateTime::createFromFormat('m/d/Y', $input['tanggal_akta'])->format('Y-m-d');
+		$tanggal_berakhir = DateTime::createFromFormat('m/d/Y', $input['tanggal_berakhir'])->format('Y-m-d');
 
 		$data_anggaran = $this->anggaran->get_anggaran_by_id($input['id_anggaran']);
 
@@ -132,9 +172,10 @@ class Anggaran_dasar extends CI_Controller {
 			'tanggal_akta_anggaran'		=> $tanggal_akta,
 			'no_akta_anggaran'			=> $input['no_akta'],
 			'no_penerimaan_anggaran'	=> $input['nomor_penerimaan'],
-			'status_anggaran'			=> $input['status'],
 			'jabatan_pic'				=> $this->authentifier->get_user_detail()['posisi_pegawai'],
-			'dibuat_oleh'				=> $this->authentifier->get_user_detail()['id_pegawai']
+			'dibuat_oleh'				=> $this->authentifier->get_user_detail()['id_pegawai'],
+			'tanggal_kadaluarsa'		=> $tanggal_berakhir,
+			'id_remainder_anggaran'		=> $input['remainder'],
 			);
 
 		if (!is_null($file_path1) && !empty($file_path1))
@@ -153,6 +194,8 @@ class Anggaran_dasar extends CI_Controller {
 
 		if ($result) 
 		{
+			$this->set_status_anggaran($data['id_anggaran']);
+
 			$log_data = array(
 				'nama_tabel'		=> 'anggaran',
 				'id_pegawai'		=> $this->authentifier->get_user_detail()['id_pegawai'],

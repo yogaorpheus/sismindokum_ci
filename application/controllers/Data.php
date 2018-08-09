@@ -29,7 +29,11 @@ class Data extends CI_Controller {
 	//-------------------------------------- SEMUA DATA ANGGARAN DASAR -----------------------------------------------
 	public function anggaran_dasar()
 	{
-		$data_anggaran_dasar = $this->anggaran->get_all_anggaran_by_status("Aktif");
+		$data_aktif = $this->anggaran->get_all_anggaran_by_status("Aktif");
+		$data_alarm = $this->anggaran->get_all_anggaran_by_status("Alarm");
+		$data_expired = $this->anggaran->get_all_anggaran_by_status("Kadaluarsa");
+
+		$data_anggaran_dasar = array_merge($data_aktif, $data_alarm, $data_expired);
 		$jenis_distrik = $this->distrik->get_all_distrik();
 
 		$data = array(

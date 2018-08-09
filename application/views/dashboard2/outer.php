@@ -3,7 +3,7 @@
 <head>
 <?php $this->load->view('base/head', $head); ?>
 </head>
-<body class="hold-transition skin-blue sidebar-mini">
+<body class="hold-transition skin-blue sidebar-mini fixed">
 
 <div class="wrapper" style="overflow-y: hidden;">
 

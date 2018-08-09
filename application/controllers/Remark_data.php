@@ -152,7 +152,7 @@ class Remark_data extends CI_Controller {
 			if (!is_null($remark_selesai) && !empty($remark_selesai))
 			{
 				// Ada remark selesai pada sertifikat
-				$check_selesai = $this->set_status_anggaran($id_anggaran, "Tidak Aktif");
+				$check_selesai = $this->set_status_anggaran($id_anggaran, "Selesai");
 				if ($check_selesai)
 				{
 					$sub_link_2 = substr($sub_link, 0, -7);

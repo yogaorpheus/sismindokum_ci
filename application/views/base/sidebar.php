@@ -1,12 +1,12 @@
   <!-- Left side column. contains the logo and sidebar -->
-  <aside class="main-sidebar" style="background-color: #106f80; background-image: url(<?php echo base_url('assets/img/bg_pjb_small.png');?>); background-size: 700%; background-position: 20% 0%;">
+  <aside class="main-sidebar" style="background-color: #106f80; background-image: url(<?php echo base_url('assets/img/bg_pjb_small.png');?>); background-position: -20% 0%; background-attachment: fixed;">
     <!-- sidebar: style can be found in sidebar.less -->
     <section class="sidebar" style="">
       <!-- Sidebar user panel -->
       <div class="user-panel">
         <div align="middle">
           <a href="<?php echo base_url('home'); ?>">
-            <img src="<?php echo base_url('assets/adminlte'); ?>/dist/img/LOGO_PJB_White.png" style="height: 30px; width: 80px;">
+            <img src="<?php echo base_url('assets/adminlte'); ?>/dist/img/LOGO_PJB_White.png" style="height: 50%; width: 50%;">
           </a>
         </div>
         <!-- <div class="pull-left info">
@@ -30,33 +30,35 @@
         <?php
         foreach ($menu_tampil as $key => $one_menu_utama) 
         {
+			$menu_open = ($menu_utama[$key]['nama_controller']==$this->uri->segment(1)) ? " menu-open" : "";
+			$show_sub_menu = ($menu_utama[$key]['nama_controller']==$this->uri->segment(1)) ? " display: block;" : "";
+			
+			echo "<li class='treeview".$menu_open."'>"; 
+			if (isset($one_menu_utama[null]))
+			{
+				echo "<a href=".base_url($menu_utama[$key]['nama_controller']).">";
+				echo "<i class='fa fa-circle'></i> <span>".$menu_utama[$key]['nama_menu1']."</span>";
+				echo "</a>";
+			}
+			else
+			{
+				echo "<a href='#' style='background-color: rgba(43, 137, 160, 0.5);'>";
+				echo "<i class='fa fa-file-text-o'></i> <span>".$menu_utama[$key]['nama_menu1']."</span>";
+				echo "<span class='pull-right-container'><i class='fa fa-angle-left pull-right'></i></span>";
+				echo "</a>";
 
-          echo "<li class='treeview'>"; 
-          if (isset($one_menu_utama[null]))
-          {
-            echo "<a href=".base_url($menu_utama[$key]['nama_controller']).">";
-            echo "<i class='fa fa-circle'></i> <span>".$menu_utama[$key]['nama_menu1']."</span>";
-            echo "</a>";
-          }
-          else
-          {
-            echo "<a href='#' style='background-color: rgba(43, 137, 160, 0.5);'>";
-            echo "<i class='fa fa-file-text-o'></i> <span>".$menu_utama[$key]['nama_menu1']."</span>";
-            echo "<span class='pull-right-container'><i class='fa fa-angle-left pull-right'></i></span>";
-            echo "</a>";
-
-            echo "<ul class='treeview-menu' style='background: rgba(37, 142, 166, 0.6);'>";
-            foreach ($one_menu_utama as $key1 => $one_sub_menu) 
-            {
-              echo "<li>";
-              echo "<a href=".base_url($menu_utama[$key]['nama_controller']."/".$sub_menu[$key1]['nama_method'])." class='lihover' style='color: white;'>";
-              echo "<i class='fa fa-circle'></i> ".$sub_menu[$key1]['nama_menu2'];
-              echo "</a>";
-              echo "</li>";
-            }
-            echo "</ul>";
-          }
-          echo "</li>";
+				echo "<ul class='treeview-menu' style='background: rgba(37, 142, 166, 0.6);".$show_sub_menu."'>";
+				foreach ($one_menu_utama as $key1 => $one_sub_menu) 
+				{
+					echo "<li>";
+					echo "<a href=".base_url($menu_utama[$key]['nama_controller']."/".$sub_menu[$key1]['nama_method'])." class='lihover' style='color: white;'>";
+					echo "<i class='fa fa-circle'></i> ".$sub_menu[$key1]['nama_menu2'];
+					echo "</a>";
+					echo "</li>";
+				}
+				echo "</ul>";
+			}
+			echo "</li>";
         }
         ?>
 

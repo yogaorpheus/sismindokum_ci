@@ -1,7 +1,7 @@
 <?php
 defined('BASEPATH') OR exit('No direct script access allowed');
 
-class UnitController extends CI_Controller {
+class Unitcontroller extends CI_Controller {
 
 	public function __construct() 
 	{

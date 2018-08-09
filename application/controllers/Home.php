@@ -20,10 +20,4 @@ class Home extends CI_Controller {
 	{
 		$this->load->view('login');
 	}
-
-	// public function test()
-	// {
-	// 	$this->load->view('testing');
-	// }
-
 }

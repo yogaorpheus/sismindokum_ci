@@ -50,7 +50,7 @@
                   <td style="vertical-align: middle;"><?php echo $onedata['tanggal_akta_anggaran']; ?></td>
                   <td style="vertical-align: middle;"><?php echo $onedata['no_penerimaan_anggaran']; ?></td>
                   <td style="vertical-align: middle;"><?php echo $onedata['jabatan_pic']; ?></td>
-                  <td style="vertical-align: middle;"><h4><span class="label label-success"><?php echo $onedata['nama_status']; ?></span></h4></td>
+                  <td style="vertical-align: middle;"><h4><span class="label <?php echo $onedata['nama_status']; ?>"><?php echo $onedata['nama_status']; ?></span></h4></td>
                   <td style="vertical-align: middle;" width="60px;">
                     <div class="col-md-6">
                       <?php 
@@ -173,5 +173,11 @@
           return window.open(href);
         })
 
+      })
+
+      $(document).ready(function() {
+        $(".Aktif").addClass("label-success");
+        $(".Alarm").addClass("label-warning");
+        $(".Kadaluarsa").addClass("label-danger");
       })
     </script>

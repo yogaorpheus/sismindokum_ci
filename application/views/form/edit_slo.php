@@ -56,6 +56,22 @@
                       
                       ?>
                     </div>
+
+                    <div class="form-group">
+                      <label>Jenis SLO</label>
+                      <select class="form-control select2" style="width: 100%;" name="jenis_slo" required>
+                        <?php
+                        foreach ($dasar_hukum as $key => $one_dasar_hukum) {
+                          if ($one_dasar_hukum['id_dasar_hukum'] == $data_slo['id_dasar_hukum_sertifikat'])
+                            echo "<option value='".$one_dasar_hukum['id_dasar_hukum']."' selected='selected'>";
+                          else
+                            echo "<option value='".$one_dasar_hukum['id_dasar_hukum']."'>";
+                          echo $one_dasar_hukum['nama_sub_jenis_sertifikat'];
+                          echo "</option>";
+                        }
+                        ?>
+                      </select>
+                    </div>
                   
                     <div class="form-group">
                       <label>No. Sertifikat</label>
@@ -114,7 +130,7 @@
                         <div class="input-group-addon">
                           <i class="fa fa-calendar"></i>
                         </div>
-                        <input type="text" class="form-control pull-right" id="datepicker1" name="tanggal_terbit" value="<?php echo $data_slo['tanggal_terbit']; ?>" required>
+                        <input type="text" class="form-control pull-right" autocomplete="off" id="datepicker1" name="tanggal_terbit" value="<?php echo $data_slo['tanggal_terbit']; ?>" required>
                       </div>
                     </div>
 
@@ -124,7 +140,7 @@
                         <div class="input-group-addon">
                           <i class="fa fa-calendar"></i>
                         </div>
-                        <input type="text" class="form-control pull-right" id="datepicker2" name="tanggal_berakhir" value="<?php echo $data_slo['tanggal_berakhir']; ?>" required>
+                        <input type="text" class="form-control pull-right" autocomplete="off" id="datepicker2" name="tanggal_berakhir" value="<?php echo $data_slo['tanggal_berakhir']; ?>" required>
                       </div>
                     </div>
 
@@ -221,6 +237,17 @@
       {
         $('#datepicker2').datepicker().datepicker('setDate', "");
       }
+    })
+
+    $("#datepicker2").datepicker({
+      onSelect: function(dateText) {
+        $(this).change();
+      }
+    }).on('change', function(dateText) {
+      if (dateText.currentTarget.value == "12/31/4999")
+        $('#check_forever').prop('checked', true);
+      else
+        $('#check_forever').prop('checked', false);
     })
 
     <?php

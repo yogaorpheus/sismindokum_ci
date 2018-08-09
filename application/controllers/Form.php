@@ -36,7 +36,13 @@ class Form extends CI_Controller {
 	public function anggaran_dasar()
 	{
 		$status_anggaran = $this->status->get_status_by_nama_tabel('anggaran');
-		$data = array('status' => $status_anggaran);
+		$remainder = $this->remainder->get_all_remainder();
+
+		$data = array(
+			'status' 	=> $status_anggaran,
+			'remainder'	=> $remainder
+			);
+
 		$this->template->load_view('form', 'anggaran_dasar', $data);
 	}
 	//-------------------------- FORM APAPUN TERKAIT ANGGARAN DASAR BERAKHIR DISINI ----------------------------------
@@ -81,7 +87,7 @@ class Form extends CI_Controller {
 		$data = array(
 			'distrik' 		=> $jenis_distrik,
 			'lembaga'		=> $lembaga,
-			//'dasar_hukum'	=> $dasar_hukum,
+			'dasar_hukum'	=> $dasar_hukum,
 			'unit'			=> $unit,
 			'remainder'		=> $remainder
 			);
@@ -158,7 +164,7 @@ class Form extends CI_Controller {
 		$data = array(
 			'distrik' 		=> $jenis_distrik,
 			'lembaga'		=> $lembaga,
-			//'dasar_hukum'	=> $dasar_hukum,
+			'dasar_hukum'	=> $dasar_hukum,
 			'remainder'		=> $remainder
 			);
 		$this->template->load_view('form', 'lisensi', $data);

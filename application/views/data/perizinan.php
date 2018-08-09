@@ -198,7 +198,9 @@
         
         $('.select2').select2()
 
-        $('#tabel1').DataTable()
+        $('#tabel1').DataTable({
+			"scrollX": true
+		})
 
         $(document).on("click", ".Delete", function() {
           delete_href = $(this).attr('href');

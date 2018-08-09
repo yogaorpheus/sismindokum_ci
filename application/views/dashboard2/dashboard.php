@@ -207,7 +207,7 @@
     function createChartSertifikat(id, title, data, total_data)
     {
       return new Highcharts.Chart(id, {
-          colors: ['#52DEE5', '#faf2a1', '#a63a50', '#b0bbbf', '#1e1014'],
+          colors: ['#27e002', '#ff9d00', '#e51e00', '#af9d9a', '#000000'],
           chart: {
               plotBackgroundColor: null,
               plotBorderWidth: null,
@@ -245,7 +245,7 @@
     function createChartTwoColors(id, title, data, total_data)
     {
       return new Highcharts.Chart(id, {
-          colors: ['#52DEE5', '#a63a50'],
+          colors: ['#27e002', '#e51e00'],
           chart: {
               plotBackgroundColor: null,
               plotBorderWidth: null,
@@ -305,16 +305,9 @@
 
       if (kode_distrik_pegawai == 'Z')
       {
-        <?php
-        if (isset($data_anggaran) && isset($total_anggaran))
-        {
-          ?>
-          dataAnggaran = <?php echo json_encode($data_anggaran, JSON_NUMERIC_CHECK); ?>;
-          totalAnggaran = <?php echo $total_anggaran; ?>;
-          highchartsAnggaran = createChartTwoColors('highchartsAnggaran', 'Data Anggaran', dataAnggaran, totalAnggaran);
-          <?php
-        }
-        ?>
+        dataAnggaran = <?php echo json_encode($data_anggaran, JSON_NUMERIC_CHECK); ?>;
+        totalAnggaran = <?php echo $total_anggaran; ?>;
+        highchartsAnggaran = createChartTwoColors('highchartsAnggaran', 'Data Anggaran', dataAnggaran, totalAnggaran);
       }
 
       dataPertanahan = <?php echo json_encode($pertanahan, JSON_NUMERIC_CHECK); ?>;

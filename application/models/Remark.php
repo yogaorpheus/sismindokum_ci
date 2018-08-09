@@ -67,12 +67,22 @@ class Remark extends CI_Model {
 	{
 		$this->db->where('nama_status', "Selesai");
 		$this->db->where('penggunaan_tabel_status', "remark");
-		$id_status = $this->db->get('status')->row_array()['id_status'];
+		$id_status1 = $this->db->get('status')->row_array()['id_status'];
 
-		$this->db->where('status_remark', $id_status);
-		$this->db->where('id_data', $id_anggaran);
-		$this->db->where('tabel_data', "anggaran");
-		$query = $this->db->get('remark');
+		$this->db->where('nama_status', "Tidak Diperpanjang");
+		$this->db->where('penggunaan_tabel_status', "remark");
+		$id_status2 = $this->db->get('status')->row_array()['id_status'];
+
+		$main_query = "SELECT remark.*\n";
+		$main_query .= "FROM remark\n";
+		$main_query .= "WHERE (status_remark = ".$id_status1." OR status_remark = ".$id_status2.")";
+		$main_query .= " AND id_data = ".$id_anggaran;
+		$main_query .= " AND tabel_data = 'anggaran'";
+
+		// $this->db->where('status_remark', $id_status);
+		// $this->db->where('id_data', $id_anggaran);
+		// $this->db->where('tabel_data', "anggaran");
+		$query = $this->db->query($main_query);
 
 		return $query->result_array();
 	}
@@ -81,12 +91,22 @@ class Remark extends CI_Model {
 	{
 		$this->db->where('nama_status', "Selesai");
 		$this->db->where('penggunaan_tabel_status', "remark");
-		$id_status = $this->db->get('status')->row_array()['id_status'];
+		$id_status1 = $this->db->get('status')->row_array()['id_status'];
 
-		$this->db->where('status_remark', $id_status);
-		$this->db->where('id_data', $id_sertifikat);
-		$this->db->where('tabel_data', "sertifikat");
-		$query = $this->db->get('remark');
+		$this->db->where('nama_status', "Tidak Diperpanjang");
+		$this->db->where('penggunaan_tabel_status', "remark");
+		$id_status2 = $this->db->get('status')->row_array()['id_status'];
+
+		$main_query = "SELECT remark.*\n";
+		$main_query .= "FROM remark\n";
+		$main_query .= "WHERE (status_remark = ".$id_status1." OR status_remark = ".$id_status2.")";
+		$main_query .= " AND id_data = ".$id_sertifikat;
+		$main_query .= " AND tabel_data = 'sertifikat'";
+
+		// $this->db->where('status_remark', $id_status);
+		// $this->db->where('id_data', $id_sertifikat);
+		// $this->db->where('tabel_data', "sertifikat");
+		$query = $this->db->query($main_query);
 
 		return $query->result_array();
 	}

@@ -162,6 +162,7 @@ class Sertifikat_data extends CI_Controller {
 		$data = array(
 			'id_lembaga_sertifikat'		=> $input['lembaga'],
 			'id_jenis_sertifikat'		=> $id_jenis_sertifikat,
+			'id_dasar_hukum_sertifikat'	=> $input['jenis_lisensi'],
 			'id_distrik_sertifikat'		=> $input['distrik'],
 			'no_sertifikat'				=> $input['no_sertifikat'],
 			'judul_sertifikat'			=> $input['nama_lisensi'],
@@ -345,6 +346,7 @@ class Sertifikat_data extends CI_Controller {
 		$data = array(
 			'id_lembaga_sertifikat'		=> $input['lembaga'],
 			'id_jenis_sertifikat'		=> $id_jenis_sertifikat,
+			'id_dasar_hukum_sertifikat'	=> $input['jenis_slo'],
 			'id_unit_sertifikat'		=> $input['unit_sertifikasi'],
 			'id_distrik_sertifikat'		=> $input['distrik'],
 			'no_sertifikat'				=> $input['no_sertifikat'],

@@ -5,7 +5,7 @@
       <ol class="breadcrumb">
         <li><i class="fa fa-file-text-o"></i> Review Data</li>
         <li>Anggaran Dasar</li>
-        <li class="active">Remark Anggaran Dasar</li>
+        <li class="active">Progres Anggaran Dasar</li>
       </ol>
     </section>
 
@@ -18,7 +18,7 @@
             <input type="hidden" name="sub_link" value="<?php echo $this->uri->segment(2); ?>">
             <div class="box box-primary">
               <div class="box-header with-border">
-                <h3 class="box-title">Remark Anggaran Dasar</h3>
+                <h3 class="box-title">Progres Anggaran Dasar</h3>
 
                 <div class="box-tools pull-right">
                   <button type="button" class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-minus"></i></button>
@@ -79,7 +79,7 @@
 
               <div class="box box-success direct-chat direct-chat-success">
                 <div class="box-header with-border">
-                  <h3 class="box-title">Remark Anggaran</h3>
+                  <h3 class="box-title">Progres Anggaran</h3>
 
                   <div class="box-tools pull-right">
                     <button type="button" class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-minus"></i>
@@ -133,7 +133,7 @@
 
             <div class="box box-primary">
               <div class="box-header with-border">
-                <h3 class="box-title">Remark</h3>
+                <h3 class="box-title">Progres</h3>
 
                 <div class="box-tools pull-right">
                   <button type="button" class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-minus"></i></button>
@@ -146,7 +146,7 @@
                   
                   <div class="col-md-12">
                     <div class="form-group">
-                      <label>Status Remark</label>
+                      <label>Status Progres</label>
                       <select class="form-control select2" style="width: 100%;" name="status_remark" id="status_remark">
                         <?php
                         foreach ($status_remark as $key => $one_status) {
@@ -159,12 +159,12 @@
                     </div>
 
                     <div class="form-group">
-                      <label>Keterangan Remark</label>
-                      <textarea class="form-control" name="keterangan" placeholder="Tuliskan keterangan remark" rows="3"></textarea>
+                      <label>Keterangan Progres</label>
+                      <textarea class="form-control" name="keterangan" placeholder="Tuliskan keterangan progres" rows="3"></textarea>
                     </div>
 
                     <div class="form-group">
-                      <button type="submit" class="btn btn-success pull-right" value="Simpan">Simpan Remark</button>
+                      <button type="submit" class="btn btn-success pull-right" value="Simpan">Simpan Progres</button>
                     </div>
                   </div>
 
