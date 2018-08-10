@@ -23,10 +23,7 @@ class Hak_akses extends CI_Model {
 
 		$this->db->select('menu_tampil.id_menu1, menu_tampil.id_menu2, menu_tampil.id_menu_crud');
 		$this->db->where('hak_akses_menu.id_posisi_subdit', $id_posisi_subdit);
-		if ($id_distrik != 1)	// Bukan kantor pusat
-		{
-			$this->db->where('hak_akses_menu.id_distrik', 99);
-		}
+		$this->db->where('hak_akses_menu.id_distrik', $id_distrik);
 		$this->db->join('menu_tampil', 'menu_tampil.id_menu_tampil = hak_akses_menu.id_menu_tampil', 'inner');
 		$this->db->order_by('menu_tampil.id_menu1', "ASC");
 		$this->db->order_by('menu_tampil.id_menu2', "ASC");
