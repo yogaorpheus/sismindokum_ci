@@ -54,4 +54,37 @@ class Report extends CI_Model {
 		return $new_data;
 	}
 
+	public function get_jumlah_lisensi($id_distrik, $id_jenis_lisensi, $nama_status)
+	{	
+		$inner_query = "SELECT sertifikat.id_sertifikat, sertifikat.status_sertifikat\n";
+		$inner_query .= "FROM sertifikat\n";
+		$inner_query .= "WHERE sertifikat.id_jenis_sertifikat = '".$id_jenis_lisensi."' AND sertifikat.id_distrik_sertifikat = '".$id_distrik."'\n";
+
+		$main_query = "SELECT COUNT(inner_table.id_sertifikat) AS jumlah_sertifikat, status.nama_status AS nama_status\n";
+		$main_query .= "FROM (".$inner_query.") AS inner_table\n";
+		$main_query .= "RIGHT JOIN status ON status.id_status = inner_table.status_sertifikat\n";
+		$main_query .= "WHERE status.penggunaan_tabel_status = 'sertifikat'";
+
+		$where_nama_status = array();
+		foreach ($nama_status as $key => $one_nama) {
+			$where_nama_status[] = "status.nama_status LIKE '".$one_nama."'";
+		}
+
+		if (!empty($where_nama_status))
+			$main_query .= " AND (" .implode(" OR ", $where_nama_status). ")";
+
+		$main_query .= "\n";
+		$main_query .= "GROUP BY status.id_status\n";
+		$main_query .= "ORDER BY status.id_status";
+
+		$query = $this->db->query($main_query)->result_array();
+
+		$new_data = array();
+		foreach ($query as $key => $one_data) {
+			$new_data[$one_data['nama_status']] = $one_data;
+		}
+
+		return $new_data;
+	}
+
 }

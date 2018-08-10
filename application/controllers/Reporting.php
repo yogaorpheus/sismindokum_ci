@@ -19,6 +19,7 @@ class Reporting extends CI_Controller {
 
 		$this->load->model('report');
 		$this->load->model('distrik');
+		$this->load->model('jenis_sertifikat');
 	}
 
 	public function summary_slo()
@@ -469,6 +470,109 @@ class Reporting extends CI_Controller {
 
 	public function lisensi()
 	{
+		$id_jenis_lisensi = $this->jenis_sertifikat->get_id_jenis_sertifikat('Lisensi');
+		$nama_status = array("Aktif", "Alarm", "Kadaluarsa");
+		
+		$distrik = $this->distrik->get_all_distrik();
+		
+		$objSpreadsheet = new Spreadsheet();
+		
+		$objSpreadsheet->getProperties()->setCreator('Administrator Sismindokum')
+		->setLastModifiedBy('Administrator Sismindokum')
+		->setTitle('Data Sismindokum PJB');
 
+		$objSpreadsheet->setActiveSheetIndex(0)
+		->getStyle('A1:G4')->getFont()->setBold(true);
+
+		$styleArray = [
+		    'borders' => [
+		        'allBorders' => [
+		            'borderStyle' => Border::BORDER_THIN,
+		            'color' => ['argb' => '00000000'],
+		        ],
+		    ],
+		    'alignment' => [
+		        'horizontal' => Alignment::HORIZONTAL_LEFT,
+		        'vertical' => Alignment::VERTICAL_CENTER,
+		    ],
+		];
+
+		$objSpreadsheet->getActiveSheet()->getStyle('A3:G4')->getFill()->setFillType(Fill::FILL_SOLID);
+		$objSpreadsheet->getActiveSheet()->getStyle('A3:G4')->getFill()->getStartColor()->setARGB('FF40BCD8');
+	
+		$objSpreadsheet->getActiveSheet()->getStyle('D4')->getFill()->getStartColor()->setARGB('FF2CA021');
+		$objSpreadsheet->getActiveSheet()->getStyle('E4')->getFill()->getStartColor()->setARGB('FFE28400');
+		$objSpreadsheet->getActiveSheet()->getStyle('F4')->getFill()->getStartColor()->setARGB('FFAF0800');
+
+		$objSpreadsheet->setActiveSheetIndex(0)->setCellValue('A1', 'MONITORING SLO UNIT PEMBANGKITAN PT. PJB');
+
+		$objSpreadsheet->setActiveSheetIndex(0)
+		->setCellValue('A3', 'No.')
+		->setCellValue('B3', 'Unit Pembangkit')
+		->setCellValue('C3', 'Jumlah Unit')
+		->setCellValue('D3', 'Status Sertifikasi')
+		->setCellValue('G3', 'Keterangan')
+		->setCellValue('D4', 'Aktif')
+		->setCellValue('E4', 'Alarm')
+		->setCellValue('F4', 'Expired');
+
+		$objSpreadsheet->getActiveSheet()->mergeCells('A1:G2');
+		$objSpreadsheet->getActiveSheet()->mergeCells('A3:A4');
+		$objSpreadsheet->getActiveSheet()->mergeCells('B3:B4');
+		$objSpreadsheet->getActiveSheet()->mergeCells('C3:C4');
+		$objSpreadsheet->getActiveSheet()->mergeCells('D3:F3');
+		$objSpreadsheet->getActiveSheet()->mergeCells('G3:G4');
+
+		$cell_data = 5;
+		$no_cell = 1;
+		foreach ($distrik as $key => $one_distrik) {
+			$lt = 'A';
+
+			$data_report = $this->report->get_jumlah_lisensi($one_distrik['id_distrik'], $id_jenis_lisensi, $nama_status);
+			if (empty($data_report) || is_null($data_report))
+				$jumlah = 0;
+			else
+				$jumlah = $data_report['Aktif']['jumlah_sertifikat'] + $data_report['Alarm']['jumlah_sertifikat'] + $data_report['Kadaluarsa']['jumlah_sertifikat'];
+
+			$objSpreadsheet->setActiveSheetIndex(0)
+			->setCellValue($lt++.$cell_data, $no_cell++)
+			->setCellValue($lt++.$cell_data, $one_distrik['nama_distrik'])
+			->setCellValue($lt++.$cell_data, $jumlah);
+
+			if (empty($data_report) || is_null($data_report))
+			{
+				$objSpreadsheet->setActiveSheetIndex(0)
+				->setCellValue($lt++.$cell_data, 0)
+				->setCellValue($lt++.$cell_data, 0)
+				->setCellValue($lt++.$cell_data, 0);
+			}
+			else
+			{
+				$objSpreadsheet->setActiveSheetIndex(0)
+				->setCellValue($lt++.$cell_data, $data_report['Aktif']['jumlah_sertifikat'])
+				->setCellValue($lt++.$cell_data, $data_report['Alarm']['jumlah_sertifikat'])
+				->setCellValue($lt++.$cell_data, $data_report['Kadaluarsa']['jumlah_sertifikat']);
+			}
+			
+			$cell_data++;
+		}
+
+		$objSpreadsheet->getActiveSheet()->getStyle('A1:G'.--$cell_data)->applyFromArray($styleArray);
+		$objSpreadsheet->setActiveSheetIndex(0)
+		->getStyle('A1:G4')->getAlignment()
+		->setHorizontal(Alignment::HORIZONTAL_CENTER);
+
+		for ($count = 'A'; $count <= 'G'; $count++)
+		{
+			$objSpreadsheet->getActiveSheet()
+			->getColumnDimension($count)->setAutoSize(true);
+		}
+
+		header('Content-Type: application/vnd.ms-excel');
+		header('Content-Disposition: attachment;filename="text.xlsx"');
+		header('Cache-Control: max-age=0');
+
+		$writer = new Xlsx($objSpreadsheet);
+		$writer->save('php://output');
 	}
 }

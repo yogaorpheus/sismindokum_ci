@@ -89,40 +89,41 @@
 
           <li class="treeview">
             <a href="#" style="background-color: rgba(43, 137, 160, 0.5);">
-              <i class=""></i>
+              <i class="fa fa-file-text-o"></i>
               <span>Reporting</span>
+              <span class='pull-right-container'><i class='fa fa-angle-left pull-right'></i></span>
             </a>
-            <ul class="treeview-menu">
+            <ul class="treeview-menu" style="background-color: rgba(37, 142, 166, 0.6);">
               <li>
-                <a href="<?php echo base_url('reporting/summary_slo'); ?>" style="background-color: rgba(37, 142, 166, 0.6);">
+                <a href="<?php echo base_url('reporting/summary_slo'); ?>" class='lihover' style='color: white;'>
                   <i class="fa fa-circle"></i>
                   <span>Summary SLO</span>
                   <!-- Kode Dasar Hukum O003 saja -->
                 </a>
               </li>
               <li>
-                <a href="<?php echo base_url('reporting/perizinan_bidang_teknik'); ?>" style="background-color: rgba(37, 142, 166, 0.6);">
+                <a href="<?php echo base_url('reporting/perizinan_bidang_teknik'); ?>" class='lihover' style='color: white;'>
                   <i class="fa fa-circle"></i>
                   <span>Perizinan Bidang Teknik</span>
                   <!-- Kode Dasar Hukum L (all), K (all), dan O (all) selain O003 -->
                 </a>
               </li>
               <li>
-                <a href="<?php echo base_url('reporting/perizinan_bidang_administrasi'); ?>" style="background-color: rgba(37, 142, 166, 0.6);">
+                <a href="<?php echo base_url('reporting/perizinan_bidang_administrasi'); ?>" class='lihover' style='color: white;'>
                   <i class="fa fa-circle"></i>
                   <span>Perizinan Bidang Administrasi</span>
                   <!-- Kode Dasar Hukum T,B,P,U,D,A all -->
                 </a>
               </li>
               <li>
-                <a href="<?php echo base_url('reporting/perizinan_bidang_sdm'); ?>" style="background-color: rgba(37, 142, 166, 0.6);">
+                <a href="<?php echo base_url('reporting/perizinan_bidang_sdm'); ?>" class='lihover' style='color: white;'>
                   <i class="fa fa-circle"></i>
                   <span>Perizinan Bidang SDM</span>
                   <!-- Kode Dasar Hukum S all, C all saja -->
                 </a>
               </li>
               <li>
-                <a href="#" style="background-color: rgba(37, 142, 166, 0.6);">
+                <a href="<?php echo base_url('reporting/lisensi'); ?>" class='lihover' style='color: white;'>
                   <i class="fa fa-circle"></i>
                   <span>Lisensi</span>
                 </a>
