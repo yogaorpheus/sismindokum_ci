@@ -117,7 +117,7 @@
               <li>
                 <a href="<?php echo base_url('reporting/perizinan_bidang_sdm'); ?>" style="background-color: rgba(37, 142, 166, 0.6);">
                   <i class="fa fa-circle"></i>
-                  <span>Perizinan Bidang SDM / Personel</span>
+                  <span>Perizinan Bidang SDM</span>
                   <!-- Kode Dasar Hukum S all, C all saja -->
                 </a>
               </li>

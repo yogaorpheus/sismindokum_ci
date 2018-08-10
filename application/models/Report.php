@@ -25,7 +25,7 @@ class Report extends CI_Model {
 			$inner_query .= " AND (" .implode(" OR ", $where_dasar_hukum). ")";
 
 		if (!is_null($not_kode_dasar_hukum))
-			$inner_query = " AND (dasar_hukum.kode_dasar_hukum NOT LIKE '%".$not_kode_dasar_hukum."%')";
+			$inner_query .= " AND (dasar_hukum.kode_dasar_hukum NOT LIKE '%".$not_kode_dasar_hukum."%')";
 
 		$main_query = "SELECT COUNT(inner_table.id_sertifikat) AS jumlah_sertifikat, status.nama_status AS nama_status\n";
 		$main_query .= "FROM (".$inner_query.") AS inner_table\n";
