@@ -86,6 +86,49 @@
               <span>Dasar Hukum</span>
             </a>
           </li>
+
+          <li class="treeview">
+            <a href="#" style="background-color: rgba(43, 137, 160, 0.5);">
+              <i class=""></i>
+              <span>Reporting</span>
+            </a>
+            <ul class="treeview-menu">
+              <li>
+                <a href="<?php echo base_url('reporting/summary_slo'); ?>" style="background-color: rgba(37, 142, 166, 0.6);">
+                  <i class="fa fa-circle"></i>
+                  <span>Summary SLO</span>
+                  <!-- Kode Dasar Hukum O003 saja -->
+                </a>
+              </li>
+              <li>
+                <a href="<?php echo base_url('reporting/perizinan_bidang_teknik'); ?>" style="background-color: rgba(37, 142, 166, 0.6);">
+                  <i class="fa fa-circle"></i>
+                  <span>Perizinan Bidang Teknik</span>
+                  <!-- Kode Dasar Hukum L (all), K (all), dan O (all) selain O003 -->
+                </a>
+              </li>
+              <li>
+                <a href="<?php echo base_url('reporting/perizinan_bidang_administrasi'); ?>" style="background-color: rgba(37, 142, 166, 0.6);">
+                  <i class="fa fa-circle"></i>
+                  <span>Perizinan Bidang Administrasi</span>
+                  <!-- Kode Dasar Hukum T,B,P,U,D,A all -->
+                </a>
+              </li>
+              <li>
+                <a href="<?php echo base_url('reporting/perizinan_bidang_sdm'); ?>" style="background-color: rgba(37, 142, 166, 0.6);">
+                  <i class="fa fa-circle"></i>
+                  <span>Perizinan Bidang SDM / Personel</span>
+                  <!-- Kode Dasar Hukum S all, C all saja -->
+                </a>
+              </li>
+              <li>
+                <a href="#" style="background-color: rgba(37, 142, 166, 0.6);">
+                  <i class="fa fa-circle"></i>
+                  <span>Lisensi</span>
+                </a>
+              </li>
+            </ul>
+          </li>
           <?php
         }
         ?>

@@ -242,7 +242,7 @@ class Data_crud extends CI_Controller {
 			'data_slo'		=> $data_slo,
 			'distrik' 		=> $jenis_distrik,
 			'lembaga'		=> $lembaga,
-			//'dasar_hukum'	=> $dasar_hukum,
+			'dasar_hukum'	=> $dasar_hukum,
 			'unit'			=> $unit,
 			'remainder'		=> $remainder
 			);
@@ -648,7 +648,7 @@ class Data_crud extends CI_Controller {
 			'data_lisensi'		=> $data_lisensi,
 			'distrik' 			=> $jenis_distrik,
 			'lembaga'			=> $lembaga,
-			//'dasar_hukum'		=> $dasar_hukum,
+			'dasar_hukum'		=> $dasar_hukum,
 			'remainder'			=> $remainder
 			);
 		return $this->template->load_view('form', 'edit_lisensi', $data);
